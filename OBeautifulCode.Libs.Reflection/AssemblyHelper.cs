@@ -13,6 +13,7 @@ namespace OBeautifulCode.Libs.Reflection
     using System.Diagnostics;
     using System.IO;
     using System.Reflection;
+    using System.Runtime.CompilerServices;
 
     using CuttingEdge.Conditions;
 
@@ -87,6 +88,7 @@ namespace OBeautifulCode.Libs.Reflection
         /// <exception cref="InvalidOperationException">Resource was not found in the calling assembly.</exception>
         /// <exception cref="InvalidOperationException">The resource was not an embedded resource (that is, non-linked).</exception>
         /// <exception cref="NotImplementedException">Resource length is greater than Int64.MaxValue.</exception>
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static Stream OpenEmbeddedResourceStream(string resourceName, bool addCallerNamespace = false)
         {
             resourceName = ResolveResourceName(resourceName, addCallerNamespace);
@@ -115,6 +117,7 @@ namespace OBeautifulCode.Libs.Reflection
         /// <exception cref="InvalidOperationException">Resource was not found in the calling assembly.</exception>
         /// <exception cref="InvalidOperationException">The resource was not an embedded resource (that is, non-linked).</exception>
         /// <exception cref="NotImplementedException">Resource length is greater than Int64.MaxValue.</exception>
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static string ReadEmbeddedResourceAsString(string resourceName, bool addCallerNamespace = false)
         {
             resourceName = ResolveResourceName(resourceName, addCallerNamespace);
@@ -152,6 +155,7 @@ namespace OBeautifulCode.Libs.Reflection
         /// <returns>
         /// The resolved resource name.
         /// </returns>
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         private static string ResolveResourceName(string resourceName, bool addCallerNamespace)
         {
             if (addCallerNamespace)
