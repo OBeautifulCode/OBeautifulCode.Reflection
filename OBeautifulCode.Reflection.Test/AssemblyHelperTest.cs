@@ -1,13 +1,10 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AssemblyHelperTest.cs" company="OBeautifulCode">
-//   Copyright 2014 OBeautifulCode
+//   Copyright 2015 OBeautifulCode
 // </copyright>
-// <summary>
-//   Tests the <see cref="AssemblyHelper"/> class.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.Libs.Reflection.Test
+namespace OBeautifulCode.Reflection.Test
 {
     using System;
     using System.IO;
@@ -19,24 +16,7 @@ namespace OBeautifulCode.Libs.Reflection.Test
     /// </summary>
     public class AssemblyHelperTest
     {
-        #region Fields (Private)
-
-        #endregion
-
-        #region Constructors
-
-        #endregion
-
-        #region Properties
-
-        #endregion
-
-        #region Public Methods
         // ReSharper disable InconsistentNaming
-
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact]
         public static void OpenEmbeddedResourceStream_ResourceNameIsNull_ThrowsArgumentNullException()
         {
@@ -44,9 +24,6 @@ namespace OBeautifulCode.Libs.Reflection.Test
             Assert.Throws<ArgumentNullException>(() => AssemblyHelper.OpenEmbeddedResourceStream(null));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact]
         public static void OpenEmbeddedResourceStream_ResourceNameIsWhitespace_ThrowsArgumentException()
         {
@@ -56,9 +33,6 @@ namespace OBeautifulCode.Libs.Reflection.Test
             Assert.Throws<ArgumentException>(() => AssemblyHelper.OpenEmbeddedResourceStream("  \r\n   "));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact]
         public static void OpenEmbeddedResourceStream_ResourceDoesNotExist_ThrowsInvalidOperationException()
         {
@@ -72,25 +46,16 @@ namespace OBeautifulCode.Libs.Reflection.Test
             Assert.Throws<InvalidOperationException>(() => AssemblyHelper.OpenEmbeddedResourceStream(resourceName2));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact(Skip = "Not sure how to test this.")]
         public static void OpenEmbeddedResourceStream_ResourceIsNotAnEmbeddedResource_ThrowsInvalidOperationException()
         {
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact(Skip = "Not practical to test, would have to create a massive file.")]
         public static void OpenEmbeddedResourceStream_ResourceLengthIsGreaterThanInt64MaxValue_ThrowsInvalidOperationException()
         {
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void OpenEmbeddedResourceStream_AddCallerNamespaceIsFalseAndEmbeddedResourceExists_ReturnsReadonlySeekableStreamOfEmbeddedResource()
         {
@@ -119,9 +84,6 @@ namespace OBeautifulCode.Libs.Reflection.Test
             actual.Dispose();
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void OpenEmbeddedResourceStream_AddCallerNamespaceIsTrueAndEmbeddedResourceExists_ReturnsReadonlySeekableStreamOfEmbeddedResource()
         {
@@ -146,9 +108,6 @@ namespace OBeautifulCode.Libs.Reflection.Test
             actual.Dispose();
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact]
         public static void OpenEmbeddedResourceStream_StreamToResourceIsAlreadyOpen_ReturnsReadonlySeekableStreamOfEmbeddedResource()
         {
@@ -182,9 +141,6 @@ namespace OBeautifulCode.Libs.Reflection.Test
             actual.Dispose();
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact]
         public static void OpenEmbeddedResourceStream_AssemblyIsNull_ThrowsArgumentNullException()
         {
@@ -195,9 +151,6 @@ namespace OBeautifulCode.Libs.Reflection.Test
             Assert.Throws<ArgumentNullException>(() => AssemblyHelper.OpenEmbeddedResourceStream(null, ResourceName));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact]
         public static void OpenEmbeddedResourceStream_AssemblyProvidedAndResourceNameIsNull_ThrowsArgumentNullException()
         {
@@ -205,9 +158,6 @@ namespace OBeautifulCode.Libs.Reflection.Test
             Assert.Throws<ArgumentNullException>(() => System.Reflection.Assembly.GetExecutingAssembly().OpenEmbeddedResourceStream(null));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact]
         public static void OpenEmbeddedResourceStream_AssemblyProvidedAndResourceNameIsWhitespace_ThrowsArgumentException()
         {
@@ -217,9 +167,6 @@ namespace OBeautifulCode.Libs.Reflection.Test
             Assert.Throws<ArgumentException>(() => System.Reflection.Assembly.GetExecutingAssembly().OpenEmbeddedResourceStream("  \r\n   "));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact]
         public static void OpenEmbeddedResourceStream_AssemblyProvidedAndResourceDoesNotExist_ThrowsInvalidOperationException()
         {
@@ -233,25 +180,16 @@ namespace OBeautifulCode.Libs.Reflection.Test
             Assert.Throws<InvalidOperationException>(() => System.Reflection.Assembly.GetExecutingAssembly().OpenEmbeddedResourceStream(resourceName2));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact(Skip = "Not sure how to test this.")]
         public static void OpenEmbeddedResourceStream_AssemblyProvidedAndResourceIsNotAnEmbeddedResource_ThrowsInvalidOperationException()
         {
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact(Skip = "Not practical to test, would have to create a massive file.")]
         public static void OpenEmbeddedResourceStream_AssemblyProvidedAndResourceLengthIsGreaterThanInt64MaxValue_ThrowsInvalidOperationException()
         {
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void OpenEmbeddedResourceStream_AssemblyProvidedAndEmbeddedResourceExists_ReturnsReadonlySeekableStreamOfEmbeddedResource()
         {
@@ -280,9 +218,6 @@ namespace OBeautifulCode.Libs.Reflection.Test
             actual.Dispose();
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact]
         public static void OpenEmbeddedResourceStream_AssemblyProvidedAndStreamToResourceIsAlreadyOpen_ReturnsReadonlySeekableStreamOfEmbeddedResource()
         {
@@ -316,9 +251,6 @@ namespace OBeautifulCode.Libs.Reflection.Test
             actual.Dispose();
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact]
         public static void ReadEmbeddedResourceString_ResourceNameIsNull_ThrowsArgumentNullException()
         {
@@ -326,9 +258,6 @@ namespace OBeautifulCode.Libs.Reflection.Test
             Assert.Throws<ArgumentNullException>(() => AssemblyHelper.ReadEmbeddedResourceAsString(null));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact]
         public static void ReadEmbeddedResourceString_ResourceNameIsWhitespace_ThrowsArgumentException()
         {
@@ -338,9 +267,6 @@ namespace OBeautifulCode.Libs.Reflection.Test
             Assert.Throws<ArgumentException>(() => AssemblyHelper.ReadEmbeddedResourceAsString("  \r\n   "));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact]
         public static void ReadEmbeddedResourceString_ResourceDoesNotExist_ThrowsInvalidOperationException()
         {
@@ -354,25 +280,16 @@ namespace OBeautifulCode.Libs.Reflection.Test
             Assert.Throws<InvalidOperationException>(() => AssemblyHelper.ReadEmbeddedResourceAsString(resourceName2));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact(Skip = "Not sure how to test this.")]
         public static void ReadEmbeddedResourceString_ResourceIsNotAnEmbeddedResource_ThrowsInvalidOperationException()
         {
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact(Skip = "Not practical to test, would have to create a massive file.")]
         public static void ReadEmbeddedResourceString_ResourceLengthIsGreaterThanInt64MaxValue_ThrowsInvalidOperationException()
         {
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact]
         public static void ReadEmbeddedResourceString_AddCallerNamespaceIsFalseAndEmbeddedResourceExists_ReturnsEmbeddedResourceAsString()
         {
@@ -391,9 +308,6 @@ namespace OBeautifulCode.Libs.Reflection.Test
             Assert.Equal(Expected, actual);
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact]
         public static void ReadEmbeddedResourceString_AddCallerNamespaceIsTrueAndEmbeddedResourceExists_ReturnsEmbeddedResourceAsString()
         {
@@ -408,9 +322,6 @@ namespace OBeautifulCode.Libs.Reflection.Test
             Assert.Equal(Expected, actual);
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact]
         public static void ReadEmbeddedResourceString_StreamToResourceIsAlreadyOpen_ReturnsEmbeddedResourceAsString()
         {
@@ -437,9 +348,6 @@ namespace OBeautifulCode.Libs.Reflection.Test
             Assert.Equal(Expected, actual);
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact]
         public static void ReadEmbeddedResourceString_AddCallerNamespaceIsFalseAndEmbeddedResourceIsNotText_ReturnsEmbeddedResourceAsString()
         {
@@ -457,9 +365,6 @@ namespace OBeautifulCode.Libs.Reflection.Test
             Assert.NotEmpty(actual);
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>  
         [Fact]
         public static void ReadEmbeddedResourceString_AddCallerNamespaceIsTrueAndEmbeddedResourceIsNotText_ReturnsEmbeddedResourceAsString()
         {
@@ -473,19 +378,6 @@ namespace OBeautifulCode.Libs.Reflection.Test
             Assert.NotEmpty(actual);
         }
 
-        // ReSharper restore InconsistentNaming
-        #endregion
-
-        #region Internal Methods
-
-        #endregion
-
-        #region Protected Methods
-
-        #endregion
-
-        #region Private Methods
-
-        #endregion
+        // ReSharper restore InconsistentNaming        
     }
 }

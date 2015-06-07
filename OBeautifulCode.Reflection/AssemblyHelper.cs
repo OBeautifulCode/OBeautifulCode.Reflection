@@ -1,13 +1,10 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AssemblyHelper.cs" company="OBeautifulCode">
-//   Copyright 2014 OBeautifulCode
+//   Copyright 2015 OBeautifulCode
 // </copyright>
-// <summary>
-//   Provides useful methods for extracting information from and interacting with assemblies using reflection.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.Libs.Reflection
+namespace OBeautifulCode.Reflection
 {
     using System;
     using System.Diagnostics;
@@ -15,7 +12,7 @@ namespace OBeautifulCode.Libs.Reflection
     using System.Reflection;
     using System.Runtime.CompilerServices;
 
-    using CuttingEdge.Conditions;
+    using Conditions;
 
     /// <summary>
     /// Provides useful methods for extracting information from and 
@@ -23,20 +20,6 @@ namespace OBeautifulCode.Libs.Reflection
     /// </summary>
     public static class AssemblyHelper
     {
-        #region Fields (Private)
-
-        #endregion
-
-        #region Constructors
-
-        #endregion
-
-        #region Properties
-
-        #endregion
-
-        #region Public Methods
-
         /// <summary>
         /// Retrieves an embedded resource's stream.
         /// </summary>
@@ -130,18 +113,6 @@ namespace OBeautifulCode.Libs.Reflection
             }
         }
 
-        #endregion
-
-        #region Internal Methods
-
-        #endregion
-
-        #region Protected Methods
-
-        #endregion
-
-        #region Private Methods
-
         /// <summary>
         /// Resolves a resource name.
         /// </summary>
@@ -171,7 +142,5 @@ namespace OBeautifulCode.Libs.Reflection
 
             return resourceName;
         }
-
-        #endregion
     }
 }
