@@ -15,7 +15,7 @@ namespace OBeautifulCode.Reflection
     using System.Reflection;
     using System.Runtime.CompilerServices;
 
-    using CuttingEdge.Conditions;
+    using Conditions;
 
     /// <summary>
     /// Provides useful methods for extracting information from and 
