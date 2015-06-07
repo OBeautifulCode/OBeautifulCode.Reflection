@@ -19,19 +19,6 @@ namespace OBeautifulCode.Reflection.Test
     /// </summary>
     public class AssemblyHelperTest
     {
-        #region Fields (Private)
-
-        #endregion
-
-        #region Constructors
-
-        #endregion
-
-        #region Properties
-
-        #endregion
-
-        #region Public Methods
         // ReSharper disable InconsistentNaming
 
         /// <summary>
@@ -473,19 +460,6 @@ namespace OBeautifulCode.Reflection.Test
             Assert.NotEmpty(actual);
         }
 
-        // ReSharper restore InconsistentNaming
-        #endregion
-
-        #region Internal Methods
-
-        #endregion
-
-        #region Protected Methods
-
-        #endregion
-
-        #region Private Methods
-
-        #endregion
+        // ReSharper restore InconsistentNaming        
     }
 }

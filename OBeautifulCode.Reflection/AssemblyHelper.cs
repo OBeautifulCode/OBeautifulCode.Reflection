@@ -23,20 +23,6 @@ namespace OBeautifulCode.Reflection
     /// </summary>
     public static class AssemblyHelper
     {
-        #region Fields (Private)
-
-        #endregion
-
-        #region Constructors
-
-        #endregion
-
-        #region Properties
-
-        #endregion
-
-        #region Public Methods
-
         /// <summary>
         /// Retrieves an embedded resource's stream.
         /// </summary>
@@ -130,18 +116,6 @@ namespace OBeautifulCode.Reflection
             }
         }
 
-        #endregion
-
-        #region Internal Methods
-
-        #endregion
-
-        #region Protected Methods
-
-        #endregion
-
-        #region Private Methods
-
         /// <summary>
         /// Resolves a resource name.
         /// </summary>
@@ -171,7 +145,5 @@ namespace OBeautifulCode.Reflection
 
             return resourceName;
         }
-
-        #endregion
     }
 }
