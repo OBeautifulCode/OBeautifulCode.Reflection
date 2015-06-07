@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.Libs.Reflection
+namespace OBeautifulCode.Reflection
 {
     using System;
     using System.Diagnostics;

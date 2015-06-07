@@ -7,8 +7,8 @@
     <ProjectGuid>{0F25254C-160C-49BC-BC51-FD9DCA4D8652}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OBeautifulCode.Libs.Reflection.Test</RootNamespace>
-    <AssemblyName>OBeautifulCode.Libs.Reflection.Test</AssemblyName>
+    <RootNamespace>OBeautifulCode.Reflection.Test</RootNamespace>
+    <AssemblyName>OBeautifulCode.Reflection.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,7 +21,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Debug\OBeautifulCode.Libs.Reflection.Test.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\OBeautifulCode.Reflection.Test.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,7 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Release\OBeautifulCode.Libs.Reflection.Test.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\OBeautifulCode.Reflection.Test.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CuttingEdge.Conditions">
@@ -54,9 +54,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OBeautifulCode.Libs.Reflection\OBeautifulCode.Libs.Reflection.csproj">
+    <ProjectReference Include="..\OBeautifulCode.Reflection\OBeautifulCode.Reflection.csproj">
       <Project>{d8e4eb63-ba31-4f7b-9b0e-aa9a046a6b85}</Project>
-      <Name>OBeautifulCode.Libs.Reflection</Name>
+      <Name>OBeautifulCode.Reflection</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
