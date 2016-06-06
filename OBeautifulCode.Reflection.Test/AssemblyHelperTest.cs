@@ -21,16 +21,16 @@ namespace OBeautifulCode.Reflection.Test
         public static void OpenEmbeddedResourceStream_ResourceNameIsNull_ThrowsArgumentNullException()
         {
             // Arrange, Act, Assert
-            Assert.Throws<ArgumentNullException>(() => AssemblyHelper.OpenEmbeddedResourceStream(null));
+            Assert.Throws<ArgumentNullException>(() => AssemblyHelper.OpenEmbeddedResourceStream(null, false));
         }
 
         [Fact]
         public static void OpenEmbeddedResourceStream_ResourceNameIsWhitespace_ThrowsArgumentException()
         {
             // Arrange, Act, Assert
-            Assert.Throws<ArgumentException>(() => AssemblyHelper.OpenEmbeddedResourceStream(string.Empty));
-            Assert.Throws<ArgumentException>(() => AssemblyHelper.OpenEmbeddedResourceStream("   "));
-            Assert.Throws<ArgumentException>(() => AssemblyHelper.OpenEmbeddedResourceStream("  \r\n   "));
+            Assert.Throws<ArgumentException>(() => AssemblyHelper.OpenEmbeddedResourceStream(string.Empty, false));
+            Assert.Throws<ArgumentException>(() => AssemblyHelper.OpenEmbeddedResourceStream("   ", false));
+            Assert.Throws<ArgumentException>(() => AssemblyHelper.OpenEmbeddedResourceStream("  \r\n   ", false));
         }
 
         [Fact]
@@ -42,8 +42,8 @@ namespace OBeautifulCode.Reflection.Test
             string resourceName2 = thisNamespace + "EmbeddedTextFileE.txt";
 
             // Act, Assert
-            Assert.Throws<InvalidOperationException>(() => AssemblyHelper.OpenEmbeddedResourceStream(ResourceName1));
-            Assert.Throws<InvalidOperationException>(() => AssemblyHelper.OpenEmbeddedResourceStream(resourceName2));
+            Assert.Throws<InvalidOperationException>(() => AssemblyHelper.OpenEmbeddedResourceStream(ResourceName1, false));
+            Assert.Throws<InvalidOperationException>(() => AssemblyHelper.OpenEmbeddedResourceStream(resourceName2, false));
         }
 
         [Fact(Skip = "Not sure how to test this.")]
@@ -123,7 +123,7 @@ namespace OBeautifulCode.Reflection.Test
             {
                 // ReSharper disable once PossibleNullReferenceException
                 priorOpenStream.Read(new byte[1], 0, 1);
-                actual = AssemblyHelper.OpenEmbeddedResourceStream(fullyQualifiedResourceName);
+                actual = AssemblyHelper.OpenEmbeddedResourceStream(fullyQualifiedResourceName, false);
                 // ReSharper restore PossibleNullReferenceException
             }
 
@@ -255,16 +255,16 @@ namespace OBeautifulCode.Reflection.Test
         public static void ReadEmbeddedResourceString_ResourceNameIsNull_ThrowsArgumentNullException()
         {
             // Arrange, Act, Assert
-            Assert.Throws<ArgumentNullException>(() => AssemblyHelper.ReadEmbeddedResourceAsString(null));
+            Assert.Throws<ArgumentNullException>(() => AssemblyHelper.ReadEmbeddedResourceAsString(null, false));
         }
 
         [Fact]
         public static void ReadEmbeddedResourceString_ResourceNameIsWhitespace_ThrowsArgumentException()
         {
             // Arrange, Act, Assert
-            Assert.Throws<ArgumentException>(() => AssemblyHelper.ReadEmbeddedResourceAsString(string.Empty));
-            Assert.Throws<ArgumentException>(() => AssemblyHelper.ReadEmbeddedResourceAsString("   "));
-            Assert.Throws<ArgumentException>(() => AssemblyHelper.ReadEmbeddedResourceAsString("  \r\n   "));
+            Assert.Throws<ArgumentException>(() => AssemblyHelper.ReadEmbeddedResourceAsString(string.Empty, false));
+            Assert.Throws<ArgumentException>(() => AssemblyHelper.ReadEmbeddedResourceAsString("   ", false));
+            Assert.Throws<ArgumentException>(() => AssemblyHelper.ReadEmbeddedResourceAsString("  \r\n   ", false));
         }
 
         [Fact]
@@ -276,8 +276,8 @@ namespace OBeautifulCode.Reflection.Test
             string resourceName2 = thisNamespace + "EmbeddedTextFileE.txt";
 
             // Act, Assert
-            Assert.Throws<InvalidOperationException>(() => AssemblyHelper.ReadEmbeddedResourceAsString(ResourceName1));
-            Assert.Throws<InvalidOperationException>(() => AssemblyHelper.ReadEmbeddedResourceAsString(resourceName2));
+            Assert.Throws<InvalidOperationException>(() => AssemblyHelper.ReadEmbeddedResourceAsString(ResourceName1, false));
+            Assert.Throws<InvalidOperationException>(() => AssemblyHelper.ReadEmbeddedResourceAsString(resourceName2, false));
         }
 
         [Fact(Skip = "Not sure how to test this.")]
@@ -339,7 +339,7 @@ namespace OBeautifulCode.Reflection.Test
                 using (var reader = new StreamReader(priorOpenStream))
                 {
                     reader.Read();
-                    actual = AssemblyHelper.ReadEmbeddedResourceAsString(fullyQualifiedResourceName);
+                    actual = AssemblyHelper.ReadEmbeddedResourceAsString(fullyQualifiedResourceName, false);
                 }
                 // ReSharper restore AssignNullToNotNullAttribute
             }
