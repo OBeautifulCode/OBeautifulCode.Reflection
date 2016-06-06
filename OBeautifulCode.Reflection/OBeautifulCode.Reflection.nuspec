@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <projectUrl>https://github.com/OBeautifulCode/OBeautifulCode.Reflection</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Reflection/master/OBeautifulCode.Reflection/nuget-icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Reflection/master/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <summary>This library contains various convenience methods for tasks involving reflection.</summary>
+    <copyright>Copyright 2016 OBeautifulCode</copyright>
+    <tags>reflection extension extensions</tags>
+  </metadata>
+</package>
