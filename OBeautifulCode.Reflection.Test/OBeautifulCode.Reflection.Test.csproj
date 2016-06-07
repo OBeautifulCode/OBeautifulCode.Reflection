@@ -39,6 +39,14 @@
     <CodeAnalysisRuleSet>..\common\analyzers-testing.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentAssertions, Version=4.7.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.7.0\lib\net45\FluentAssertions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentAssertions.Core, Version=4.7.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.7.0\lib\net45\FluentAssertions.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -78,6 +86,7 @@
     <EmbeddedResource Include="EmbeddedTextFile.txt" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="EmbeddedTextFile.txt.gz" />
     <None Include="packages.config" />
     <AdditionalFiles Include="..\common\stylecop.json">
       <Link>stylecop.json</Link>

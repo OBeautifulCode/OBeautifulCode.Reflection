@@ -9,6 +9,8 @@ namespace OBeautifulCode.Reflection.Test
     using System;
     using System.IO;
 
+    using FluentAssertions;
+
     using Xunit;
 
     /// <summary>
@@ -377,6 +379,20 @@ namespace OBeautifulCode.Reflection.Test
 
             // Assert
             Assert.NotEmpty(actual);
+        }
+
+        [Fact]
+        public static void ReadEmbeddedResourceString___Should_return_string_decompressed_from_embedded_resource___When_resource_has_been_compressed_using_gzip_and_parameter_compressionMethod_is_Gzip()
+        {
+            // Arrange
+            const string ResourceName = "EmbeddedTextFile.txt.gz";
+            var expected = "this is an embedded text file";
+
+            // Act
+            string actual = AssemblyHelper.ReadEmbeddedResourceAsString(ResourceName, compressionMethod: CompressionMethod.Gzip);
+
+            // Assert
+            actual.Should().Be(expected);
         }
 
         // ReSharper restore InconsistentNaming

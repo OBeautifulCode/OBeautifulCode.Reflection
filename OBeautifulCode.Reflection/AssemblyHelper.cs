@@ -9,6 +9,7 @@ namespace OBeautifulCode.Reflection
     using System;
     using System.Diagnostics;
     using System.IO;
+    using System.IO.Compression;
     using System.Reflection;
     using System.Runtime.CompilerServices;
 
@@ -88,6 +89,10 @@ namespace OBeautifulCode.Reflection
         /// If true, then the resource name is prepended with the fully qualified namespace of the calling method, followed by a period
         /// (e.g. if resource name = "MyFile.txt" then it changed to something like "MyNamespace.MySubNamespace.MyFile.txt")
         /// </param>
+        /// <param name="compressionMethod">
+        /// The compression algorithm and/or archive file format that was used to compress the resource.
+        /// This is used to determine how the resource should be decompressed.
+        /// </param>
         /// <remarks>
         /// Adapted from article "Create String Variables from Embedded Resources Files" on The Code Project
         /// <a href="http://www.codeproject.com/KB/cs/embeddedresourcestrings.aspx"/>
@@ -102,15 +107,31 @@ namespace OBeautifulCode.Reflection
         /// <exception cref="NotImplementedException">Resource length is greater than Int64.MaxValue.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "Objects are not being disposed multiple times.")]
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static string ReadEmbeddedResourceAsString(string resourceName, bool addCallerNamespace = true)
+        public static string ReadEmbeddedResourceAsString(string resourceName, bool addCallerNamespace = true, CompressionMethod compressionMethod = CompressionMethod.None)
         {
             resourceName = ResolveResourceName(resourceName, addCallerNamespace);
-            using (Stream stream = OpenEmbeddedResourceStream(Assembly.GetCallingAssembly(), resourceName))
+            using (var embeddedResourceStream = OpenEmbeddedResourceStream(Assembly.GetCallingAssembly(), resourceName))
             {
-                using (var reader = new StreamReader(stream))
+                if (compressionMethod == CompressionMethod.None)
                 {
-                    return reader.ReadToEnd();
+                    using (var reader = new StreamReader(embeddedResourceStream))
+                    {
+                        return reader.ReadToEnd();
+                    }
                 }
+
+                if (compressionMethod == CompressionMethod.Gzip)
+                {
+                    using (var decompressionStream = new GZipStream(embeddedResourceStream, CompressionMode.Decompress))
+                    {
+                        using (var reader = new StreamReader(decompressionStream))
+                        {
+                            return reader.ReadToEnd();
+                        }
+                    }
+                }
+
+                throw new NotSupportedException("This compression method is not supported: " + compressionMethod);
             }
         }
 
