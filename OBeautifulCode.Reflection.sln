@@ -1,11 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OBeautifulCode.Reflection", "OBeautifulCode.Reflection\OBeautifulCode.Reflection.csproj", "{D8E4EB63-BA31-4F7B-9B0E-AA9A046A6B85}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OBeautifulCode.Reflection.Test", "OBeautifulCode.Reflection.Test\OBeautifulCode.Reflection.Test.csproj", "{0F25254C-160C-49BC-BC51-FD9DCA4D8652}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{363F1A17-DA8A-40F6-9B78-C0AD9CD3588D}"
+	ProjectSection(SolutionItems) = preProject
+		common\analyzers-testing.ruleset = common\analyzers-testing.ruleset
+		common\analyzers.ruleset = common\analyzers.ruleset
+		appveyor.yml = appveyor.yml
+		common\codeanalysis-dictionary.xml = common\codeanalysis-dictionary.xml
+		common\stylecop.json = common\stylecop.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
