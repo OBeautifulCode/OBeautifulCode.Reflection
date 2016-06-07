@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AssemblyHelper.cs" company="OBeautifulCode">
-//   Copyright 2015 OBeautifulCode
+//   Copyright (c) OBeautifulCode. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -15,7 +15,7 @@ namespace OBeautifulCode.Reflection
     using Conditions;
 
     /// <summary>
-    /// Provides useful methods for extracting information from and 
+    /// Provides useful methods for extracting information from and
     /// interacting with assemblies using reflection.
     /// </summary>
     public static class AssemblyHelper
@@ -28,13 +28,13 @@ namespace OBeautifulCode.Reflection
         /// <returns>Returns the specified manifest resource as a stream.</returns>
         /// <exception cref="ArgumentNullException">assembly is null.</exception>
         /// <exception cref="ArgumentNullException">resourceName is null.</exception>
-        /// <exception cref="ArgumentException">resourceName is whitspace.</exception>        
+        /// <exception cref="ArgumentException">resourceName is whitspace.</exception>
         /// <exception cref="InvalidOperationException">Resource was not found in the calling assembly.</exception>
         /// <exception cref="InvalidOperationException">The resource was not an embedded resource (that is, non-linked).</exception>
         /// <exception cref="NotImplementedException">Resource length is greater than Int64.MaxValue.</exception>
         public static Stream OpenEmbeddedResourceStream(this Assembly assembly, string resourceName)
         {
-            // here's a good article about .net resources 
+            // here's a good article about .net resources
             // http://www.grimes.demon.co.uk/workshops/fusWSNine.htm
             Condition.Requires(assembly, nameof(assembly)).IsNotNull();
             Condition.Requires(resourceName, nameof(resourceName)).IsNotNullOrWhiteSpace();
@@ -100,6 +100,7 @@ namespace OBeautifulCode.Reflection
         /// <exception cref="InvalidOperationException">Resource was not found in the calling assembly.</exception>
         /// <exception cref="InvalidOperationException">The resource was not an embedded resource (that is, non-linked).</exception>
         /// <exception cref="NotImplementedException">Resource length is greater than Int64.MaxValue.</exception>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "Objects are not being disposed multiple times.")]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static string ReadEmbeddedResourceAsString(string resourceName, bool addCallerNamespace = true)
         {

@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AssemblyHelperTest.cs" company="OBeautifulCode">
-//   Copyright 2015 OBeautifulCode
+//   Copyright (c) OBeautifulCode. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -14,18 +14,18 @@ namespace OBeautifulCode.Reflection.Test
     /// <summary>
     /// Tests the <see cref="AssemblyHelper"/> class.
     /// </summary>
-    public class AssemblyHelperTest
+    public static class AssemblyHelperTest
     {
         // ReSharper disable InconsistentNaming
         [Fact]
-        public static void OpenEmbeddedResourceStream_ResourceNameIsNull_ThrowsArgumentNullException()
+        public static void OpenEmbeddedResourceStream_without_assembly___Should_throw_ArgumentNullException___When_parameter_resourceName_is_null()
         {
             // Arrange, Act, Assert
             Assert.Throws<ArgumentNullException>(() => AssemblyHelper.OpenEmbeddedResourceStream(null, false));
         }
 
         [Fact]
-        public static void OpenEmbeddedResourceStream_ResourceNameIsWhitespace_ThrowsArgumentException()
+        public static void OpenEmbeddedResourceStream_without_assembly___Should_throw_ArgumentException___When_parameter_resourceName_is_white_space()
         {
             // Arrange, Act, Assert
             Assert.Throws<ArgumentException>(() => AssemblyHelper.OpenEmbeddedResourceStream(string.Empty, false));
@@ -34,7 +34,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void OpenEmbeddedResourceStream_ResourceDoesNotExist_ThrowsInvalidOperationException()
+        public static void OpenEmbeddedResourceStream_without_assembly___Should_throw_InvalidOperationException___When_resource_does_not_exist()
         {
             // Arrange
             string thisNamespace = typeof(AssemblyHelperTest).Namespace;
@@ -47,17 +47,17 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact(Skip = "Not sure how to test this.")]
-        public static void OpenEmbeddedResourceStream_ResourceIsNotAnEmbeddedResource_ThrowsInvalidOperationException()
+        public static void OpenEmbeddedResourceStream_without_assembly___Should_throw_InvalidOperationException___When_resource_is_not_an_embedded_resource()
         {
         }
 
         [Fact(Skip = "Not practical to test, would have to create a massive file.")]
-        public static void OpenEmbeddedResourceStream_ResourceLengthIsGreaterThanInt64MaxValue_ThrowsInvalidOperationException()
+        public static void OpenEmbeddedResourceStream_without_assembly___Should_throw_InvalidOperationException___When_resource_length_is_greater_than_Int64_MaxValue()
         {
         }
 
         [Fact]
-        public static void OpenEmbeddedResourceStream_AddCallerNamespaceIsFalseAndEmbeddedResourceExists_ReturnsReadonlySeekableStreamOfEmbeddedResource()
+        public static void OpenEmbeddedResourceStream_without_assembly___Should_return_read_only_seekable_stream_of_the_embedded_resource___When_parameter_addCallerNamespace_is_false_and_embedded_resource_exists()
         {
             // Arrange
             const string ResourceName = "EmbeddedTextFile.txt";
@@ -85,14 +85,14 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void OpenEmbeddedResourceStream_AddCallerNamespaceIsTrueAndEmbeddedResourceExists_ReturnsReadonlySeekableStreamOfEmbeddedResource()
+        public static void OpenEmbeddedResourceStream_without_assembly___Should_return_read_only_seekable_stream_of_the_embedded_resource___When_parameter_addCallerNamespace_is_true_and_embedded_resource_exists()
         {
             // Arrange
             const string ResourceName = "EmbeddedTextFile.txt";
             const string Expected = "this is an embedded text file";
 
             // Act
-            Stream actual = AssemblyHelper.OpenEmbeddedResourceStream(ResourceName, true);
+            Stream actual = AssemblyHelper.OpenEmbeddedResourceStream(ResourceName);
 
             // Assert
             Assert.True(actual.CanRead);
@@ -109,7 +109,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void OpenEmbeddedResourceStream_StreamToResourceIsAlreadyOpen_ReturnsReadonlySeekableStreamOfEmbeddedResource()
+        public static void OpenEmbeddedResourceStream_without_assembly___Should_return_read_only_seekable_stream_of_the_embedded_resource___When_resource_stream_is_already_open()
         {
             // Arrange
             const string ResourceName = "EmbeddedTextFile.txt";
@@ -142,7 +142,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void OpenEmbeddedResourceStream_AssemblyIsNull_ThrowsArgumentNullException()
+        public static void OpenEmbeddedResourceStream_with_assembly___Should_throw_ArgumentNullException___When_parameter_assembly_is_null()
         {
             // Arrange
             const string ResourceName = "EmbeddedTextFile.txt";
@@ -152,14 +152,14 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void OpenEmbeddedResourceStream_AssemblyProvidedAndResourceNameIsNull_ThrowsArgumentNullException()
+        public static void OpenEmbeddedResourceStream_with_assembly___Should_throw_ArgumentNullException___When_parameter_resourceName_is_null()
         {
             // Arrange, Act, Assert
             Assert.Throws<ArgumentNullException>(() => System.Reflection.Assembly.GetExecutingAssembly().OpenEmbeddedResourceStream(null));
         }
 
         [Fact]
-        public static void OpenEmbeddedResourceStream_AssemblyProvidedAndResourceNameIsWhitespace_ThrowsArgumentException()
+        public static void OpenEmbeddedResourceStream_with_assembly___Should_throw_ArgumentException___When_parameter_resourceName_is_white_space()
         {
             // Arrange, Act, Assert
             Assert.Throws<ArgumentException>(() => System.Reflection.Assembly.GetExecutingAssembly().OpenEmbeddedResourceStream(string.Empty));
@@ -168,7 +168,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void OpenEmbeddedResourceStream_AssemblyProvidedAndResourceDoesNotExist_ThrowsInvalidOperationException()
+        public static void OpenEmbeddedResourceStream_with_assembly___Should_throw_InvalidOperationException___When_resource_does_not_exist()
         {
             // Arrange
             string thisNamespace = typeof(AssemblyHelperTest).Namespace;
@@ -181,17 +181,17 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact(Skip = "Not sure how to test this.")]
-        public static void OpenEmbeddedResourceStream_AssemblyProvidedAndResourceIsNotAnEmbeddedResource_ThrowsInvalidOperationException()
+        public static void OpenEmbeddedResourceStream_with_assembly___Should_throw_InvalidOperationException___When_resource_is_not_an_embedded_resource()
         {
         }
 
         [Fact(Skip = "Not practical to test, would have to create a massive file.")]
-        public static void OpenEmbeddedResourceStream_AssemblyProvidedAndResourceLengthIsGreaterThanInt64MaxValue_ThrowsInvalidOperationException()
+        public static void OpenEmbeddedResourceStream_with_assembly___Should_throw_InvalidOperationException___When_resource_length_is_greater_than_Int64_MaxValue()
         {
         }
 
         [Fact]
-        public static void OpenEmbeddedResourceStream_AssemblyProvidedAndEmbeddedResourceExists_ReturnsReadonlySeekableStreamOfEmbeddedResource()
+        public static void OpenEmbeddedResourceStream_with_assembly___Should_return_read_only_seekable_stream_of_the_embedded_resource___When_embedded_resource_exists()
         {
             // Arrange
             const string ResourceName = "EmbeddedTextFile.txt";
@@ -219,7 +219,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void OpenEmbeddedResourceStream_AssemblyProvidedAndStreamToResourceIsAlreadyOpen_ReturnsReadonlySeekableStreamOfEmbeddedResource()
+        public static void OpenEmbeddedResourceStream_with_assembly___Should_return_read_only_seekable_stream_of_the_embedded_resource___When_resource_stream_is_already_open()
         {
             // Arrange
             const string ResourceName = "EmbeddedTextFile.txt";
@@ -252,14 +252,14 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void ReadEmbeddedResourceString_ResourceNameIsNull_ThrowsArgumentNullException()
+        public static void ReadEmbeddedResourceString___Should_throw_ArgumentNullException___When_parameter_resourceName_is_null()
         {
             // Arrange, Act, Assert
             Assert.Throws<ArgumentNullException>(() => AssemblyHelper.ReadEmbeddedResourceAsString(null, false));
         }
 
         [Fact]
-        public static void ReadEmbeddedResourceString_ResourceNameIsWhitespace_ThrowsArgumentException()
+        public static void ReadEmbeddedResourceString___Should_throw_ArgumentException___When_parameter_resourceName_is_white_space()
         {
             // Arrange, Act, Assert
             Assert.Throws<ArgumentException>(() => AssemblyHelper.ReadEmbeddedResourceAsString(string.Empty, false));
@@ -268,7 +268,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void ReadEmbeddedResourceString_ResourceDoesNotExist_ThrowsInvalidOperationException()
+        public static void ReadEmbeddedResourceString___Should_throw_InvalidOperationException___When_resource_does_not_exist()
         {
             // Arrange
             string thisNamespace = typeof(AssemblyHelperTest).Namespace;
@@ -281,17 +281,17 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact(Skip = "Not sure how to test this.")]
-        public static void ReadEmbeddedResourceString_ResourceIsNotAnEmbeddedResource_ThrowsInvalidOperationException()
+        public static void ReadEmbeddedResourceString___Should_throw_InvalidOperationException___When_resource_is_not_an_embedded_resource()
         {
         }
 
         [Fact(Skip = "Not practical to test, would have to create a massive file.")]
-        public static void ReadEmbeddedResourceString_ResourceLengthIsGreaterThanInt64MaxValue_ThrowsInvalidOperationException()
+        public static void ReadEmbeddedResourceString___Should_throw_InvalidOperationException___When_resource_length_is_greater_than_Int64_MaxValue()
         {
         }
 
         [Fact]
-        public static void ReadEmbeddedResourceString_AddCallerNamespaceIsFalseAndEmbeddedResourceExists_ReturnsEmbeddedResourceAsString()
+        public static void ReadEmbeddedResourceString___Should_return_embedded_resource_as_string___When_parameter_addCallerNamespace_is_false_and_embedded_resource_exists()
         {
             // Arrange
             const string ResourceName = "EmbeddedTextFile.txt";
@@ -309,21 +309,21 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void ReadEmbeddedResourceString_AddCallerNamespaceIsTrueAndEmbeddedResourceExists_ReturnsEmbeddedResourceAsString()
+        public static void ReadEmbeddedResourceString___Should_return_embedded_resource_as_string___When_parameter_addCallerNamespace_is_true_and_embedded_resource_exists()
         {
             // Arrange
             const string ResourceName = "EmbeddedTextFile.txt";
             const string Expected = "this is an embedded text file";
 
             // Act
-            string actual = AssemblyHelper.ReadEmbeddedResourceAsString(ResourceName, true);
+            string actual = AssemblyHelper.ReadEmbeddedResourceAsString(ResourceName);
 
             // Assert
             Assert.Equal(Expected, actual);
         }
 
         [Fact]
-        public static void ReadEmbeddedResourceString_StreamToResourceIsAlreadyOpen_ReturnsEmbeddedResourceAsString()
+        public static void ReadEmbeddedResourceString___Should_return_embedded_resource_as_string___When_resource_stream_is_already_open()
         {
             // Arrange
             const string ResourceName = "EmbeddedTextFile.txt";
@@ -341,6 +341,7 @@ namespace OBeautifulCode.Reflection.Test
                     reader.Read();
                     actual = AssemblyHelper.ReadEmbeddedResourceAsString(fullyQualifiedResourceName, false);
                 }
+
                 // ReSharper restore AssignNullToNotNullAttribute
             }
 
@@ -349,7 +350,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void ReadEmbeddedResourceString_AddCallerNamespaceIsFalseAndEmbeddedResourceIsNotText_ReturnsEmbeddedResourceAsString()
+        public static void ReadEmbeddedResourceString___Should_return_embedded_resource_as_string___When_parameter_addCallerNamespace_is_false_and_embedded_resource_is_not_text()
         {
             // Arrange
             const string ResourceName = "EmbeddedIcon.ico";
@@ -366,18 +367,18 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void ReadEmbeddedResourceString_AddCallerNamespaceIsTrueAndEmbeddedResourceIsNotText_ReturnsEmbeddedResourceAsString()
+        public static void ReadEmbeddedResourceString___Should_return_embedded_resource_as_string___When_parameter_addCallerNamespace_is_true_and_embedded_resource_is_not_text()
         {
             // Arrange
             const string ResourceName = "EmbeddedIcon.ico";
 
             // Act
-            string actual = AssemblyHelper.ReadEmbeddedResourceAsString(ResourceName, true);
+            string actual = AssemblyHelper.ReadEmbeddedResourceAsString(ResourceName);
 
             // Assert
             Assert.NotEmpty(actual);
         }
 
-        // ReSharper restore InconsistentNaming        
+        // ReSharper restore InconsistentNaming
     }
 }
