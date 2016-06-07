@@ -18,6 +18,20 @@ namespace OBeautifulCode.Reflection.Test
     /// </summary>
     public static class AssemblyHelperTest
     {
+        private const string ExpectedTextFileContents = "this is an embedded text file";
+
+        private const string EmbeddedTextFileName = "EmbeddedTextFile.txt";
+
+        private const string EmbeddedGzipTextFileName = "EmbeddedTextFile.txt.gz";
+
+        private const string EmbeddedIcoFileName = "EmbeddedIcon.ico";
+
+        private static readonly string FullQualifiedEmbeddedTextFileName = typeof(AssemblyHelperTest).Namespace + "." + EmbeddedTextFileName;
+
+        private static readonly string FullQualifiedEmbeddedGzipTextFileName = typeof(AssemblyHelperTest).Namespace + "." + EmbeddedGzipTextFileName;
+
+        private static readonly string FullQualifiedEmbeddedIcoFileName = typeof(AssemblyHelperTest).Namespace + "." + EmbeddedIcoFileName;
+
         // ReSharper disable InconsistentNaming
         [Fact]
         public static void OpenEmbeddedResourceStream_without_assembly___Should_throw_ArgumentNullException___When_parameter_resourceName_is_null()
@@ -54,23 +68,15 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact(Skip = "Not practical to test, would have to create a massive file.")]
-        public static void OpenEmbeddedResourceStream_without_assembly___Should_throw_InvalidOperationException___When_resource_length_is_greater_than_Int64_MaxValue()
+        public static void OpenEmbeddedResourceStream_without_assembly___Should_throw_NotImplementedException___When_resource_length_is_greater_than_Int64_MaxValue()
         {
         }
 
         [Fact]
         public static void OpenEmbeddedResourceStream_without_assembly___Should_return_read_only_seekable_stream_of_the_embedded_resource___When_parameter_addCallerNamespace_is_false_and_embedded_resource_exists()
         {
-            // Arrange
-            const string ResourceName = "EmbeddedTextFile.txt";
-            string thisNamespace = typeof(AssemblyHelperTest).Namespace;
-            string fullyQualifiedResourceName = thisNamespace + "." + ResourceName;
-            const string Expected = "this is an embedded text file";
-
-            // Act
-            // ReSharper disable RedundantArgumentDefaultValue
-            Stream actual = AssemblyHelper.OpenEmbeddedResourceStream(fullyQualifiedResourceName, false);
-            // ReSharper restore RedundantArgumentDefaultValue
+            // Arrange, Act
+            Stream actual = AssemblyHelper.OpenEmbeddedResourceStream(FullQualifiedEmbeddedTextFileName, false);
 
             // Assert
             Assert.True(actual.CanRead);
@@ -79,7 +85,7 @@ namespace OBeautifulCode.Reflection.Test
             Assert.False(actual.CanTimeout);
             using (var reader = new StreamReader(actual))
             {
-                Assert.Equal(Expected, reader.ReadToEnd());
+                Assert.Equal(ExpectedTextFileContents, reader.ReadToEnd());
             }
 
             // Cleanup
@@ -89,12 +95,8 @@ namespace OBeautifulCode.Reflection.Test
         [Fact]
         public static void OpenEmbeddedResourceStream_without_assembly___Should_return_read_only_seekable_stream_of_the_embedded_resource___When_parameter_addCallerNamespace_is_true_and_embedded_resource_exists()
         {
-            // Arrange
-            const string ResourceName = "EmbeddedTextFile.txt";
-            const string Expected = "this is an embedded text file";
-
-            // Act
-            Stream actual = AssemblyHelper.OpenEmbeddedResourceStream(ResourceName);
+            // Arrange, Act
+            Stream actual = AssemblyHelper.OpenEmbeddedResourceStream(EmbeddedTextFileName);
 
             // Assert
             Assert.True(actual.CanRead);
@@ -103,7 +105,7 @@ namespace OBeautifulCode.Reflection.Test
             Assert.False(actual.CanTimeout);
             using (var reader = new StreamReader(actual))
             {
-                Assert.Equal(Expected, reader.ReadToEnd());
+                Assert.Equal(ExpectedTextFileContents, reader.ReadToEnd());
             }
 
             // Cleanup
@@ -113,19 +115,13 @@ namespace OBeautifulCode.Reflection.Test
         [Fact]
         public static void OpenEmbeddedResourceStream_without_assembly___Should_return_read_only_seekable_stream_of_the_embedded_resource___When_resource_stream_is_already_open()
         {
-            // Arrange
-            const string ResourceName = "EmbeddedTextFile.txt";
-            string thisNamespace = typeof(AssemblyHelperTest).Namespace;
-            string fullyQualifiedResourceName = thisNamespace + "." + ResourceName;
-            const string Expected = "this is an embedded text file";
-
-            // Act
+            // Arrange, Act
             Stream actual;
-            using (Stream priorOpenStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(fullyQualifiedResourceName))
+            using (Stream priorOpenStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(FullQualifiedEmbeddedTextFileName))
             {
                 // ReSharper disable once PossibleNullReferenceException
                 priorOpenStream.Read(new byte[1], 0, 1);
-                actual = AssemblyHelper.OpenEmbeddedResourceStream(fullyQualifiedResourceName, false);
+                actual = AssemblyHelper.OpenEmbeddedResourceStream(FullQualifiedEmbeddedTextFileName, false);
                 // ReSharper restore PossibleNullReferenceException
             }
 
@@ -136,7 +132,27 @@ namespace OBeautifulCode.Reflection.Test
             Assert.False(actual.CanTimeout);
             using (var reader = new StreamReader(actual))
             {
-                Assert.Equal(Expected, reader.ReadToEnd());
+                Assert.Equal(ExpectedTextFileContents, reader.ReadToEnd());
+            }
+
+            // Cleanup
+            actual.Dispose();
+        }
+
+        [Fact]
+        public static void OpenEmbeddedResourceStream_without_assembly___Should_return_decompressed_read_only_stream_of_the_embedded_resource___When_parameter_decompressionMethod_is_Gzip_and_embedded_resource_was_compressed_using_gzip()
+        {
+            // Arrange, Act
+            Stream actual = AssemblyHelper.OpenEmbeddedResourceStream(FullQualifiedEmbeddedGzipTextFileName, false, CompressionMethod.Gzip);
+
+            // Assert
+            actual.CanRead.Should().BeTrue();
+            actual.CanSeek.Should().BeFalse();
+            actual.CanWrite.Should().BeFalse();
+            actual.CanTimeout.Should().BeFalse();
+            using (var reader = new StreamReader(actual))
+            {
+                reader.ReadToEnd().Should().Be(ExpectedTextFileContents);
             }
 
             // Cleanup
@@ -146,11 +162,8 @@ namespace OBeautifulCode.Reflection.Test
         [Fact]
         public static void OpenEmbeddedResourceStream_with_assembly___Should_throw_ArgumentNullException___When_parameter_assembly_is_null()
         {
-            // Arrange
-            const string ResourceName = "EmbeddedTextFile.txt";
-
-            // Act, Assert
-            Assert.Throws<ArgumentNullException>(() => AssemblyHelper.OpenEmbeddedResourceStream(null, ResourceName));
+            // Arrange, Act, Assert
+            Assert.Throws<ArgumentNullException>(() => AssemblyHelper.OpenEmbeddedResourceStream(null, EmbeddedTextFileName));
         }
 
         [Fact]
@@ -188,23 +201,15 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact(Skip = "Not practical to test, would have to create a massive file.")]
-        public static void OpenEmbeddedResourceStream_with_assembly___Should_throw_InvalidOperationException___When_resource_length_is_greater_than_Int64_MaxValue()
+        public static void OpenEmbeddedResourceStream_with_assembly___Should_throw_NotImplementedException___When_resource_length_is_greater_than_Int64_MaxValue()
         {
         }
 
         [Fact]
         public static void OpenEmbeddedResourceStream_with_assembly___Should_return_read_only_seekable_stream_of_the_embedded_resource___When_embedded_resource_exists()
         {
-            // Arrange
-            const string ResourceName = "EmbeddedTextFile.txt";
-            string thisNamespace = typeof(AssemblyHelperTest).Namespace;
-            string fullyQualifiedResourceName = thisNamespace + "." + ResourceName;
-            const string Expected = "this is an embedded text file";
-
-            // Act
-            // ReSharper disable RedundantArgumentDefaultValue
-            Stream actual = System.Reflection.Assembly.GetExecutingAssembly().OpenEmbeddedResourceStream(fullyQualifiedResourceName);
-            // ReSharper restore RedundantArgumentDefaultValue
+            // Arrange, Act
+            Stream actual = System.Reflection.Assembly.GetExecutingAssembly().OpenEmbeddedResourceStream(FullQualifiedEmbeddedTextFileName);
 
             // Assert
             Assert.True(actual.CanRead);
@@ -213,7 +218,7 @@ namespace OBeautifulCode.Reflection.Test
             Assert.False(actual.CanTimeout);
             using (var reader = new StreamReader(actual))
             {
-                Assert.Equal(Expected, reader.ReadToEnd());
+                Assert.Equal(ExpectedTextFileContents, reader.ReadToEnd());
             }
 
             // Cleanup
@@ -223,19 +228,13 @@ namespace OBeautifulCode.Reflection.Test
         [Fact]
         public static void OpenEmbeddedResourceStream_with_assembly___Should_return_read_only_seekable_stream_of_the_embedded_resource___When_resource_stream_is_already_open()
         {
-            // Arrange
-            const string ResourceName = "EmbeddedTextFile.txt";
-            string thisNamespace = typeof(AssemblyHelperTest).Namespace;
-            string fullyQualifiedResourceName = thisNamespace + "." + ResourceName;
-            const string Expected = "this is an embedded text file";
-
-            // Act
+            // Arrange, Act
             Stream actual;
-            using (Stream priorOpenStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(fullyQualifiedResourceName))
+            using (Stream priorOpenStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(FullQualifiedEmbeddedTextFileName))
             {
                 // ReSharper disable once PossibleNullReferenceException
                 priorOpenStream.Read(new byte[1], 0, 1);
-                actual = System.Reflection.Assembly.GetExecutingAssembly().OpenEmbeddedResourceStream(fullyQualifiedResourceName);
+                actual = System.Reflection.Assembly.GetExecutingAssembly().OpenEmbeddedResourceStream(FullQualifiedEmbeddedTextFileName);
                 // ReSharper restore PossibleNullReferenceException
             }
 
@@ -246,7 +245,27 @@ namespace OBeautifulCode.Reflection.Test
             Assert.False(actual.CanTimeout);
             using (var reader = new StreamReader(actual))
             {
-                Assert.Equal(Expected, reader.ReadToEnd());
+                Assert.Equal(ExpectedTextFileContents, reader.ReadToEnd());
+            }
+
+            // Cleanup
+            actual.Dispose();
+        }
+
+        [Fact]
+        public static void OpenEmbeddedResourceStream_with_assembly___Should_return_decompressed_read_only_stream_of_the_embedded_resource___When_parameter_decompressionMethod_is_Gzip_and_embedded_resource_was_compressed_using_gzip()
+        {
+            // Arrange, Act
+            Stream actual = System.Reflection.Assembly.GetExecutingAssembly().OpenEmbeddedResourceStream(FullQualifiedEmbeddedGzipTextFileName, CompressionMethod.Gzip);
+
+            // Assert
+            actual.CanRead.Should().BeTrue();
+            actual.CanSeek.Should().BeFalse();
+            actual.CanWrite.Should().BeFalse();
+            actual.CanTimeout.Should().BeFalse();
+            using (var reader = new StreamReader(actual))
+            {
+                reader.ReadToEnd().Should().Be(ExpectedTextFileContents);
             }
 
             // Cleanup
@@ -288,81 +307,56 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact(Skip = "Not practical to test, would have to create a massive file.")]
-        public static void ReadEmbeddedResourceString___Should_throw_InvalidOperationException___When_resource_length_is_greater_than_Int64_MaxValue()
+        public static void ReadEmbeddedResourceString___Should_throw_NotImplementedException___When_resource_length_is_greater_than_Int64_MaxValue()
         {
         }
 
         [Fact]
         public static void ReadEmbeddedResourceString___Should_return_embedded_resource_as_string___When_parameter_addCallerNamespace_is_false_and_embedded_resource_exists()
         {
-            // Arrange
-            const string ResourceName = "EmbeddedTextFile.txt";
-            string thisNamespace = typeof(AssemblyHelperTest).Namespace;
-            string fullyQualifiedResourceName = thisNamespace + "." + ResourceName;
-            const string Expected = "this is an embedded text file";
-
-            // Act
-            // ReSharper disable RedundantArgumentDefaultValue
-            string actual = AssemblyHelper.ReadEmbeddedResourceAsString(fullyQualifiedResourceName, false);
-            // ReSharper restore RedundantArgumentDefaultValue
+            // Arrange, Act
+            string actual = AssemblyHelper.ReadEmbeddedResourceAsString(FullQualifiedEmbeddedTextFileName, false);
 
             // Assert
-            Assert.Equal(Expected, actual);
+            Assert.Equal(ExpectedTextFileContents, actual);
         }
 
         [Fact]
         public static void ReadEmbeddedResourceString___Should_return_embedded_resource_as_string___When_parameter_addCallerNamespace_is_true_and_embedded_resource_exists()
         {
-            // Arrange
-            const string ResourceName = "EmbeddedTextFile.txt";
-            const string Expected = "this is an embedded text file";
-
-            // Act
-            string actual = AssemblyHelper.ReadEmbeddedResourceAsString(ResourceName);
+            // Arrange, Act
+            string actual = AssemblyHelper.ReadEmbeddedResourceAsString(EmbeddedTextFileName);
 
             // Assert
-            Assert.Equal(Expected, actual);
+            Assert.Equal(ExpectedTextFileContents, actual);
         }
 
         [Fact]
         public static void ReadEmbeddedResourceString___Should_return_embedded_resource_as_string___When_resource_stream_is_already_open()
         {
-            // Arrange
-            const string ResourceName = "EmbeddedTextFile.txt";
-            string thisNamespace = typeof(AssemblyHelperTest).Namespace;
-            string fullyQualifiedResourceName = thisNamespace + "." + ResourceName;
-            const string Expected = "this is an embedded text file";
-
-            // Act
+            // Arrange, Act
             string actual;
-            using (Stream priorOpenStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(fullyQualifiedResourceName))
+            using (Stream priorOpenStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(FullQualifiedEmbeddedTextFileName))
             {
                 // ReSharper disable AssignNullToNotNullAttribute
                 using (var reader = new StreamReader(priorOpenStream))
                 {
                     reader.Read();
-                    actual = AssemblyHelper.ReadEmbeddedResourceAsString(fullyQualifiedResourceName, false);
+                    actual = AssemblyHelper.ReadEmbeddedResourceAsString(FullQualifiedEmbeddedTextFileName, false);
                 }
 
                 // ReSharper restore AssignNullToNotNullAttribute
             }
 
             // Assert
-            Assert.Equal(Expected, actual);
+            Assert.Equal(ExpectedTextFileContents, actual);
         }
 
         [Fact]
         public static void ReadEmbeddedResourceString___Should_return_embedded_resource_as_string___When_parameter_addCallerNamespace_is_false_and_embedded_resource_is_not_text()
         {
-            // Arrange
-            const string ResourceName = "EmbeddedIcon.ico";
-            string thisNamespace = typeof(AssemblyHelperTest).Namespace;
-            string fullyQualifiedResourceName = thisNamespace + "." + ResourceName;
-
-            // Act
-            // ReSharper disable RedundantArgumentDefaultValue
-            string actual = AssemblyHelper.ReadEmbeddedResourceAsString(fullyQualifiedResourceName, false);
-            // ReSharper restore RedundantArgumentDefaultValue
+            // Arrange, Act
+            string actual = AssemblyHelper.ReadEmbeddedResourceAsString(FullQualifiedEmbeddedIcoFileName, false);
 
             // Assert
             Assert.NotEmpty(actual);
@@ -371,28 +365,31 @@ namespace OBeautifulCode.Reflection.Test
         [Fact]
         public static void ReadEmbeddedResourceString___Should_return_embedded_resource_as_string___When_parameter_addCallerNamespace_is_true_and_embedded_resource_is_not_text()
         {
-            // Arrange
-            const string ResourceName = "EmbeddedIcon.ico";
-
-            // Act
-            string actual = AssemblyHelper.ReadEmbeddedResourceAsString(ResourceName);
+            // Arrange, Act
+            string actual = AssemblyHelper.ReadEmbeddedResourceAsString(EmbeddedIcoFileName);
 
             // Assert
             Assert.NotEmpty(actual);
         }
 
         [Fact]
-        public static void ReadEmbeddedResourceString___Should_return_string_decompressed_from_embedded_resource___When_resource_has_been_compressed_using_gzip_and_parameter_compressionMethod_is_Gzip()
+        public static void ReadEmbeddedResourceString___Should_throw_InvalidDataException___When_resource_has_not_been_compressed_using_gzip_and_parameter_decompressionMethod_is_Gzip()
         {
-            // Arrange
-            const string ResourceName = "EmbeddedTextFile.txt.gz";
-            var expected = "this is an embedded text file";
-
-            // Act
-            string actual = AssemblyHelper.ReadEmbeddedResourceAsString(ResourceName, compressionMethod: CompressionMethod.Gzip);
+            // Arrange, Act
+            var ex = Record.Exception(() => AssemblyHelper.ReadEmbeddedResourceAsString(EmbeddedTextFileName, decompressionMethod: CompressionMethod.Gzip));
 
             // Assert
-            actual.Should().Be(expected);
+            ex.Should().BeOfType<InvalidDataException>();
+        }
+
+        [Fact]
+        public static void ReadEmbeddedResourceString___Should_return_string_decompressed_from_embedded_resource___When_resource_has_been_compressed_using_gzip_and_parameter_decompressionMethod_is_Gzip()
+        {
+            // Arrange, Act
+            string actual = AssemblyHelper.ReadEmbeddedResourceAsString(EmbeddedGzipTextFileName, decompressionMethod: CompressionMethod.Gzip);
+
+            // Assert
+            actual.Should().Be(ExpectedTextFileContents);
         }
 
         // ReSharper restore InconsistentNaming

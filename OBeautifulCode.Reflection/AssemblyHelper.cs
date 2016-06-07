@@ -26,6 +26,10 @@ namespace OBeautifulCode.Reflection
         /// </summary>
         /// <param name="assembly">Calling assembly.</param>
         /// <param name="resourceName">Name of the resource in the calling assembly.</param>
+        /// <param name="decompressionMethod">
+        /// The compression algorithm and/or archive file format that was used to compress the resource.
+        /// This is used to open a decompressed stream.
+        /// </param>
         /// <returns>Returns the specified manifest resource as a stream.</returns>
         /// <exception cref="ArgumentNullException">assembly is null.</exception>
         /// <exception cref="ArgumentNullException">resourceName is null.</exception>
@@ -33,7 +37,8 @@ namespace OBeautifulCode.Reflection
         /// <exception cref="InvalidOperationException">Resource was not found in the calling assembly.</exception>
         /// <exception cref="InvalidOperationException">The resource was not an embedded resource (that is, non-linked).</exception>
         /// <exception cref="NotImplementedException">Resource length is greater than Int64.MaxValue.</exception>
-        public static Stream OpenEmbeddedResourceStream(this Assembly assembly, string resourceName)
+        /// <exception cref="InvalidDataException">When compression method is Gzip, but the resource was not compressed using Gzip.</exception>
+        public static Stream OpenEmbeddedResourceStream(this Assembly assembly, string resourceName, CompressionMethod decompressionMethod = CompressionMethod.None)
         {
             // here's a good article about .net resources
             // http://www.grimes.demon.co.uk/workshops/fusWSNine.htm
@@ -53,7 +58,22 @@ namespace OBeautifulCode.Reflection
 
             // now that we're guaranteeing an embedded resource, we *should* be able to avoid these
             // execeptions from GetManifestResourceStream: FileLoadException, FileNotFoundException, BadImageFormatException
-            return assembly.GetManifestResourceStream(resourceName);
+            var embeddedResourceStream = assembly.GetManifestResourceStream(resourceName);
+
+            if (decompressionMethod == CompressionMethod.None)
+            {
+                return embeddedResourceStream;
+            }
+
+            if (decompressionMethod == CompressionMethod.Gzip)
+            {
+                // ReSharper disable AssignNullToNotNullAttribute
+                var decompressionStream = new GZipStream(embeddedResourceStream, CompressionMode.Decompress);
+                return decompressionStream;
+                // ReSharper restore AssignNullToNotNullAttribute
+            }
+
+            throw new NotSupportedException("This compression method is not supported: " + decompressionMethod);
         }
 
         /// <summary>
@@ -66,6 +86,10 @@ namespace OBeautifulCode.Reflection
         /// If true, then the resource name is prepended with the fully qualified namespace of the calling method, followed by a period
         /// (e.g. if resource name = "MyFile.txt" then it changed to something like "MyNamespace.MySubNamespace.MyFile.txt")
         /// </param>
+        /// <param name="decompressionMethod">
+        /// The compression algorithm and/or archive file format that was used to compress the resource.
+        /// This is used to open a decompressed stream.
+        /// </param>
         /// <returns>Returns the specified manifest resource as a stream.</returns>
         /// <exception cref="ArgumentNullException">resourceName is null.</exception>
         /// <exception cref="ArgumentException">resourceName is whitspace.</exception>
@@ -73,10 +97,11 @@ namespace OBeautifulCode.Reflection
         /// <exception cref="InvalidOperationException">The resource was not an embedded resource (that is, non-linked).</exception>
         /// <exception cref="NotImplementedException">Resource length is greater than Int64.MaxValue.</exception>
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static Stream OpenEmbeddedResourceStream(string resourceName, bool addCallerNamespace = true)
+        public static Stream OpenEmbeddedResourceStream(string resourceName, bool addCallerNamespace = true, CompressionMethod decompressionMethod = CompressionMethod.None)
         {
             resourceName = ResolveResourceName(resourceName, addCallerNamespace);
-            return OpenEmbeddedResourceStream(Assembly.GetCallingAssembly(), resourceName);
+            var embeddedResourceStream = OpenEmbeddedResourceStream(Assembly.GetCallingAssembly(), resourceName, decompressionMethod);
+            return embeddedResourceStream;
         }
 
         /// <summary>
@@ -89,7 +114,7 @@ namespace OBeautifulCode.Reflection
         /// If true, then the resource name is prepended with the fully qualified namespace of the calling method, followed by a period
         /// (e.g. if resource name = "MyFile.txt" then it changed to something like "MyNamespace.MySubNamespace.MyFile.txt")
         /// </param>
-        /// <param name="compressionMethod">
+        /// <param name="decompressionMethod">
         /// The compression algorithm and/or archive file format that was used to compress the resource.
         /// This is used to determine how the resource should be decompressed.
         /// </param>
@@ -107,31 +132,15 @@ namespace OBeautifulCode.Reflection
         /// <exception cref="NotImplementedException">Resource length is greater than Int64.MaxValue.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "Objects are not being disposed multiple times.")]
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static string ReadEmbeddedResourceAsString(string resourceName, bool addCallerNamespace = true, CompressionMethod compressionMethod = CompressionMethod.None)
+        public static string ReadEmbeddedResourceAsString(string resourceName, bool addCallerNamespace = true, CompressionMethod decompressionMethod = CompressionMethod.None)
         {
             resourceName = ResolveResourceName(resourceName, addCallerNamespace);
-            using (var embeddedResourceStream = OpenEmbeddedResourceStream(Assembly.GetCallingAssembly(), resourceName))
+            using (var embeddedResourceStream = OpenEmbeddedResourceStream(Assembly.GetCallingAssembly(), resourceName, decompressionMethod))
             {
-                if (compressionMethod == CompressionMethod.None)
+                using (var reader = new StreamReader(embeddedResourceStream))
                 {
-                    using (var reader = new StreamReader(embeddedResourceStream))
-                    {
-                        return reader.ReadToEnd();
-                    }
+                    return reader.ReadToEnd();
                 }
-
-                if (compressionMethod == CompressionMethod.Gzip)
-                {
-                    using (var decompressionStream = new GZipStream(embeddedResourceStream, CompressionMode.Decompress))
-                    {
-                        using (var reader = new StreamReader(decompressionStream))
-                        {
-                            return reader.ReadToEnd();
-                        }
-                    }
-                }
-
-                throw new NotSupportedException("This compression method is not supported: " + compressionMethod);
             }
         }
 
