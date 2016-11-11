@@ -13,8 +13,6 @@ namespace OBeautifulCode.Reflection
     using System.Reflection;
     using System.Runtime.CompilerServices;
 
-    using Conditions;
-
     /// <summary>
     /// Provides useful methods for extracting information from and
     /// interacting with assemblies using reflection.
@@ -42,8 +40,20 @@ namespace OBeautifulCode.Reflection
         {
             // here's a good article about .net resources
             // http://www.grimes.demon.co.uk/workshops/fusWSNine.htm
-            Condition.Requires(assembly, nameof(assembly)).IsNotNull();
-            Condition.Requires(resourceName, nameof(resourceName)).IsNotNullOrWhiteSpace();
+            if (assembly == null)
+            {
+                throw new ArgumentNullException(nameof(assembly));
+            }
+
+            if (resourceName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceName));
+            }
+
+            if (string.IsNullOrWhiteSpace(resourceName))
+            {
+                throw new ArgumentException("resource name cannot be whitespace", nameof(resourceName));
+            }
 
             ManifestResourceInfo info = assembly.GetManifestResourceInfo(resourceName);
             if (info == null)
