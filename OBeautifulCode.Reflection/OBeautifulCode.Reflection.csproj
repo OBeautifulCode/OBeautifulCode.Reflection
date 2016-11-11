@@ -51,6 +51,8 @@
     <Compile Include="AssemblyHelper.cs" />
     <Compile Include="CompressionMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TypeDescription.cs" />
+    <Compile Include="TypeDescriptionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -5,6 +5,7 @@
       </Unrecognized>
       <Recognized>
          <Word>gzip</Word>
+         <Word>untyped</Word>
       </Recognized>
       <Deprecated>
          <Term PreferredAlternate=""></Term>
