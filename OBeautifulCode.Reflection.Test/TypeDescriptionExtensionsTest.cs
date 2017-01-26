@@ -40,6 +40,34 @@ namespace OBeautifulCode.Reflection.Test
             description.Name.Should().Be(type.Name);
         }
 
+        [Fact]
+        public static void Resolve___Should_return_null___For_missing_type()
+        {
+            // Arrange
+            var toFind = new TypeDescription("namespace", "name", "assemblyqualifiedname");
+
+            // Act
+            var result = toFind.ResolveFromLoadedTypes();
+
+            // Assert
+            result.Should().BeNull();
+        }
+
+        [Fact]
+        public static void Resolve___Should_return_valid_type___For_found_type()
+        {
+            // Arrange
+            var type = typeof(string);
+            var toFind = type.ToTypeDescription();
+
+            // Act
+            var result = toFind.ResolveFromLoadedTypes();
+
+            // Assert
+            result.Should().NotBeNull();
+            result.Should().Be(type);
+        }
+
         // ReSharper restore InconsistentNaming
     }
 }
