@@ -7,6 +7,7 @@
 namespace OBeautifulCode.Reflection
 {
     using System;
+    using System.Linq;
 
     /// <summary>
     /// Class to hold extension method on the type object.
@@ -25,8 +26,23 @@ namespace OBeautifulCode.Reflection
                 throw new ArgumentNullException(nameof(type));
             }
 
-            var result = new TypeDescription { AssemblyQualifiedName = type.AssemblyQualifiedName, Namespace = type.Namespace, Name = type.Name };
+            var result = new TypeDescription(type.Namespace, type.Name, type.AssemblyQualifiedName);
+
             return result;
+        }
+
+        /// <summary>
+        /// Attempts to resolve the <see cref="TypeDescription"/> from all loaded types in all assemblies in the current app domain.
+        /// </summary>
+        /// <param name="typeDescription">Type description to search for.</param>
+        /// <param name="typeMatchStrategy">Optional matching strategy (default is looser namespace and name match).</param>
+        /// <returns>Type if found, null otherwise.</returns>
+        public static Type ResolveFromLoadedTypes(this TypeDescription typeDescription, TypeMatchStrategy typeMatchStrategy = TypeMatchStrategy.NamespaceAndName)
+        {
+            var allTypes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(_ => _.GetTypes()).ToList();
+            var typeComparer = new TypeComparer(typeMatchStrategy);
+            var ret = allTypes.SingleOrDefault(_ => typeComparer.Equals(_.ToTypeDescription(), typeDescription));
+            return ret;
         }
     }
 }

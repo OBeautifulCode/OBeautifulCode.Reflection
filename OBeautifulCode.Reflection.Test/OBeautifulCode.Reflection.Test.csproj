@@ -99,6 +99,7 @@
     <Compile Include="ReflectionHelperTest.cs" />
     <Compile Include="Parent.cs" />
     <Compile Include="TypeDescriptionExtensionsTest.cs" />
+    <Compile Include="TypeComparerTests.cs" />
     <Compile Include="TypeDescriptionTest.cs" />
   </ItemGroup>
   <ItemGroup>
