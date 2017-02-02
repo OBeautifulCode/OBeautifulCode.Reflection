@@ -20,7 +20,12 @@ namespace OBeautifulCode.Reflection
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Reflection", "See package version number")]
 #endif
-    internal static class ReflectionHelper
+#if !OBeautifulCodeReflectionRecipesProject
+    internal 
+#else
+    public
+#endif
+    static class ReflectionHelper
     {
         /// <summary>
         /// Constructs an object of the specified type.

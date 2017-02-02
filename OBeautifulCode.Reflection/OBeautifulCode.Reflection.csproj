@@ -58,6 +58,7 @@
     <Compile Include="TypeDescriptionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="OBeautifulCode.Reflection.AssemblyHelper.recipe-nuspec" />
     <None Include="OBeautifulCode.Reflection.template-nuspec" />
     <None Include="OBeautifulCode.Reflection.ReflectionHelper.recipe-nuspec" />
     <None Include="packages.config" />
