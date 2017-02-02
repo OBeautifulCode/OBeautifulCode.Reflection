@@ -9,6 +9,10 @@ namespace OBeautifulCode.Reflection.Test
     using System;
     using System.IO;
 
+    using FakeItEasy;
+
+    using FluentAssertions;
+
     using Xunit;
 
     /// <summary>
@@ -21,6 +25,103 @@ namespace OBeautifulCode.Reflection.Test
     /// </remarks>
     public static class ReflectionHelperTest
     {
+        [Fact]
+        public static void Construct_untyped___Should_construct_an_object_with_a_parameterless_constructor___When_parameter_parameters_is_null_or_empty()
+        {
+            // Arrange
+            var type = typeof(Dog);
+
+            // Act
+            var result1 = type.Construct();
+            var result2 = type.Construct(null);
+
+            // Assert
+            result1.Should().BeOfType<Dog>();
+            result2.Should().BeOfType<Dog>();
+        }
+
+        [Fact]
+        public static void Construct_untyped___Should_construct_a_object_whose_constructor_has_parameters___When_parameter_parameters_specifies_all_parameters_for_that_constructor()
+        {
+            // Arrange
+            int numberOfLives = A.Dummy<int>();
+            var type = typeof(Cat);
+
+            // Act
+            var result = type.Construct(numberOfLives);
+
+            // Assert
+            result.Should().BeOfType<Cat>();
+            ((Cat)result).NumberOfLives.Should().Be(numberOfLives);
+        }
+
+        [Fact]
+        public static void Construct_with_same_type_to_construct_as_type_to_return___Should_construct_an_object_with_a_parameterless_constructor___When_parameter_parameters_is_null_or_empty()
+        {
+            // Arrange
+            object[] nullParams = null;
+
+            // Act
+            // ReSharper disable ExpressionIsAlwaysNull
+            var result1 = ReflectionHelper.Construct<Dog>();
+            var result2 = ReflectionHelper.Construct<Dog>(nullParams);
+            // ReSharper restore ExpressionIsAlwaysNull
+
+            // Assert
+            result1.Should().NotBeNull();
+            result2.Should().NotBeNull();
+        }
+
+        [Fact]
+        public static void Construct_with_same_type_to_construct_as_type_to_return___Should_construct_a_object_whose_constructor_has_parameters___When_parameter_parameters_specifies_all_parameters_for_that_constructor()
+        {
+            // Arrange
+            int numberOfLives = A.Dummy<int>();
+
+            // Act
+            var result = ReflectionHelper.Construct<Cat>(numberOfLives);
+
+            // Assert
+            result.NumberOfLives.Should().Be(numberOfLives);
+        }
+
+        [Fact]
+        public static void Construct_with_different_type_to_construct_and_type_to_return___Should_construct_an_object_with_a_parameterless_constructor___When_parameter_parameters_is_null_or_empty()
+        {
+            // Arrange
+            var type = typeof(Dog);
+
+            // Act
+            // ReSharper disable ExpressionIsAlwaysNull
+            var result1 = type.Construct<Dog>();
+            var result2 = type.Construct<Dog>(null);
+            var result3 = type.Construct<IAnimal>();
+            var result4 = type.Construct<IAnimal>(null);
+            // ReSharper restore ExpressionIsAlwaysNull
+
+            // Assert
+            result1.Should().NotBeNull();
+            result2.Should().NotBeNull();
+            result3.Should().NotBeNull();
+            result4.Should().NotBeNull();
+        }
+
+        [Fact]
+        public static void Construct_with_different_type_to_construct_and_type_to_return___Should_construct_a_object_whose_constructor_has_parameters___When_parameter_parameters_specifies_all_parameters_for_that_constructor()
+        {
+            // Arrange
+            int numberOfLives = A.Dummy<int>();
+            var type = typeof(Cat);
+
+            // Act
+            var result1 = type.Construct<Cat>(numberOfLives);
+            var result2 = type.Construct<IAnimal>(numberOfLives);
+
+            // Assert
+            result1.NumberOfLives.Should().Be(numberOfLives);
+            ((Cat)result2).NumberOfLives.Should().Be(numberOfLives);
+        }
+
         [Fact]
         public static void HasPropertyTest()
         {
