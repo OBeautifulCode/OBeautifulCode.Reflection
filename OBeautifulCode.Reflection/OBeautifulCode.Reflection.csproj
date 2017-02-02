@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG</DefineConstants>
+    <DefineConstants>DEBUG;CODE_ANALYSIS;OBeautifulCodeReflectionRecipesProject</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -29,8 +29,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants>CODE_ANALYSIS;OBeautifulCodeReflectionRecipesProject</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -59,6 +58,9 @@
     <Compile Include="TypeDescriptionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="OBeautifulCode.Reflection.AssemblyHelper.recipe-nuspec" />
+    <None Include="OBeautifulCode.Reflection.template-nuspec" />
+    <None Include="OBeautifulCode.Reflection.ReflectionHelper.recipe-nuspec" />
     <None Include="packages.config" />
     <None Include="OBeautifulCode.Reflection.nuspec">
       <SubType>Designer</SubType>
