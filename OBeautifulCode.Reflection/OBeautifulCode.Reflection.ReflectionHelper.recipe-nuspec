@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>OBeautifulCode.Reflection.ReflectionHelper</id>
+    <description>Provides useful methods related to reflection.</description>
+    <tags>reflection extension extensions</tags>
+    <developmentDependency>true</developmentDependency>
+  </metadata>
+  <files>
+    <file src="ReflectionHelper.cs" target="content\net45\.OBeautifulCode.Recipes\OBeautifulCode.Reflection\ReflectionHelper.cs" />
+  </files>
+</package>
