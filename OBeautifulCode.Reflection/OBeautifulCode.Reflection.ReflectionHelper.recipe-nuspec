@@ -5,6 +5,9 @@
     <description>Provides useful methods related to reflection.</description>
     <tags>reflection extension extensions</tags>
     <developmentDependency>true</developmentDependency>
+    <dependencies>
+      <dependency id="Spritely.Recipes.MustValidation" version="0.6.2" />
+    </dependencies>
   </metadata>
   <files>
     <file src="ReflectionHelper.cs" target="content\net45\.OBeautifulCode.Recipes\OBeautifulCode.Reflection\ReflectionHelper.cs" />

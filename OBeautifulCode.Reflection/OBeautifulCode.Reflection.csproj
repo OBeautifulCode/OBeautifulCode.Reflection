@@ -48,6 +48,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include=".OBeautifulCode.Recipes\OBeautifulCode.Math\HashCodeHelper.cs" />
+    <Compile Include=".Spritely.Recipes\MustValidation\MakeRule.cs" />
+    <Compile Include=".Spritely.Recipes\MustValidation\MustExtensions.cs" />
+    <Compile Include=".Spritely.Recipes\MustValidation\RuleExtensions.cs" />
+    <Compile Include=".Spritely.Recipes\MustValidation\Rules.cs" />
+    <Compile Include=".Spritely.Recipes\MustValidation\ValidatedNotNullAttribute.cs" />
     <Compile Include="AssemblyHelper.cs" />
     <Compile Include="CompressionMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
