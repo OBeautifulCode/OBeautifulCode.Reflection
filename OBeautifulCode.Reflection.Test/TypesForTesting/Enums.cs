@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ConstructTestTypes.cs" company="OBeautifulCode">
+// <copyright file="Enums.cs" company="OBeautifulCode">
 //   Copyright (c) OBeautifulCode. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -9,23 +9,45 @@ namespace OBeautifulCode.Reflection.Test
 {
 #pragma warning disable SA1649 // File name must match first type name
 #pragma warning disable SA1402 // File may only contain a single class
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces", Justification = "This is for testing purposes.")]
-    public interface IAnimal
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1008:EnumsShouldHaveZeroValue", Justification = "this is for testing purposes.")]
+    public enum Empty
     {
     }
 
-    public class Dog : IAnimal
+    public enum GoodStuff
     {
+        WorkingFromHome,
+
+        Chocolate,
+
+        Vacation,
+
+        Bulldogs
     }
 
-    public class Cat : IAnimal
+    public enum Sweet
     {
-        public Cat(int numberOfLives)
-        {
-            this.NumberOfLives = numberOfLives;
-        }
+        [MultipleAllowed]
+        Cake,
 
-        public int NumberOfLives { get; }
+        [MultipleAllowed]
+        [MultipleAllowed]
+        [Color("brown")]
+        Chocolate,
+
+        [Color("green")]
+        Cookies
+    }
+
+    public enum Fruit
+    {
+        Mango,
+
+        Grape,
+
+        [Purpose("toddlers love it")]
+        [Purpose("good shelf life")]
+        Pear
     }
 
 #pragma warning restore SA1402 // File may only contain a single class

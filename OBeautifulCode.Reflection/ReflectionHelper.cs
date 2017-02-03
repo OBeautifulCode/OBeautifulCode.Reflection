@@ -10,7 +10,11 @@
 namespace OBeautifulCode.Reflection
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
+
+    using Spritely.Recipes;
 
     /// <summary>
     /// Provides useful methods related to reflection.
@@ -21,7 +25,7 @@ namespace OBeautifulCode.Reflection
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Reflection", "See package version number")]
 #endif
 #if !OBeautifulCodeReflectionRecipesProject
-    internal 
+    internal
 #else
     public
 #endif
@@ -111,6 +115,108 @@ namespace OBeautifulCode.Reflection
         public static bool HasProperty(this object item, string propertyName) => GetProperty(item, propertyName) != null;
 
         /// <summary>
+        /// Gets the specified type of attribute, applied to a specific enum value.
+        /// </summary>
+        /// <typeparam name="T">The type of the attribute to return.</typeparam>
+        /// <param name="enumValue">The enum value to scope the attribute search to.</param>
+        /// <returns>
+        /// An attribute object of the specified type that has been applied to the specified
+        /// enum value or null if no such attribute has been applied.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="enumValue"/> is null.</exception>
+        /// <exception cref="InvalidOperationException"><paramref name="enumValue"/> has multiple attributes of type <typeparamref name="T"/>.  Consider calling <see cref="GetAttributes{T}(Enum)"/>.</exception>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "GetAttributes", Justification = "This is spelled correctly.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object,System.Object,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
+        public static T GetAttribute<T>(this Enum enumValue)
+            where T : Attribute
+        {
+            new { enumValue }.Must().NotBeNull().OrThrow();
+
+            var attributes = enumValue.GetAttributes<T>();
+            if (attributes.Count > 1)
+            {
+                throw new InvalidOperationException($"Enum value '{enumValue}' has multiple attributes of type '{typeof(T)}'.  Consider calling {nameof(GetAttributes)}.");
+            }
+
+            var result = attributes.SingleOrDefault();
+            return result;
+        }
+
+        /// <summary>
+        /// Gets all attributes of the specified type that have been applied to a specific enum value.
+        /// Only useful when the enum is configured such that more one instance of the specified attribute
+        /// can be specified to an enum value.
+        /// </summary>
+        /// <remarks>
+        /// adapted from <a href="http://stackoverflow.com/a/9276348/356790"/>
+        /// </remarks>
+        /// <typeparam name="T">The type of the attributes to return.</typeparam>
+        /// <param name="enumValue">The enum value to scope the attribute search to.</param>
+        /// <returns>
+        /// A collection all attributes of the specified type that have been applied to the specified
+        /// enum value or an empty collection if no such attribute has been applied.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="enumValue"/> is null.</exception>
+        public static IReadOnlyCollection<T> GetAttributes<T>(this Enum enumValue)
+            where T : Attribute
+        {
+            new { enumValue }.Must().NotBeNull().OrThrow();
+
+            var type = enumValue.GetType();
+            var member = type.GetMember(enumValue.ToString());
+            var attributes = member[0].GetCustomAttributes(typeof(T), false);
+            var result = attributes.Cast<T>().ToList().AsReadOnly();
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the members/values of a specified enum.
+        /// </summary>
+        /// <typeparam name="T">The type of enum.</typeparam>
+        /// <returns>
+        /// The members/values of the specified enum.
+        /// </returns>
+        /// <exception cref="ArgumentException"><typeparamref name="T"/> is not an enum.</exception>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
+        public static IReadOnlyCollection<T> GetEnumValues<T>()
+            where T : struct
+        {
+            typeof(T).IsEnum.Named($"typeof {nameof(T)} is Enum").Must().BeTrue().OrThrow();
+            var results = Enum.GetValues(typeof(T)).Cast<T>().ToList().AsReadOnly();
+            return results;
+        }
+
+        /// <summary>
+        /// Gets all values/members of an enum that have an attribute of a specified type.
+        /// </summary>
+        /// <typeparam name="TEnum">The type of the enum.</typeparam>
+        /// <typeparam name="TAttribute">The type of attribute to search for.</typeparam>
+        /// <returns>
+        /// The values/members of a specified enum values where the specified
+        /// attribute has been applied at least one, or an empty collection if none of the specified
+        /// enum values have that attribute.
+        /// </returns>
+        /// <exception cref="ArgumentException"><typeparamref name="TEnum"/> is not an enum.</exception>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "TEnum will be inferred, TAttribute is required so that we know what attribute to filter for.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
+        public static IReadOnlyCollection<TEnum> GetEnumValuesHaving<TEnum, TAttribute>()
+            where TEnum : struct
+            where TAttribute : Attribute
+        {
+            typeof(TEnum).IsEnum.Named($"typeof {nameof(TEnum)} is Enum").Must().BeTrue().OrThrow();
+            
+            var result =
+                GetEnumValues<TEnum>()
+                .Cast<Enum>()
+                .Where(_ => _.GetAttributes<TAttribute>().Any())
+                .Cast<TEnum>()
+                .ToList()
+                .AsReadOnly();
+
+            return result;
+        }
+
+        /// <summary>
         /// Returns a field value from a given object.
         /// </summary>
         /// <typeparam name="T">Type of the field.</typeparam>
@@ -190,7 +296,7 @@ namespace OBeautifulCode.Reflection
                 // if result the value is null, then attempt to cast to value type will result in NullReferenceException
                 throw new InvalidCastException($"Unable to cast object of type '{pi.PropertyType.FullName}' to type '{t.FullName}'.");
             }
-        }
+        }        
 
         /// <summary>
         /// Set a field value in a given Object.

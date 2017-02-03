@@ -90,11 +90,13 @@
   <ItemGroup>
     <Compile Include=".OBeautifulCode.Recipes\OBeautifulCode.AutoFakeItEasy\AutoFakeItEasyBootstrapper.cs" />
     <Compile Include="AssemblyHelperTest.cs" />
-    <Compile Include="Child.cs" />
-    <Compile Include="ConstructTestTypes.cs" />
+    <Compile Include="TypesForTesting\Attributes.cs" />
+    <Compile Include="TypesForTesting\Child.cs" />
+    <Compile Include="TypesForTesting\Construct.cs" />
+    <Compile Include="TypesForTesting\Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionHelperTest.cs" />
-    <Compile Include="Parent.cs" />
+    <Compile Include="TypesForTesting\Parent.cs" />
     <Compile Include="TypeDescriptionExtensionsTest.cs" />
     <Compile Include="TypeComparerTests.cs" />
     <Compile Include="TypeDescriptionTest.cs" />
