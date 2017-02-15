@@ -433,7 +433,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetEnumValues_generic___Should_throw_ArgumentException___When_generic_type_parameter_is_not_of_type_Enum()
+        public static void GetEnumValues_T___Should_throw_ArgumentException___When_generic_type_parameter_is_not_of_type_Enum()
         {
             // Arrange, Act
             var ex1 = Record.Exception(() => ReflectionHelper.GetEnumValues<int>());
@@ -449,7 +449,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetEnumValues_generic___Should_return_enum_values_in_order___When_called()
+        public static void GetEnumValues_T___Should_return_enum_values_in_order___When_called()
         {
             // Arrange, Act
             var enumValues1 = ReflectionHelper.GetEnumValues<Empty>();
@@ -461,13 +461,13 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetEnumValues_with_type_as_parameter___Should_throw_ArgumentException___When_generic_type_parameter_is_not_of_type_Enum()
+        public static void GetEnumValues_enumType___Should_throw_ArgumentException___When_generic_type_parameter_is_not_of_type_Enum()
         {
             // Arrange, Act
-            var ex1 = Record.Exception(() => ReflectionHelper.GetEnumValues(typeof(int)));
-            var ex2 = Record.Exception(() => ReflectionHelper.GetEnumValues(typeof(bool)));
-            var ex3 = Record.Exception(() => ReflectionHelper.GetEnumValues(typeof(byte)));
-            var ex4 = Record.Exception(() => ReflectionHelper.GetEnumValues(typeof(char)));
+            var ex1 = Record.Exception(() => typeof(int).GetEnumValues());
+            var ex2 = Record.Exception(() => typeof(bool).GetEnumValues());
+            var ex3 = Record.Exception(() => typeof(byte).GetEnumValues());
+            var ex4 = Record.Exception(() => typeof(char).GetEnumValues());
 
             // Assert
             ex1.Should().BeOfType<ArgumentException>();
@@ -477,11 +477,11 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetEnumValues_with_type_as_parameter___Should_return_enum_values_in_order___When_called()
+        public static void GetEnumValues_enumType___Should_return_enum_values_in_order___When_called()
         {
             // Arrange, Act
-            var enumValues1 = ReflectionHelper.GetEnumValues(typeof(Empty));
-            var enumValues2 = ReflectionHelper.GetEnumValues(typeof(GoodStuff));
+            var enumValues1 = typeof(Empty).GetEnumValues();
+            var enumValues2 = typeof(GoodStuff).GetEnumValues();
 
             // Assert
             enumValues1.Should().BeEmpty();
@@ -489,7 +489,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetEnumValuesHaving___Should_throw_ArgumentException___When_TEnum_is_not_an_Enum_type()
+        public static void GetEnumValuesHaving_TEnum_TAttribute___Should_throw_ArgumentException___When_TEnum_is_not_an_Enum_type()
         {
             // Arrange, Act
             var ex = Record.Exception(() => ReflectionHelper.GetEnumValuesHaving<int, PurposeAttribute>());
@@ -499,7 +499,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetEnumValuesHaving___Should_return_empty_collection___When_none_of_the_enum_values_have_the_specified_attribute()
+        public static void GetEnumValuesHaving_TEnum_TAttribute____Should_return_empty_collection___When_none_of_the_enum_values_have_the_specified_attribute()
         {
             // Arrange, Act
             var enumValues1 = ReflectionHelper.GetEnumValuesHaving<GoodStuff, PurposeAttribute>();
@@ -511,7 +511,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetEnumValuesHaving___Should_return_empty_collection___When_none_of_the_enum_values_have_the_specified_attribute_that_passes_the_specified_attributeFilter()
+        public static void GetEnumValuesHaving_TEnum_TAttribute____Should_return_empty_collection___When_none_of_the_enum_values_have_the_specified_attribute_that_passes_the_specified_attributeFilter()
         {
             // Arrange, Act
             var enumValues1 = ReflectionHelper.GetEnumValuesHaving<Sweet, ColorAttribute>(_ => _.Color == "purple");
@@ -525,7 +525,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetEnumValuesHaving___Should_return_all_enum_values_having_specified_attribute___When_some_enum_values_have_specified_attribute()
+        public static void GetEnumValuesHaving_TEnum_TAttribute____Should_return_all_enum_values_having_specified_attribute___When_some_enum_values_have_specified_attribute()
         {
             // Arrange, Act
             var enumValues1 = ReflectionHelper.GetEnumValuesHaving<Sweet, MultipleAllowedAttribute>();
@@ -539,12 +539,76 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetEnumValuesHaving___Should_return_all_enum_values_having_specified_attribute_that_passes_attributeFilter___When_some_enum_values_have_the_specified_attribute_that_passes_the_attributeFilter()
+        public static void GetEnumValuesHaving_TEnum_TAttribute____Should_return_all_enum_values_having_specified_attribute_that_passes_attributeFilter___When_some_enum_values_have_the_specified_attribute_that_passes_the_attributeFilter()
         {
             // Arrange, Act
             var enumValues1 = ReflectionHelper.GetEnumValuesHaving<Sweet, ColorAttribute>(_ => _.Color == "brown");
             var enumValues2 = ReflectionHelper.GetEnumValuesHaving<Sweet, ColorAttribute>(_ => _.Color == "brown" || _.Color == "green");
             var enumValues3 = ReflectionHelper.GetEnumValuesHaving<Fruit, PurposeAttribute>(_ => _.Purpose == "good shelf life");
+
+            // Assert
+            enumValues1.Should().Equal(Sweet.Chocolate);
+            enumValues2.Should().Equal(Sweet.Chocolate, Sweet.Cookies);
+            enumValues3.Should().Equal(Fruit.Pear);
+        }
+
+        [Fact]
+        public static void GetEnumValuesHaving_TAttribute___Should_throw_ArgumentException___When_TEnum_is_not_an_Enum_type()
+        {
+            // Arrange, Act
+            var ex = Record.Exception(() => typeof(int).GetEnumValuesHaving<PurposeAttribute>());
+
+            // Assert
+            ex.Should().BeOfType<ArgumentException>();
+        }
+
+        [Fact]
+        public static void GetEnumValuesHaving_TAttribute____Should_return_empty_collection___When_none_of_the_enum_values_have_the_specified_attribute()
+        {
+            // Arrange, Act
+            var enumValues1 = typeof(GoodStuff).GetEnumValuesHaving<PurposeAttribute>();
+            var enumValues2 = typeof(GoodStuff).GetEnumValuesHaving<PurposeAttribute>(_ => _.Purpose == "none");
+
+            // Assert
+            enumValues1.Should().BeEmpty();
+            enumValues2.Should().BeEmpty();
+        }
+
+        [Fact]
+        public static void GetEnumValuesHaving_TAttribute____Should_return_empty_collection___When_none_of_the_enum_values_have_the_specified_attribute_that_passes_the_specified_attributeFilter()
+        {
+            // Arrange, Act
+            var enumValues1 = typeof(Sweet).GetEnumValuesHaving<ColorAttribute>(_ => _.Color == "purple");
+            var enumValues2 = typeof(Sweet).GetEnumValuesHaving<MultipleAllowedAttribute>(_ => false);
+            var enumValues3 = typeof(Fruit).GetEnumValuesHaving<PurposeAttribute>(_ => _.Purpose == "no purpose");
+
+            // Assert
+            enumValues1.Should().BeEmpty();
+            enumValues2.Should().BeEmpty();
+            enumValues3.Should().BeEmpty();
+        }
+
+        [Fact]
+        public static void GetEnumValuesHaving_TAttribute____Should_return_all_enum_values_having_specified_attribute___When_some_enum_values_have_specified_attribute()
+        {
+            // Arrange, Act
+            var enumValues1 = typeof(Sweet).GetEnumValuesHaving<MultipleAllowedAttribute>();
+            var enumValues2 = typeof(Sweet).GetEnumValuesHaving<ColorAttribute>();
+            var enumValues3 = typeof(Fruit).GetEnumValuesHaving<PurposeAttribute>();
+
+            // Assert
+            enumValues1.Should().Equal(Sweet.Cake, Sweet.Chocolate);
+            enumValues2.Should().Equal(Sweet.Chocolate, Sweet.Cookies);
+            enumValues3.Should().Equal(Fruit.Pear);
+        }
+
+        [Fact]
+        public static void GetEnumValuesHaving_TAttribute____Should_return_all_enum_values_having_specified_attribute_that_passes_attributeFilter___When_some_enum_values_have_the_specified_attribute_that_passes_the_attributeFilter()
+        {
+            // Arrange, Act
+            var enumValues1 = typeof(Sweet).GetEnumValuesHaving<ColorAttribute>(_ => _.Color == "brown");
+            var enumValues2 = typeof(Sweet).GetEnumValuesHaving<ColorAttribute>(_ => _.Color == "brown" || _.Color == "green");
+            var enumValues3 = typeof(Fruit).GetEnumValuesHaving<PurposeAttribute>(_ => _.Purpose == "good shelf life");
 
             // Assert
             enumValues1.Should().Equal(Sweet.Chocolate);
