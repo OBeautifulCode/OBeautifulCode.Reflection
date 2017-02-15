@@ -433,7 +433,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetEnumValues___Should_throw_ArgumentException___When_generic_type_parameter_is_not_of_type_Enum()
+        public static void GetEnumValues_generic___Should_throw_ArgumentException___When_generic_type_parameter_is_not_of_type_Enum()
         {
             // Arrange, Act
             var ex1 = Record.Exception(() => ReflectionHelper.GetEnumValues<int>());
@@ -449,11 +449,39 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetEnumValues___Should_return_enum_values_in_order___When_called()
+        public static void GetEnumValues_generic___Should_return_enum_values_in_order___When_called()
         {
             // Arrange, Act
             var enumValues1 = ReflectionHelper.GetEnumValues<Empty>();
             var enumValues2 = ReflectionHelper.GetEnumValues<GoodStuff>();
+
+            // Assert
+            enumValues1.Should().BeEmpty();
+            enumValues2.Should().Equal(GoodStuff.WorkingFromHome, GoodStuff.Chocolate, GoodStuff.Vacation, GoodStuff.Bulldogs);
+        }
+
+        [Fact]
+        public static void GetEnumValues_with_type_as_parameter___Should_throw_ArgumentException___When_generic_type_parameter_is_not_of_type_Enum()
+        {
+            // Arrange, Act
+            var ex1 = Record.Exception(() => ReflectionHelper.GetEnumValues(typeof(int)));
+            var ex2 = Record.Exception(() => ReflectionHelper.GetEnumValues(typeof(bool)));
+            var ex3 = Record.Exception(() => ReflectionHelper.GetEnumValues(typeof(byte)));
+            var ex4 = Record.Exception(() => ReflectionHelper.GetEnumValues(typeof(char)));
+
+            // Assert
+            ex1.Should().BeOfType<ArgumentException>();
+            ex2.Should().BeOfType<ArgumentException>();
+            ex3.Should().BeOfType<ArgumentException>();
+            ex4.Should().BeOfType<ArgumentException>();
+        }
+
+        [Fact]
+        public static void GetEnumValues_with_type_as_parameter___Should_return_enum_values_in_order___When_called()
+        {
+            // Arrange, Act
+            var enumValues1 = ReflectionHelper.GetEnumValues(typeof(Empty));
+            var enumValues2 = ReflectionHelper.GetEnumValues(typeof(GoodStuff));
 
             // Assert
             enumValues1.Should().BeEmpty();
