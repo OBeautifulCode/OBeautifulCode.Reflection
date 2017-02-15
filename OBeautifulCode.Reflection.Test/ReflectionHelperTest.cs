@@ -124,45 +124,45 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttribute_with_Enum___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
+        public static void GetAttributeOnEnumValue_with_Enum___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
         {
             // Arrange, Act
-            var ex = Record.Exception(() => ((Enum)null).GetAttribute<NotAppliedAnywhereAttribute>());
+            var ex = Record.Exception(() => ((Enum)null).GetAttributeOnEnumValue<NotAppliedAnywhereAttribute>());
 
             // Assert
             ex.Should().BeOfType<ArgumentNullException>();
         }
 
         [Fact]
-        public static void GetAttribute_with_Enum___Should_return_null___When_attribute_is_not_applied_to_enum_value()
+        public static void GetAttributeOnEnumValue_with_Enum___Should_return_null___When_attribute_is_not_applied_to_enum_value()
         {
             // Arrange
             var enumValue = A.Dummy<GoodStuff>();
 
             // Act
-            var attribute = enumValue.GetAttribute<NotAppliedAnywhereAttribute>();
+            var attribute = enumValue.GetAttributeOnEnumValue<NotAppliedAnywhereAttribute>();
 
             // Assert
             attribute.Should().BeNull();
         }
 
         [Fact]
-        public static void GetAttribute_with_Enum___Should_throw_InvalidOperationException___When_attribute_is_applied_multiple_times_to_enum_value()
+        public static void GetAttributeOnEnumValue_with_Enum___Should_throw_InvalidOperationException___When_attribute_is_applied_multiple_times_to_enum_value()
         {
             // Arrange, Act
-            var ex = Record.Exception(() => Sweet.Chocolate.GetAttribute<MultipleAllowedAttribute>());
+            var ex = Record.Exception(() => Sweet.Chocolate.GetAttributeOnEnumValue<MultipleAllowedAttribute>());
 
             // Assert
             ex.Should().BeOfType<InvalidOperationException>();
         }
 
         [Fact]
-        public static void GetAttribute_with_Enum___Should_return_attribute_applied_to_enum_value___When_attribute_is_only_applied_once()
+        public static void GetAttributeOnEnumValue_with_Enum___Should_return_attribute_applied_to_enum_value___When_attribute_is_only_applied_once()
         {
             // Arrange, Act
-            var attribute1 = Sweet.Cake.GetAttribute<MultipleAllowedAttribute>();
-            var attribute2 = Sweet.Cookies.GetAttribute<ColorAttribute>();
-            var attribute3 = Sweet.Chocolate.GetAttribute<ColorAttribute>();
+            var attribute1 = Sweet.Cake.GetAttributeOnEnumValue<MultipleAllowedAttribute>();
+            var attribute2 = Sweet.Cookies.GetAttributeOnEnumValue<ColorAttribute>();
+            var attribute3 = Sweet.Chocolate.GetAttributeOnEnumValue<ColorAttribute>();
 
             // Assert
             attribute1.Should().NotBeNull();
@@ -171,56 +171,56 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttribute_with_object___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
+        public static void GetAttributeOnEnumValue_with_object___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
         {
             // Arrange, Act
-            var ex = Record.Exception(() => ((object)null).GetAttribute<NotAppliedAnywhereAttribute>());
+            var ex = Record.Exception(() => ((object)null).GetAttributeOnEnumValue<NotAppliedAnywhereAttribute>());
 
             // Assert
             ex.Should().BeOfType<ArgumentNullException>();
         }
 
         [Fact]
-        public static void GetAttribute_with_object___Should_throw_ArgumentException___When_parameter_enumValue_is_not_an_Enum()
+        public static void GetAttributeOnEnumValue_with_object___Should_throw_ArgumentException___When_parameter_enumValue_is_not_an_Enum()
         {
             // Arrange
             var enumValue = A.Dummy<string>();
 
             // Act
-            var ex = Record.Exception(() => enumValue.GetAttribute<NotAppliedAnywhereAttribute>());
+            var ex = Record.Exception(() => enumValue.GetAttributeOnEnumValue<NotAppliedAnywhereAttribute>());
 
             // Assert
             ex.Should().BeOfType<ArgumentException>();
         }
 
         [Fact]
-        public static void GetAttribute_with_object___Should_return_null___When_attribute_is_not_applied_to_enum_value()
+        public static void GetAttributeOnEnumValue_with_object___Should_return_null___When_attribute_is_not_applied_to_enum_value()
         {
             // Arrange
             var enumValue = (object)A.Dummy<GoodStuff>();
 
             // Act
-            var attribute = enumValue.GetAttribute<NotAppliedAnywhereAttribute>();
+            var attribute = enumValue.GetAttributeOnEnumValue<NotAppliedAnywhereAttribute>();
 
             // Assert
             attribute.Should().BeNull();
         }
 
         [Fact]
-        public static void GetAttribute_with_object___Should_throw_InvalidOperationException___When_attribute_is_applied_multiple_times_to_enum_value()
+        public static void GetAttributeOnEnumValue_with_object___Should_throw_InvalidOperationException___When_attribute_is_applied_multiple_times_to_enum_value()
         {
             // Arrange
             var enumValue = (object)Sweet.Chocolate;
 
             // Act
-            var ex = Record.Exception(() => enumValue.GetAttribute<MultipleAllowedAttribute>());
+            var ex = Record.Exception(() => enumValue.GetAttributeOnEnumValue<MultipleAllowedAttribute>());
 
             // Assert
             ex.Should().BeOfType<InvalidOperationException>();
         }
 
         [Fact]
-        public static void GetAttribute_with_object___Should_return_attribute_applied_to_enum_value___When_attribute_is_only_applied_once()
+        public static void GetAttributeOnEnumValue_with_object___Should_return_attribute_applied_to_enum_value___When_attribute_is_only_applied_once()
         {
             // Arrange
             var enumValue1 = (object)Sweet.Cake;
@@ -228,9 +228,9 @@ namespace OBeautifulCode.Reflection.Test
             var enumValue3 = (object)Sweet.Chocolate;
 
             // Act
-            var attribute1 = enumValue1.GetAttribute<MultipleAllowedAttribute>();
-            var attribute2 = enumValue2.GetAttribute<ColorAttribute>();
-            var attribute3 = enumValue3.GetAttribute<ColorAttribute>();
+            var attribute1 = enumValue1.GetAttributeOnEnumValue<MultipleAllowedAttribute>();
+            var attribute2 = enumValue2.GetAttributeOnEnumValue<ColorAttribute>();
+            var attribute3 = enumValue3.GetAttributeOnEnumValue<ColorAttribute>();
 
             // Assert
             attribute1.Should().NotBeNull();
@@ -239,34 +239,34 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributes_with_Enum___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
+        public static void GetAttributesOnEnumValue_with_Enum___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
         {
             // Arrange, Act
-            var ex = Record.Exception(() => ((Enum)null).GetAttributes<NotAppliedAnywhereAttribute>());
+            var ex = Record.Exception(() => ((Enum)null).GetAttributesOnEnumValue<NotAppliedAnywhereAttribute>());
 
             // Assert
             ex.Should().BeOfType<ArgumentNullException>();
         }
 
         [Fact]
-        public static void GetAttributes_with_Enum___Should_return_empty_collection___When_no_attributes_of_specified_type_are_applied_to_enum_value()
+        public static void GetAttributesOnEnumValue_with_Enum___Should_return_empty_collection___When_no_attributes_of_specified_type_are_applied_to_enum_value()
         {
             // Arrange
             var goodStuff = A.Dummy<GoodStuff>();
 
             // Act
-            var attributes = goodStuff.GetAttributes<NotAppliedAnywhereAttribute>();
+            var attributes = goodStuff.GetAttributesOnEnumValue<NotAppliedAnywhereAttribute>();
 
             // Assert
             attributes.Should().BeEmpty();
         }
 
         [Fact]
-        public static void GetAttributes_with_Enum___Should_return_all_attributes_of_specified_type_applied_to_enum_value___When_called()
+        public static void GetAttributesOnEnumValue_with_Enum___Should_return_all_attributes_of_specified_type_applied_to_enum_value___When_called()
         {
             // Arrange, Act
-            var attributes1 = Sweet.Cookies.GetAttributes<ColorAttribute>();
-            var attributes2 = Fruit.Pear.GetAttributes<PurposeAttribute>();
+            var attributes1 = Sweet.Cookies.GetAttributesOnEnumValue<ColorAttribute>();
+            var attributes2 = Fruit.Pear.GetAttributesOnEnumValue<PurposeAttribute>();
 
             // Assert
             attributes1.Should().ContainSingle();
@@ -278,51 +278,51 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributes_with_object___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
+        public static void GetAttributesOnEnumValue_with_object___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
         {
             // Arrange, Act
-            var ex = Record.Exception(() => ((object)null).GetAttributes<NotAppliedAnywhereAttribute>());
+            var ex = Record.Exception(() => ((object)null).GetAttributesOnEnumValue<NotAppliedAnywhereAttribute>());
 
             // Assert
             ex.Should().BeOfType<ArgumentNullException>();
         }
 
         [Fact]
-        public static void GetAttributes_with_object___Should_throw_ArgumentException___When_parameter_enumValue_is_not_of_type_Enum()
+        public static void GetAttributesOnEnumValue_with_object___Should_throw_ArgumentException___When_parameter_enumValue_is_not_of_type_Enum()
         {
             // Arrange
             var enumValue = A.Dummy<string>();
 
             // Act
-            var ex = Record.Exception(() => enumValue.GetAttributes<NotAppliedAnywhereAttribute>());
+            var ex = Record.Exception(() => enumValue.GetAttributesOnEnumValue<NotAppliedAnywhereAttribute>());
 
             // Assert
             ex.Should().BeOfType<ArgumentException>();
         }
 
         [Fact]
-        public static void GetAttributes_with_object___Should_return_empty_collection___When_no_attributes_of_specified_type_are_applied_to_enum_value()
+        public static void GetAttributesOnEnumValue_with_object___Should_return_empty_collection___When_no_attributes_of_specified_type_are_applied_to_enum_value()
         {
             // Arrange
             var goodStuff = (object)A.Dummy<GoodStuff>();
 
             // Act
-            var attributes = goodStuff.GetAttributes<NotAppliedAnywhereAttribute>();
+            var attributes = goodStuff.GetAttributesOnEnumValue<NotAppliedAnywhereAttribute>();
 
             // Assert
             attributes.Should().BeEmpty();
         }
 
         [Fact]
-        public static void GetAttributes_with_object___Should_return_all_attributes_of_specified_type_applied_to_enum_value___When_called()
+        public static void GetAttributesOnEnumValue_with_object___Should_return_all_attributes_of_specified_type_applied_to_enum_value___When_called()
         {
             // Arrange
             var enumValue1 = (object)Sweet.Cookies;
             var enumValue2 = (object)Fruit.Pear;
 
             // Act
-            var attributes1 = enumValue1.GetAttributes<ColorAttribute>();
-            var attributes2 = enumValue2.GetAttributes<PurposeAttribute>();
+            var attributes1 = enumValue1.GetAttributesOnEnumValue<ColorAttribute>();
+            var attributes2 = enumValue2.GetAttributesOnEnumValue<PurposeAttribute>();
 
             // Assert
             attributes1.Should().ContainSingle();

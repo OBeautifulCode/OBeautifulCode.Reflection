@@ -125,17 +125,17 @@ namespace OBeautifulCode.Reflection
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="enumValue"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="enumValue"/> is not an Enum.</exception>
-        /// <exception cref="InvalidOperationException"><paramref name="enumValue"/> has multiple attributes of type <typeparamref name="T"/>.  Consider calling <see cref="GetAttributes{T}(Enum)"/>.</exception>
+        /// <exception cref="InvalidOperationException"><paramref name="enumValue"/> has multiple attributes of type <typeparamref name="T"/>.  Consider calling <see cref="GetAttributesOnEnumValue{T}(Enum)"/>.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "GetAttributes", Justification = "This is spelled correctly.")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static T GetAttribute<T>(this object enumValue)
+        public static T GetAttributeOnEnumValue<T>(this object enumValue)
             where T : Attribute
         {
             new { enumValue }.Must().NotBeNull().OrThrow();
             var enumValueAsEnum = enumValue as Enum;
             enumValueAsEnum.Named($"{nameof(enumValue)} as Enum").Must().NotBeNull().OrThrow<ArgumentException>();
 
-            var result = enumValueAsEnum.GetAttribute<T>();
+            var result = enumValueAsEnum.GetAttributeOnEnumValue<T>();
             return result;
         }
 
@@ -149,18 +149,18 @@ namespace OBeautifulCode.Reflection
         /// enum value or null if no such attribute has been applied.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="enumValue"/> is null.</exception>
-        /// <exception cref="InvalidOperationException"><paramref name="enumValue"/> has multiple attributes of type <typeparamref name="T"/>.  Consider calling <see cref="GetAttributes{T}(Enum)"/>.</exception>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "GetAttributes", Justification = "This is spelled correctly.")]
+        /// <exception cref="InvalidOperationException"><paramref name="enumValue"/> has multiple attributes of type <typeparamref name="T"/>.  Consider calling <see cref="GetAttributesOnEnumValue{T}(Enum)"/>.</exception>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "GetAttributesOnEnumValue", Justification = "This is spelled correctly.")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object,System.Object,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static T GetAttribute<T>(this Enum enumValue)
+        public static T GetAttributeOnEnumValue<T>(this Enum enumValue)
             where T : Attribute
         {
             new { enumValue }.Must().NotBeNull().OrThrow();
 
-            var attributes = enumValue.GetAttributes<T>();
+            var attributes = enumValue.GetAttributesOnEnumValue<T>();
             if (attributes.Count > 1)
             {
-                throw new InvalidOperationException($"Enum value '{enumValue}' has multiple attributes of type '{typeof(T)}'.  Consider calling {nameof(GetAttributes)}.");
+                throw new InvalidOperationException($"Enum value '{enumValue}' has multiple attributes of type '{typeof(T)}'.  Consider calling {nameof(GetAttributesOnEnumValue)}.");
             }
 
             var result = attributes.SingleOrDefault();
@@ -181,14 +181,14 @@ namespace OBeautifulCode.Reflection
         /// <exception cref="ArgumentNullException"><paramref name="enumValue"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="enumValue"/> is not an Enum.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static IReadOnlyCollection<T> GetAttributes<T>(this object enumValue)
+        public static IReadOnlyCollection<T> GetAttributesOnEnumValue<T>(this object enumValue)
             where T : Attribute
         {
             new { enumValue }.Must().NotBeNull().OrThrow();
             var enumValueAsEnum = enumValue as Enum;
             enumValueAsEnum.Named($"{nameof(enumValue)} as Enum").Must().NotBeNull().OrThrow<ArgumentException>();
 
-            var result = enumValueAsEnum.GetAttributes<T>();
+            var result = enumValueAsEnum.GetAttributesOnEnumValue<T>();
             return result;
         }
 
@@ -207,7 +207,7 @@ namespace OBeautifulCode.Reflection
         /// enum value or an empty collection if no such attribute has been applied.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="enumValue"/> is null.</exception>
-        public static IReadOnlyCollection<T> GetAttributes<T>(this Enum enumValue)
+        public static IReadOnlyCollection<T> GetAttributesOnEnumValue<T>(this Enum enumValue)
             where T : Attribute
         {
             new { enumValue }.Must().NotBeNull().OrThrow();
@@ -258,7 +258,7 @@ namespace OBeautifulCode.Reflection
             var result =
                 GetEnumValues<TEnum>()
                 .Cast<Enum>()
-                .Where(_ => _.GetAttributes<TAttribute>().Any())
+                .Where(_ => _.GetAttributesOnEnumValue<TAttribute>().Any())
                 .Cast<TEnum>()
                 .ToList()
                 .AsReadOnly();
