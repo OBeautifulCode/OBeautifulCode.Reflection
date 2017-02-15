@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Enums.cs" company="OBeautifulCode">
+// <copyright file="AttributesOnClasses.cs" company="OBeautifulCode">
 //   Copyright (c) OBeautifulCode. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -9,47 +9,20 @@ namespace OBeautifulCode.Reflection.Test
 {
 #pragma warning disable SA1649 // File name must match first type name
 #pragma warning disable SA1402 // File may only contain a single class
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1008:EnumsShouldHaveZeroValue", Justification = "this is for testing purposes.")]
-    public enum Empty
+    public class ClassWithNoAttributes
     {
     }
 
-    public enum GoodStuff
+    [Color("blue")]
+    public class ClassWithColor
     {
-        WorkingFromHome,
-
-        Chocolate,
-
-        Vacation,
-
-        Bulldogs
     }
 
-    public enum Sweet
+    [Purpose("some purpose")]
+    [Purpose("some other purpose")]
+    public class ClassWithPurpose
     {
-        [MultipleAllowed]
-        Cake,
-
-        [MultipleAllowed]
-        [MultipleAllowed]
-        [Color("brown")]
-        Chocolate,
-
-        [Color("green")]
-        Cookies
     }
-
-    public enum Fruit
-    {
-        Mango,
-
-        Grape,
-
-        [Purpose("toddlers love it")]
-        [Purpose("good shelf life")]
-        Pear
-    }
-
 #pragma warning restore SA1402 // File may only contain a single class
 #pragma warning restore SA1649 // File name must match first type name
 }

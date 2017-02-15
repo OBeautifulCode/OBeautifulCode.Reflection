@@ -12,22 +12,22 @@ namespace OBeautifulCode.Reflection.Test
 #pragma warning disable SA1649 // File name must match first type name
 #pragma warning disable SA1402 // File may only contain a single class
 
-    [AttributeUsage(AttributeTargets.Field)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Class)]
     public sealed class NotAppliedAnywhereAttribute : Attribute
     {
     }
 
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Class, AllowMultiple = true)]
     public sealed class MultipleAllowedAttribute : Attribute
     {
     }
 
-    [AttributeUsage(AttributeTargets.Field)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Class)]
     public sealed class MultipleNotAllowedAttribute : Attribute
     {
     }
 
-    [AttributeUsage(AttributeTargets.Field)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Class)]
     public sealed class ColorAttribute : Attribute
     {
         public ColorAttribute(string color)
@@ -38,7 +38,7 @@ namespace OBeautifulCode.Reflection.Test
         public string Color { get; }
     }
 
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Class, AllowMultiple = true)]
     public sealed class PurposeAttribute : Attribute
     {
         public PurposeAttribute(string purpose)

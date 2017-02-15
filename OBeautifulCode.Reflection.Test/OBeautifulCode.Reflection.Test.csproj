@@ -91,9 +91,10 @@
     <Compile Include=".OBeautifulCode.Recipes\OBeautifulCode.AutoFakeItEasy\AutoFakeItEasyBootstrapper.cs" />
     <Compile Include="AssemblyHelperTest.cs" />
     <Compile Include="TypesForTesting\Attributes.cs" />
+    <Compile Include="TypesForTesting\AttributesOnClasses.cs" />
     <Compile Include="TypesForTesting\Child.cs" />
     <Compile Include="TypesForTesting\Construct.cs" />
-    <Compile Include="TypesForTesting\Enums.cs" />
+    <Compile Include="TypesForTesting\AttributesOnEnumValues.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionHelperTest.cs" />
     <Compile Include="TypesForTesting\Parent.cs" />

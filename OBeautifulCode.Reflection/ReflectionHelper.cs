@@ -115,6 +115,34 @@ namespace OBeautifulCode.Reflection
         public static bool HasProperty(this object item, string propertyName) => GetProperty(item, propertyName) != null;
 
         /// <summary>
+        /// Gets the specified type of attribute, applied to a specified type.
+        /// </summary>
+        /// <typeparam name="T">The type of the attribute to return.</typeparam>
+        /// <param name="type">The type to scope the attribute search to.</param>
+        /// <returns>
+        /// An attribute object of the specified type that has been applied to the specified
+        /// enum value or null if no such attribute has been applied.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
+        /// <exception cref="InvalidOperationException"><paramref name="type"/> has multiple attributes of type <typeparamref name="T"/>.  Consider calling <see cref="GetAttributes{T}(Type)"/>.</exception>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "GetAttributes", Justification = "This is spelled correctly.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object,System.Object,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
+        public static T GetAttribute<T>(this Type type)
+            where T : Attribute
+        {
+            new { type }.Must().NotBeNull().OrThrow();
+
+            var attributes = type.GetAttributes<T>();
+            if (attributes.Count > 1)
+            {
+                throw new InvalidOperationException($"Type '{type}' has multiple attributes of type '{typeof(T)}'.  Consider calling {nameof(GetAttributes)}.");
+            }
+
+            var result = attributes.SingleOrDefault();
+            return result;
+        }
+
+        /// <summary>
         /// Gets the specified type of attribute, applied to a specific enum value.
         /// </summary>
         /// <typeparam name="T">The type of the attribute to return.</typeparam>
@@ -168,9 +196,32 @@ namespace OBeautifulCode.Reflection
         }
 
         /// <summary>
+        /// Gets all attributes of a specified type that have been applied to some type.
+        /// Only useful when the attribute is configured such that more one instance can be applied.
+        /// </summary>
+        /// <remarks>
+        /// adapted from <a href="http://stackoverflow.com/a/2656211/356790"/>
+        /// </remarks>
+        /// <typeparam name="T">The type of the attributes to return.</typeparam>
+        /// <param name="type">The type to scope the attribute search to.</param>
+        /// <returns>
+        /// A collection all attributes of the specified type that have been applied to the specified
+        /// enum value or an empty collection if no such attribute has been applied.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
+        public static IReadOnlyCollection<T> GetAttributes<T>(this Type type)
+            where T : Attribute
+        {
+            new { type }.Must().NotBeNull().OrThrow();
+
+            var attributes = type.GetCustomAttributes(typeof(T), false);
+            var result = attributes.Cast<T>().ToList().AsReadOnly();
+            return result;
+        }
+
+        /// <summary>
         /// Gets all attributes of the specified type that have been applied to a specific enum value.
-        /// Only useful when the enum is configured such that more one instance of the specified attribute
-        /// can be specified to an enum value.
+        /// Only useful when the attribute is configured such that more one instance can be applied to an enum value.
         /// </summary>
         /// <typeparam name="T">The type of the attributes to return.</typeparam>
         /// <param name="enumValue">The enum value to scope the attribute search to.</param>
@@ -194,8 +245,7 @@ namespace OBeautifulCode.Reflection
 
         /// <summary>
         /// Gets all attributes of the specified type that have been applied to a specific enum value.
-        /// Only useful when the enum is configured such that more one instance of the specified attribute
-        /// can be specified to an enum value.
+        /// Only useful when the attribute is configured such that more one instance can be applied to an enum value.
         /// </summary>
         /// <remarks>
         /// adapted from <a href="http://stackoverflow.com/a/9276348/356790"/>

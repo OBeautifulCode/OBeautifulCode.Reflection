@@ -124,6 +124,59 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
+        public static void GetAttribute___Should_throw_ArgumentNullException___When_parameter_type_is_null()
+        {
+            // Arrange, Act
+            var ex = Record.Exception(() => ReflectionHelper.GetAttribute<NotAppliedAnywhereAttribute>(null));
+
+            // Assert
+            ex.Should().BeOfType<ArgumentNullException>();
+        }
+
+        [Fact]
+        public static void GetAttribute___Should_return_null___When_attribute_is_not_applied_to_type()
+        {
+            // Arrange
+            var type1 = typeof(ClassWithNoAttributes);
+            var type2 = typeof(ClassWithPurpose);
+
+            // Act
+            var attribute1 = type1.GetAttribute<NotAppliedAnywhereAttribute>();
+            var attribute2 = type2.GetAttribute<ColorAttribute>();
+
+            // Assert
+            attribute1.Should().BeNull();
+            attribute2.Should().BeNull();
+        }
+
+        [Fact]
+        public static void GetAttribute___Should_throw_InvalidOperationException___When_attribute_is_applied_multiple_times_to_type()
+        {
+            // Arrange
+            var type = typeof(ClassWithPurpose);
+
+            // Act
+            var ex = Record.Exception(() => type.GetAttribute<PurposeAttribute>());
+
+            // Assert
+            ex.Should().BeOfType<InvalidOperationException>();
+        }
+
+        [Fact]
+        public static void GetAttribute___Should_return_attribute_applied_to_class___When_attribute_is_only_applied_once_to_type()
+        {
+            // Arrange
+            var type = typeof(ClassWithColor);
+
+            // Act
+            var attribute = type.GetAttribute<ColorAttribute>();
+
+            // Assert
+            attribute.Should().NotBeNull();
+            attribute.Color.Should().Be("blue");
+        }
+
+        [Fact]
         public static void GetAttributeOnEnumValue_with_Enum___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
         {
             // Arrange, Act
@@ -236,6 +289,52 @@ namespace OBeautifulCode.Reflection.Test
             attribute1.Should().NotBeNull();
             attribute2.Color.Should().Be("green");
             attribute3.Color.Should().Be("brown");
+        }
+
+        [Fact]
+        public static void GetAttributes___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
+        {
+            // Arrange, Act
+            var ex = Record.Exception(() => ReflectionHelper.GetAttributes<NotAppliedAnywhereAttribute>(null));
+
+            // Assert
+            ex.Should().BeOfType<ArgumentNullException>();
+        }
+
+        [Fact]
+        public static void GetAttributes___Should_return_empty_collection___When_no_attributes_of_specified_type_are_applied_to_type()
+        {
+            // Arrange
+            var type1 = typeof(ClassWithNoAttributes);
+            var type2 = typeof(ClassWithPurpose);
+
+            // Act
+            var attributes1 = type1.GetAttributes<NotAppliedAnywhereAttribute>();
+            var attributes2 = type2.GetAttributes<ColorAttribute>();
+
+            // Assert
+            attributes1.Should().BeEmpty();
+            attributes2.Should().BeEmpty();
+        }
+
+        [Fact]
+        public static void GetAttributes_Enum___Should_return_all_attributes_of_specified_type_applied_to_type___When_called()
+        {
+            // Arrange
+            var type1 = typeof(ClassWithColor);
+            var type2 = typeof(ClassWithPurpose);
+
+            // Act
+            var attributes1 = type1.GetAttributes<ColorAttribute>();
+            var attributes2 = type2.GetAttributes<PurposeAttribute>();
+
+            // Assert
+            attributes1.Should().ContainSingle();
+            attributes1.Single().Color.Should().Be("blue");
+
+            attributes2.Should().HaveCount(2);
+            attributes2.First().Purpose.Should().Be("some purpose");
+            attributes2.Last().Purpose.Should().Be("some other purpose");
         }
 
         [Fact]
