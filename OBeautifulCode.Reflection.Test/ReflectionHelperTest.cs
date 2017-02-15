@@ -502,10 +502,26 @@ namespace OBeautifulCode.Reflection.Test
         public static void GetEnumValuesHaving___Should_return_empty_collection___When_none_of_the_enum_values_have_the_specified_attribute()
         {
             // Arrange, Act
-            var enumValues = ReflectionHelper.GetEnumValuesHaving<GoodStuff, PurposeAttribute>();
+            var enumValues1 = ReflectionHelper.GetEnumValuesHaving<GoodStuff, PurposeAttribute>();
+            var enumValues2 = ReflectionHelper.GetEnumValuesHaving<GoodStuff, PurposeAttribute>(_ => _.Purpose == "none");
 
             // Assert
-            enumValues.Should().BeEmpty();
+            enumValues1.Should().BeEmpty();
+            enumValues2.Should().BeEmpty();
+        }
+
+        [Fact]
+        public static void GetEnumValuesHaving___Should_return_empty_collection___When_none_of_the_enum_values_have_the_specified_attribute_that_passes_the_specified_attributeFilter()
+        {
+            // Arrange, Act
+            var enumValues1 = ReflectionHelper.GetEnumValuesHaving<Sweet, ColorAttribute>(_ => _.Color == "purple");
+            var enumValues2 = ReflectionHelper.GetEnumValuesHaving<Sweet, MultipleAllowedAttribute>(_ => false);
+            var enumValues3 = ReflectionHelper.GetEnumValuesHaving<Fruit, PurposeAttribute>(_ => _.Purpose == "no purpose");
+
+            // Assert
+            enumValues1.Should().BeEmpty();
+            enumValues2.Should().BeEmpty();
+            enumValues3.Should().BeEmpty();
         }
 
         [Fact]
@@ -518,6 +534,20 @@ namespace OBeautifulCode.Reflection.Test
 
             // Assert
             enumValues1.Should().Equal(Sweet.Cake, Sweet.Chocolate);
+            enumValues2.Should().Equal(Sweet.Chocolate, Sweet.Cookies);
+            enumValues3.Should().Equal(Fruit.Pear);
+        }
+
+        [Fact]
+        public static void GetEnumValuesHaving___Should_return_all_enum_values_having_specified_attribute_that_passes_attributeFilter___When_some_enum_values_have_the_specified_attribute_that_passes_the_attributeFilter()
+        {
+            // Arrange, Act
+            var enumValues1 = ReflectionHelper.GetEnumValuesHaving<Sweet, ColorAttribute>(_ => _.Color == "brown");
+            var enumValues2 = ReflectionHelper.GetEnumValuesHaving<Sweet, ColorAttribute>(_ => _.Color == "brown" || _.Color == "green");
+            var enumValues3 = ReflectionHelper.GetEnumValuesHaving<Fruit, PurposeAttribute>(_ => _.Purpose == "good shelf life");
+
+            // Assert
+            enumValues1.Should().Equal(Sweet.Chocolate);
             enumValues2.Should().Equal(Sweet.Chocolate, Sweet.Cookies);
             enumValues3.Should().Equal(Fruit.Pear);
         }

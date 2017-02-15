@@ -307,15 +307,20 @@ namespace OBeautifulCode.Reflection
         /// </summary>
         /// <typeparam name="TEnum">The type of the enum.</typeparam>
         /// <typeparam name="TAttribute">The type of attribute to search for.</typeparam>
+        /// <param name="attributeFilter">
+        /// Optional.  When provided, requires that this filter 
+        /// return true when attributes of the specified type are passed-in, 
+        /// before the enum value having the specified attribute is returned.
+        /// </param>
         /// <returns>
         /// The values/members of a specified enum values where the specified
         /// attribute has been applied at least one, or an empty collection if none of the specified
         /// enum values have that attribute.
         /// </returns>
         /// <exception cref="ArgumentException"><typeparamref name="TEnum"/> is not an enum.</exception>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "TEnum will be inferred, TAttribute is required so that we know what attribute to filter for.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is not needed.")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static IReadOnlyCollection<TEnum> GetEnumValuesHaving<TEnum, TAttribute>()
+        public static IReadOnlyCollection<TEnum> GetEnumValuesHaving<TEnum, TAttribute>(Func<TAttribute, bool> attributeFilter = null)
             where TEnum : struct
             where TAttribute : Attribute
         {
@@ -324,7 +329,11 @@ namespace OBeautifulCode.Reflection
             var result =
                 GetEnumValues<TEnum>()
                 .Cast<Enum>()
-                .Where(_ => _.GetAttributesOnEnumValue<TAttribute>().Any())
+                .Where(
+                        _ =>
+                            attributeFilter == null
+                                ? _.GetAttributesOnEnumValue<TAttribute>().Any()
+                                : _.GetAttributesOnEnumValue<TAttribute>().Where(attributeFilter).Any())
                 .Cast<TEnum>()
                 .ToList()
                 .AsReadOnly();
