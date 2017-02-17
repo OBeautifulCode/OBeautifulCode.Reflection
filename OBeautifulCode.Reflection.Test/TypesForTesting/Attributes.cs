@@ -49,6 +49,17 @@ namespace OBeautifulCode.Reflection.Test
         public string Purpose { get; }
     }
 
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Enum | AttributeTargets.Interface, AllowMultiple = true)]
+    public sealed class EqualOpportunity : Attribute
+    {
+        public EqualOpportunity(string theOpportunity)
+        {
+            this.TheOpportunity = theOpportunity;
+        }
+
+        public string TheOpportunity { get; }
+    }
+
 #pragma warning restore SA1402 // File may only contain a single class
 #pragma warning restore SA1649 // File name must match first type name
 }

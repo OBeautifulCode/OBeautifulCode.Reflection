@@ -617,6 +617,44 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
+        public static void GetTypesHaving_TAttribute___Should_throw_ArgumentNullException___When_parameter_assembly_is_null()
+        {
+            // Arrange, Act
+            var ex = Record.Exception(() => ReflectionHelper.GetTypesHaving<EqualOpportunity>(null));
+
+            // Assert
+            ex.Should().BeOfType<ArgumentNullException>();
+        }
+
+        [Fact]
+        public static void GetTypesHaving_TAttribute___Should_return_all_types_in_assembly_having_specified_attribute___When_called()
+        {
+            // Arrange
+            var assembly = typeof(ReflectionHelperTest).Assembly;
+
+            // Act
+            var types = assembly.GetTypesHaving<EqualOpportunity>();
+
+            // Assert
+            types.Should().HaveCount(5);
+            types.Should().BeEquivalentTo(typeof(EqualOpportunityEnum), typeof(IAmEqualOpportunity), typeof(IHaveEqualOpportunity), typeof(EqualOpportunityClassy), typeof(EqualOpportunityClassless));
+        }
+
+        [Fact]
+        public static void GetTypesHaving_TAttribute___Should_return_all_types_in_assembly_having_specified_attribute_that_passes_attributeFilter___When_called()
+        {
+            // Arrange
+            var assembly = typeof(ReflectionHelperTest).Assembly;
+
+            // Act
+            var types = assembly.GetTypesHaving<EqualOpportunity>(_ => _.TheOpportunity == "classify none");
+
+            // Assert
+            types.Should().HaveCount(3);
+            types.Should().BeEquivalentTo(typeof(IHaveEqualOpportunity), typeof(EqualOpportunityClassy), typeof(EqualOpportunityClassless));
+        }
+
+        [Fact]
         public static void HasPropertyTest()
         {
             var parentClass = new Parent();

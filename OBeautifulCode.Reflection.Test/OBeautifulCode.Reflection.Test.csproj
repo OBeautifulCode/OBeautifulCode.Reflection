@@ -92,6 +92,7 @@
     <Compile Include="AssemblyHelperTest.cs" />
     <Compile Include="TypesForTesting\Attributes.cs" />
     <Compile Include="TypesForTesting\AttributesOnClasses.cs" />
+    <Compile Include="TypesForTesting\AttributesOnTypes.cs" />
     <Compile Include="TypesForTesting\Child.cs" />
     <Compile Include="TypesForTesting\Construct.cs" />
     <Compile Include="TypesForTesting\AttributesOnEnumValues.cs" />

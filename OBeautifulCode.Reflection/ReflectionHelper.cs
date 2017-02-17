@@ -378,6 +378,42 @@ namespace OBeautifulCode.Reflection
         }
 
         /// <summary>
+        /// Gets all types in an assembly that have an attribute of a specified type.
+        /// </summary>
+        /// <typeparam name="TAttribute">The type of attribute to search for.</typeparam>
+        /// <param name="assembly">The assembly to search.</param>
+        /// <param name="attributeFilter">
+        /// Optional.  When provided, requires that this filter 
+        /// return true when attributes of the specified type are passed-in, 
+        /// before the type having the specified attribute is returned.
+        /// </param>
+        /// <returns>
+        /// The types in an assembly where the specified attribute has been 
+        /// applied at least one, or an empty collection if none of the 
+        /// types in the assembly have that attribute.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="assembly"/> is null.</exception>
+        public static IReadOnlyCollection<Type> GetTypesHaving<TAttribute>(
+            this Assembly assembly, 
+            Func<TAttribute, bool> attributeFilter = null)
+            where TAttribute : Attribute
+        {
+            new { assembly }.Must().NotBeNull().OrThrow();
+
+            var attributeType = typeof(TAttribute);
+            var result = assembly.GetTypes()
+                .Where(
+                    _ =>
+                        attributeFilter == null
+                            ? _.GetCustomAttributes(attributeType, false).Any()
+                            : _.GetCustomAttributes(attributeType, false).Cast<TAttribute>().Where(attributeFilter).Any())
+                .ToList()
+                .AsReadOnly();
+
+            return result;
+        }
+
+        /// <summary>
         /// Returns a field value from a given object.
         /// </summary>
         /// <typeparam name="T">Type of the field.</typeparam>
