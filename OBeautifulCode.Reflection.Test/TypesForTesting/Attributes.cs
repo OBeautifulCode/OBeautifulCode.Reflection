@@ -50,9 +50,9 @@ namespace OBeautifulCode.Reflection.Test
     }
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Enum | AttributeTargets.Interface, AllowMultiple = true)]
-    public sealed class EqualOpportunity : Attribute
+    public sealed class EqualOpportunityAttribute : Attribute
     {
-        public EqualOpportunity(string theOpportunity)
+        public EqualOpportunityAttribute(string theOpportunity)
         {
             this.TheOpportunity = theOpportunity;
         }

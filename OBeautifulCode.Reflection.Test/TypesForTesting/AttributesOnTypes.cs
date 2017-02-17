@@ -11,17 +11,21 @@ namespace OBeautifulCode.Reflection.Test
 #pragma warning disable SA1402 // File may only contain a single class
 
     [EqualOpportunity("enumerate everything")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix", Justification = "This is for test purposes.")]
     public enum EqualOpportunityEnum
     {
+        None
     }
 
     [EqualOpportunity("interface with everyone")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces", Justification = "This is for test purposes.")]
     public interface IAmEqualOpportunity
     {
     }
 
     [EqualOpportunity("interface for everything")]
     [EqualOpportunity("classify none")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces", Justification = "This is for test purposes.")]
     public interface IHaveEqualOpportunity
     {
     }

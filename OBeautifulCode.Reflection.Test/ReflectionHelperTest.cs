@@ -27,7 +27,7 @@ namespace OBeautifulCode.Reflection.Test
     public static class ReflectionHelperTest
     {
         [Fact]
-        public static void Construct_untyped___Should_construct_an_object_with_a_parameterless_constructor___When_parameter_parameters_is_null_or_empty()
+        public static void Construct___Should_construct_an_object_with_a_parameterless_constructor___When_parameter_parameters_is_null_or_empty()
         {
             // Arrange
             var type = typeof(Dog);
@@ -42,7 +42,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void Construct_untyped___Should_construct_a_object_whose_constructor_has_parameters___When_parameter_parameters_specifies_all_parameters_for_that_constructor()
+        public static void Construct___Should_construct_a_object_whose_constructor_has_parameters___When_parameter_parameters_specifies_all_parameters_for_that_constructor()
         {
             // Arrange
             int numberOfLives = A.Dummy<int>();
@@ -57,7 +57,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void Construct_with_same_type_to_construct_as_type_to_return___Should_construct_an_object_with_a_parameterless_constructor___When_parameter_parameters_is_null_or_empty()
+        public static void Construct_T_objectArray___Should_construct_an_object_with_a_parameterless_constructor___When_parameter_parameters_is_null_or_empty()
         {
             // Arrange
             object[] nullParams = null;
@@ -74,7 +74,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void Construct_with_same_type_to_construct_as_type_to_return___Should_construct_a_object_whose_constructor_has_parameters___When_parameter_parameters_specifies_all_parameters_for_that_constructor()
+        public static void Construct_T_objectArray___Should_construct_a_object_whose_constructor_has_parameters___When_parameter_parameters_specifies_all_parameters_for_that_constructor()
         {
             // Arrange
             int numberOfLives = A.Dummy<int>();
@@ -87,7 +87,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void Construct_with_different_type_to_construct_and_type_to_return___Should_construct_an_object_with_a_parameterless_constructor___When_parameter_parameters_is_null_or_empty()
+        public static void Construct_T_type_objectArray___Should_construct_an_object_with_a_parameterless_constructor___When_parameter_parameters_is_null_or_empty()
         {
             // Arrange
             var type = typeof(Dog);
@@ -108,7 +108,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void Construct_with_different_type_to_construct_and_type_to_return___Should_construct_a_object_whose_constructor_has_parameters___When_parameter_parameters_specifies_all_parameters_for_that_constructor()
+        public static void Construct_T_type_objectArray___Should_construct_a_object_whose_constructor_has_parameters___When_parameter_parameters_specifies_all_parameters_for_that_constructor()
         {
             // Arrange
             int numberOfLives = A.Dummy<int>();
@@ -124,7 +124,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttribute___Should_throw_ArgumentNullException___When_parameter_type_is_null()
+        public static void GetAttribute_TAttribute___Should_throw_ArgumentNullException___When_parameter_type_is_null()
         {
             // Arrange, Act
             var ex = Record.Exception(() => ReflectionHelper.GetAttribute<NotAppliedAnywhereAttribute>(null));
@@ -134,7 +134,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttribute___Should_return_null___When_attribute_is_not_applied_to_type()
+        public static void GetAttribute_TAttribute___Should_return_null___When_attribute_is_not_applied_to_type()
         {
             // Arrange
             var type1 = typeof(ClassWithNoAttributes);
@@ -150,7 +150,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttribute___Should_throw_InvalidOperationException___When_attribute_is_applied_multiple_times_to_type()
+        public static void GetAttribute_TAttribute___Should_throw_InvalidOperationException___When_attribute_is_applied_multiple_times_to_type()
         {
             // Arrange
             var type = typeof(ClassWithPurpose);
@@ -163,7 +163,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttribute___Should_return_attribute_applied_to_class___When_attribute_is_only_applied_once_to_type()
+        public static void GetAttribute_TAttribute___Should_return_attribute_applied_to_class___When_attribute_is_only_applied_once_to_type()
         {
             // Arrange
             var type = typeof(ClassWithColor);
@@ -177,7 +177,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributeOnEnumValue_with_Enum___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
+        public static void GetAttributeOnEnumValue_TAttribute_Enum___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
         {
             // Arrange, Act
             var ex = Record.Exception(() => ((Enum)null).GetAttributeOnEnumValue<NotAppliedAnywhereAttribute>());
@@ -187,7 +187,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributeOnEnumValue_with_Enum___Should_return_null___When_attribute_is_not_applied_to_enum_value()
+        public static void GetAttributeOnEnumValue_TAttribute_Enum___Should_return_null___When_attribute_is_not_applied_to_enum_value()
         {
             // Arrange
             var enumValue = A.Dummy<GoodStuff>();
@@ -200,7 +200,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributeOnEnumValue_with_Enum___Should_throw_InvalidOperationException___When_attribute_is_applied_multiple_times_to_enum_value()
+        public static void GetAttributeOnEnumValue_TAttribute_Enum___Should_throw_InvalidOperationException___When_attribute_is_applied_multiple_times_to_enum_value()
         {
             // Arrange, Act
             var ex = Record.Exception(() => Sweet.Chocolate.GetAttributeOnEnumValue<MultipleAllowedAttribute>());
@@ -210,7 +210,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributeOnEnumValue_with_Enum___Should_return_attribute_applied_to_enum_value___When_attribute_is_only_applied_once()
+        public static void GetAttributeOnEnumValue_TAttribute_Enum___Should_return_attribute_applied_to_enum_value___When_attribute_is_only_applied_once()
         {
             // Arrange, Act
             var attribute1 = Sweet.Cake.GetAttributeOnEnumValue<MultipleAllowedAttribute>();
@@ -224,7 +224,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributeOnEnumValue_with_object___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
+        public static void GetAttributeOnEnumValue_TAttribute_object___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
         {
             // Arrange, Act
             var ex = Record.Exception(() => ((object)null).GetAttributeOnEnumValue<NotAppliedAnywhereAttribute>());
@@ -234,7 +234,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributeOnEnumValue_with_object___Should_throw_ArgumentException___When_parameter_enumValue_is_not_an_Enum()
+        public static void GetAttributeOnEnumValue_TAttribute_object___Should_throw_ArgumentException___When_parameter_enumValue_is_not_an_Enum()
         {
             // Arrange
             var enumValue = A.Dummy<string>();
@@ -247,7 +247,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributeOnEnumValue_with_object___Should_return_null___When_attribute_is_not_applied_to_enum_value()
+        public static void GetAttributeOnEnumValue_TAttribute_object___Should_return_null___When_attribute_is_not_applied_to_enum_value()
         {
             // Arrange
             var enumValue = (object)A.Dummy<GoodStuff>();
@@ -260,7 +260,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributeOnEnumValue_with_object___Should_throw_InvalidOperationException___When_attribute_is_applied_multiple_times_to_enum_value()
+        public static void GetAttributeOnEnumValue_TAttribute_object___Should_throw_InvalidOperationException___When_attribute_is_applied_multiple_times_to_enum_value()
         {
             // Arrange
             var enumValue = (object)Sweet.Chocolate;
@@ -273,7 +273,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributeOnEnumValue_with_object___Should_return_attribute_applied_to_enum_value___When_attribute_is_only_applied_once()
+        public static void GetAttributeOnEnumValue_TAttribute_object___Should_return_attribute_applied_to_enum_value___When_attribute_is_only_applied_once()
         {
             // Arrange
             var enumValue1 = (object)Sweet.Cake;
@@ -292,7 +292,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributes___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
+        public static void GetAttributes_TAttribute___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
         {
             // Arrange, Act
             var ex = Record.Exception(() => ReflectionHelper.GetAttributes<NotAppliedAnywhereAttribute>(null));
@@ -302,7 +302,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributes___Should_return_empty_collection___When_no_attributes_of_specified_type_are_applied_to_type()
+        public static void GetAttributes_TAttribute___Should_return_empty_collection___When_no_attributes_of_specified_type_are_applied_to_type()
         {
             // Arrange
             var type1 = typeof(ClassWithNoAttributes);
@@ -318,7 +318,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributes_Enum___Should_return_all_attributes_of_specified_type_applied_to_type___When_called()
+        public static void GetAttributes_TAttribute___Should_return_all_attributes_of_specified_type_applied_to_type___When_called()
         {
             // Arrange
             var type1 = typeof(ClassWithColor);
@@ -338,7 +338,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributesOnEnumValue_with_Enum___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
+        public static void GetAttributesOnEnumValue_TAttribute_Enum___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
         {
             // Arrange, Act
             var ex = Record.Exception(() => ((Enum)null).GetAttributesOnEnumValue<NotAppliedAnywhereAttribute>());
@@ -348,7 +348,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributesOnEnumValue_with_Enum___Should_return_empty_collection___When_no_attributes_of_specified_type_are_applied_to_enum_value()
+        public static void GetAttributesOnEnumValue_TAttribute_Enum___Should_return_empty_collection___When_no_attributes_of_specified_type_are_applied_to_enum_value()
         {
             // Arrange
             var goodStuff = A.Dummy<GoodStuff>();
@@ -361,7 +361,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributesOnEnumValue_with_Enum___Should_return_all_attributes_of_specified_type_applied_to_enum_value___When_called()
+        public static void GetAttributesOnEnumValue_TAttribute_Enum___Should_return_all_attributes_of_specified_type_applied_to_enum_value___When_called()
         {
             // Arrange, Act
             var attributes1 = Sweet.Cookies.GetAttributesOnEnumValue<ColorAttribute>();
@@ -377,7 +377,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributesOnEnumValue_with_object___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
+        public static void GetAttributesOnEnumValue_TAttribute_object___Should_throw_ArgumentNullException___When_parameter_enumValue_is_null()
         {
             // Arrange, Act
             var ex = Record.Exception(() => ((object)null).GetAttributesOnEnumValue<NotAppliedAnywhereAttribute>());
@@ -387,7 +387,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributesOnEnumValue_with_object___Should_throw_ArgumentException___When_parameter_enumValue_is_not_of_type_Enum()
+        public static void GetAttributesOnEnumValue_TAttribute_object___Should_throw_ArgumentException___When_parameter_enumValue_is_not_of_type_Enum()
         {
             // Arrange
             var enumValue = A.Dummy<string>();
@@ -400,7 +400,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributesOnEnumValue_with_object___Should_return_empty_collection___When_no_attributes_of_specified_type_are_applied_to_enum_value()
+        public static void GetAttributesOnEnumValue_TAttribute_object___Should_return_empty_collection___When_no_attributes_of_specified_type_are_applied_to_enum_value()
         {
             // Arrange
             var goodStuff = (object)A.Dummy<GoodStuff>();
@@ -413,7 +413,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetAttributesOnEnumValue_with_object___Should_return_all_attributes_of_specified_type_applied_to_enum_value___When_called()
+        public static void GetAttributesOnEnumValue_TAttribute_object___Should_return_all_attributes_of_specified_type_applied_to_enum_value___When_called()
         {
             // Arrange
             var enumValue1 = (object)Sweet.Cookies;
@@ -433,7 +433,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetEnumValues_T___Should_throw_ArgumentException___When_generic_type_parameter_is_not_of_type_Enum()
+        public static void GetEnumValues_TEnum___Should_throw_ArgumentException___When_generic_type_parameter_is_not_of_type_Enum()
         {
             // Arrange, Act
             var ex1 = Record.Exception(() => ReflectionHelper.GetEnumValues<int>());
@@ -449,7 +449,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetEnumValues_T___Should_return_enum_values_in_order___When_called()
+        public static void GetEnumValues_TEnum___Should_return_enum_values_in_order___When_called()
         {
             // Arrange, Act
             var enumValues1 = ReflectionHelper.GetEnumValues<Empty>();
@@ -461,7 +461,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetEnumValues_enumType___Should_throw_ArgumentException___When_generic_type_parameter_is_not_of_type_Enum()
+        public static void GetEnumValues_Type___Should_throw_ArgumentException___When_generic_type_parameter_is_not_of_type_Enum()
         {
             // Arrange, Act
             var ex1 = Record.Exception(() => typeof(int).GetEnumValues());
@@ -477,7 +477,7 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetEnumValues_enumType___Should_return_enum_values_in_order___When_called()
+        public static void GetEnumValues_Type___Should_return_enum_values_in_order___When_called()
         {
             // Arrange, Act
             var enumValues1 = typeof(Empty).GetEnumValues();
@@ -620,7 +620,7 @@ namespace OBeautifulCode.Reflection.Test
         public static void GetTypesHaving_TAttribute___Should_throw_ArgumentNullException___When_parameter_assembly_is_null()
         {
             // Arrange, Act
-            var ex = Record.Exception(() => ReflectionHelper.GetTypesHaving<EqualOpportunity>(null));
+            var ex = Record.Exception(() => ReflectionHelper.GetTypesHaving<EqualOpportunityAttribute>(null));
 
             // Assert
             ex.Should().BeOfType<ArgumentNullException>();
@@ -633,7 +633,7 @@ namespace OBeautifulCode.Reflection.Test
             var assembly = typeof(ReflectionHelperTest).Assembly;
 
             // Act
-            var types = assembly.GetTypesHaving<EqualOpportunity>();
+            var types = assembly.GetTypesHaving<EqualOpportunityAttribute>();
 
             // Assert
             types.Should().HaveCount(5);
@@ -647,7 +647,7 @@ namespace OBeautifulCode.Reflection.Test
             var assembly = typeof(ReflectionHelperTest).Assembly;
 
             // Act
-            var types = assembly.GetTypesHaving<EqualOpportunity>(_ => _.TheOpportunity == "classify none");
+            var types = assembly.GetTypesHaving<EqualOpportunityAttribute>(_ => _.TheOpportunity == "classify none");
 
             // Assert
             types.Should().HaveCount(3);
