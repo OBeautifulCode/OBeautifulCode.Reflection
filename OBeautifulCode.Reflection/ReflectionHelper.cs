@@ -43,7 +43,9 @@ namespace OBeautifulCode.Reflection
         /// A reference to the newely created object.
         /// </returns>
         /// <exception cref="Exception">Various exceptions thrown by <see cref="Activator.CreateInstance(Type, object[])"/>.</exception>
-        public static object Construct(this Type type, params object[] parameters)
+        public static object Construct(
+            this Type type,
+            params object[] parameters)
         {
             var result = Activator.CreateInstance(type, parameters);
             return result;
@@ -61,7 +63,8 @@ namespace OBeautifulCode.Reflection
         /// A reference to the newely created object.
         /// </returns>
         /// <exception cref="Exception">Any exception thrown by <see cref="Activator.CreateInstance(Type, object[])"/>.</exception>
-        public static T Construct<T>(params object[] parameters)
+        public static T Construct<T>(
+            params object[] parameters)
         {
             var result = typeof(T).Construct<T>(parameters);
             return result;
@@ -81,7 +84,9 @@ namespace OBeautifulCode.Reflection
         /// </returns>
         /// <exception cref="Exception">Any exception thrown by <see cref="Activator.CreateInstance(Type, object[])"/>.</exception>
         /// <exception cref="InvalidCastException">The created object could not be cast to a <typeparamref name="T"/>.</exception>
-        public static T Construct<T>(this Type type, params object[] parameters)
+        public static T Construct<T>(
+            this Type type,
+            params object[] parameters)
         {
             var objectResult = type.Construct(parameters);
             var result = (T)objectResult;
@@ -99,7 +104,9 @@ namespace OBeautifulCode.Reflection
         /// <exception cref="ArgumentNullException"><paramref name="item"/> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="fieldName"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="fieldName"/> is whitespace.</exception>
-        public static bool HasField(this object item, string fieldName) => GetField(item, fieldName) != null;
+        public static bool HasField(
+            this object item,
+            string fieldName) => GetField(item, fieldName) != null;
 
         /// <summary>
         /// Determines if an object has a given property.
@@ -112,7 +119,9 @@ namespace OBeautifulCode.Reflection
         /// <exception cref="ArgumentNullException"><paramref name="item"/> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="propertyName"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="propertyName"/> is whitespace.</exception>
-        public static bool HasProperty(this object item, string propertyName) => GetProperty(item, propertyName) != null;
+        public static bool HasProperty(
+            this object item,
+            string propertyName) => GetProperty(item, propertyName) != null;
 
         /// <summary>
         /// Gets the specified type of attribute, applied to a specified type.
@@ -127,7 +136,8 @@ namespace OBeautifulCode.Reflection
         /// <exception cref="InvalidOperationException"><paramref name="type"/> has multiple attributes of type <typeparamref name="TAttribute"/>.  Consider calling <see cref="GetAttributes{T}(Type)"/>.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "GetAttributes", Justification = "This is spelled correctly.")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object,System.Object,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static TAttribute GetAttribute<TAttribute>(this Type type)
+        public static TAttribute GetAttribute<TAttribute>(
+            this Type type)
             where TAttribute : Attribute
         {
             new { type }.Must().NotBeNull().OrThrow();
@@ -156,7 +166,8 @@ namespace OBeautifulCode.Reflection
         /// <exception cref="InvalidOperationException"><paramref name="enumValue"/> has multiple attributes of type <typeparamref name="TAttribute"/>.  Consider calling <see cref="GetAttributesOnEnumValue{T}(Enum)"/>.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "GetAttributes", Justification = "This is spelled correctly.")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static TAttribute GetAttributeOnEnumValue<TAttribute>(this object enumValue)
+        public static TAttribute GetAttributeOnEnumValue<TAttribute>(
+            this object enumValue)
             where TAttribute : Attribute
         {
             new { enumValue }.Must().NotBeNull().OrThrow();
@@ -180,7 +191,8 @@ namespace OBeautifulCode.Reflection
         /// <exception cref="InvalidOperationException"><paramref name="enumValue"/> has multiple attributes of type <typeparamref name="TAttribute"/>.  Consider calling <see cref="GetAttributesOnEnumValue{T}(Enum)"/>.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "GetAttributesOnEnumValue", Justification = "This is spelled correctly.")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object,System.Object,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static TAttribute GetAttributeOnEnumValue<TAttribute>(this Enum enumValue)
+        public static TAttribute GetAttributeOnEnumValue<TAttribute>(
+            this Enum enumValue)
             where TAttribute : Attribute
         {
             new { enumValue }.Must().NotBeNull().OrThrow();
@@ -209,7 +221,8 @@ namespace OBeautifulCode.Reflection
         /// enum value or an empty collection if no such attribute has been applied.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
-        public static IReadOnlyCollection<TAttribute> GetAttributes<TAttribute>(this Type type)
+        public static IReadOnlyCollection<TAttribute> GetAttributes<TAttribute>(
+            this Type type)
             where TAttribute : Attribute
         {
             new { type }.Must().NotBeNull().OrThrow();
@@ -232,7 +245,8 @@ namespace OBeautifulCode.Reflection
         /// <exception cref="ArgumentNullException"><paramref name="enumValue"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="enumValue"/> is not an Enum.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static IReadOnlyCollection<TAttribute> GetAttributesOnEnumValue<TAttribute>(this object enumValue)
+        public static IReadOnlyCollection<TAttribute> GetAttributesOnEnumValue<TAttribute>(
+            this object enumValue)
             where TAttribute : Attribute
         {
             new { enumValue }.Must().NotBeNull().OrThrow();
@@ -257,7 +271,8 @@ namespace OBeautifulCode.Reflection
         /// enum value or an empty collection if no such attribute has been applied.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="enumValue"/> is null.</exception>
-        public static IReadOnlyCollection<T> GetAttributesOnEnumValue<T>(this Enum enumValue)
+        public static IReadOnlyCollection<T> GetAttributesOnEnumValue<T>(
+            this Enum enumValue)
             where T : Attribute
         {
             new { enumValue }.Must().NotBeNull().OrThrow();
@@ -295,7 +310,8 @@ namespace OBeautifulCode.Reflection
         /// </returns>
         /// <exception cref="ArgumentException"><paramref name="enumType"/> is not an enum.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static IReadOnlyCollection<Enum> GetEnumValues(this Type enumType)
+        public static IReadOnlyCollection<Enum> GetEnumValues(
+            this Type enumType)
         {
             enumType.IsEnum.Named($"{nameof(enumType)} is Enum").Must().BeTrue().OrThrow();
             var results = Enum.GetValues(enumType).Cast<Enum>().ToList().AsReadOnly();
@@ -320,7 +336,8 @@ namespace OBeautifulCode.Reflection
         /// <exception cref="ArgumentException"><typeparamref name="TEnum"/> is not an enum.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is not needed.")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static IReadOnlyCollection<TEnum> GetEnumValuesHaving<TEnum, TAttribute>(Func<TAttribute, bool> attributeFilter = null)
+        public static IReadOnlyCollection<TEnum> GetEnumValuesHaving<TEnum, TAttribute>(
+            Func<TAttribute, bool> attributeFilter = null)
             where TEnum : struct
             where TAttribute : Attribute
         {
@@ -359,7 +376,9 @@ namespace OBeautifulCode.Reflection
         /// <exception cref="ArgumentException"><paramref name="enumType"/> is not an enum.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is not needed.")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static IReadOnlyCollection<Enum> GetEnumValuesHaving<TAttribute>(this Type enumType, Func<TAttribute, bool> attributeFilter = null)
+        public static IReadOnlyCollection<Enum> GetEnumValuesHaving<TAttribute>(
+            this Type enumType,
+            Func<TAttribute, bool> attributeFilter = null)
             where TAttribute : Attribute
         {
             enumType.IsEnum.Named($"{nameof(enumType)} is Enum").Must().BeTrue().OrThrow();
@@ -428,7 +447,9 @@ namespace OBeautifulCode.Reflection
         /// <exception cref="InvalidOperationException">The field was not found.</exception>
         /// <exception cref="InvalidCastException">The field is not of type T.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static T GetFieldValue<T>(this object item, string fieldName)
+        public static T GetFieldValue<T>(
+            this object item,
+            string fieldName)
         {
             FieldInfo fi = GetField(item, fieldName);
             if (fi == null)
@@ -469,7 +490,9 @@ namespace OBeautifulCode.Reflection
         /// <exception cref="InvalidOperationException">The property was not found.</exception>
         /// <exception cref="InvalidCastException">The property is not of the specified type.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static T GetPropertyValue<T>(this object item, string propertyName)
+        public static T GetPropertyValue<T>(
+            this object item,
+            string propertyName)
         {
             PropertyInfo pi = GetProperty(item, propertyName);
             if (pi == null)
@@ -508,7 +531,10 @@ namespace OBeautifulCode.Reflection
         /// <exception cref="InvalidOperationException">The field was not found.</exception>
         /// <exception cref="InvalidCastException">The property is not of type T.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static void SetFieldValue<T>(this object item, string fieldName, T value)
+        public static void SetFieldValue<T>(
+            this object item,
+            string fieldName,
+            T value)
         {
             FieldInfo fi = GetField(item, fieldName);
             if (fi == null)
@@ -542,7 +568,10 @@ namespace OBeautifulCode.Reflection
         /// adapted from: <a href="http://stackoverflow.com/questions/1565734/is-it-possible-to-set-private-property-via-reflection/1565766#1565766" />
         /// </remarks>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static void SetPropertyValue<T>(this object item, string propertyName, T value)
+        public static void SetPropertyValue<T>(
+            this object item,
+            string propertyName,
+            T value)
         {
             PropertyInfo pi = GetProperty(item, propertyName);
             if (pi == null)
@@ -560,7 +589,9 @@ namespace OBeautifulCode.Reflection
             }
         }
 
-        private static FieldInfo GetField(object item, string fieldName)
+        private static FieldInfo GetField(
+            object item,
+            string fieldName)
         {
             if (item == null)
             {
@@ -589,7 +620,9 @@ namespace OBeautifulCode.Reflection
             return fi;
         }
 
-        private static PropertyInfo GetProperty(object item, string propertyName)
+        private static PropertyInfo GetProperty(
+            object item,
+            string propertyName)
         {
             if (item == null)
             {
