@@ -16,7 +16,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OBeautifulCode")]
 [assembly: AssemblyProduct("OBeautifulCode.Reflection.Test")]
-[assembly: AssemblyCopyright("Copyright ©  2016 OBeautifulCode")]
+[assembly: AssemblyCopyright("Copyright (c) 2017 OBeautifulCode")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -8,6 +8,6 @@
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Reflection/master/OBeautifulCode.Reflection/nuget-icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
-    <copyright>Copyright (c) 2016 OBeautifulCode</copyright>
+    <copyright>Copyright (c) 2017 OBeautifulCode</copyright>
   </metadata>
 </package>

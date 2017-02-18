@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <summary>This library contains various convenience methods for tasks involving reflection.</summary>
-    <copyright>Copyright 2016 OBeautifulCode</copyright>
+    <copyright>Copyright 2017 OBeautifulCode</copyright>
     <tags>reflection extension extensions</tags>
   </metadata>
 </package>
