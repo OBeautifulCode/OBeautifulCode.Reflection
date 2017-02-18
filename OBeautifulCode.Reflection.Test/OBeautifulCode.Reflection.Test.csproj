@@ -99,9 +99,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionHelperTest.cs" />
     <Compile Include="TypesForTesting\Parent.cs" />
-    <Compile Include="TypeDescriptionExtensionsTest.cs" />
-    <Compile Include="TypeComparerTests.cs" />
-    <Compile Include="TypeDescriptionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OBeautifulCode.Reflection\OBeautifulCode.Reflection.csproj">

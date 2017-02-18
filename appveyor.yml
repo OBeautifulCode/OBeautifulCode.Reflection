@@ -19,7 +19,6 @@ after_build:
 - ps: (New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/NaosProject/Naos.Powershell/master/Build/Nuget-Functions.ps1', "$($env:appveyor_build_folder)\Nuget-Functions.ps1")
 - ps: . "$($env:appveyor_build_folder)\Nuget-Functions.ps1"
 - ps: $version = Nuget-CreatePreReleaseSupportedVersion -version $env:appveyor_build_version -branchName $env:appveyor_repo_branch
-- ps: nuget pack "$($env:appveyor_build_folder)\OBeautifulCode.Reflection\OBeautifulCode.Reflection.csproj" -Version $version -Prop Platform=AnyCPU
 - ps: ls . -filter *.recipe-nuspec -recurse | %{Nuget-OverrideNuSpecIntoNewFile -templateFile "$($env:appveyor_build_folder)\OBeautifulCode.Reflection\OBeautifulCode.Reflection.template-nuspec" -overrideFile $_.FullName -targetFile $_.FullName.Replace('.recipe-nuspec','.nuspec')}
 - ps: ls . -filter *.nuspec -recurse | Where-Object {$_.Name -ne 'OBeautifulCode.Reflection.nuspec' } | %{nuget pack $_.FullName -Version $version -Prop Platform=AnyCPU }
 artifacts:
@@ -31,4 +30,4 @@ deploy:
   api_key:
     secure: aUaOAaFmJX9VJGINuxJ86ljfbXzi6I748PR0zL8VdZElrdh7C0sbPoFRKl8eciDY
   skip_symbols: true
-  artifact: /.*\.nupkg/ 
+  artifact: /.*\.nupkg/
