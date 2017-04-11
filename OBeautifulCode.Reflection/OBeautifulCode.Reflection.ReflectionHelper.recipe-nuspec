@@ -7,6 +7,7 @@
     <developmentDependency>true</developmentDependency>
     <dependencies>
       <dependency id="Spritely.Recipes.MustValidation" version="0.6.2" />
+      <dependency id="OBeautifulCode.Enum.EnumExtensions" version="1.0.3" />
     </dependencies>
   </metadata>
   <files>

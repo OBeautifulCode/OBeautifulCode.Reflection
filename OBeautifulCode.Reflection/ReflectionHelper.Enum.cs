@@ -13,6 +13,8 @@ namespace OBeautifulCode.Reflection
     using System.Collections.Generic;
     using System.Linq;
 
+    using OBeautifulCode.Enum;
+
     using Spritely.Recipes;
 
     /// <summary>
@@ -25,40 +27,6 @@ namespace OBeautifulCode.Reflection
 #endif
     static partial class ReflectionHelper
     {
-        /// <summary>
-        /// Gets the members/values of a specified enum.
-        /// </summary>
-        /// <typeparam name="TEnum">The type of enum.</typeparam>
-        /// <returns>
-        /// The members/values of the specified enum.
-        /// </returns>
-        /// <exception cref="ArgumentException"><typeparamref name="TEnum"/> is not an enum.</exception>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static IReadOnlyCollection<TEnum> GetEnumValues<TEnum>()
-            where TEnum : struct
-        {
-            typeof(TEnum).IsEnum.Named($"typeof {nameof(TEnum)} is Enum").Must().BeTrue().OrThrow();
-            var results = Enum.GetValues(typeof(TEnum)).Cast<TEnum>().ToList().AsReadOnly();
-            return results;
-        }
-
-        /// <summary>
-        /// Gets the members/values of a specified enum.
-        /// </summary>
-        /// <param name="enumType">The enum type.</param>
-        /// <returns>
-        /// The members/values of the specified enum.
-        /// </returns>
-        /// <exception cref="ArgumentException"><paramref name="enumType"/> is not an enum.</exception>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static IReadOnlyCollection<Enum> GetEnumValues(
-            this Type enumType)
-        {
-            enumType.IsEnum.Named($"{nameof(enumType)} is Enum").Must().BeTrue().OrThrow();
-            var results = Enum.GetValues(enumType).Cast<Enum>().ToList().AsReadOnly();
-            return results;
-        }
-
         /// <summary>
         /// Gets all values/members of an enum that have an attribute of a specified type.
         /// </summary>
@@ -85,7 +53,7 @@ namespace OBeautifulCode.Reflection
             typeof(TEnum).IsEnum.Named($"typeof {nameof(TEnum)} is Enum").Must().BeTrue().OrThrow();
 
             var result =
-                GetEnumValues<TEnum>()
+                EnumExtensions.GetEnumValues<TEnum>()
                 .Cast<Enum>()
                 .Where(
                         _ =>
@@ -125,7 +93,7 @@ namespace OBeautifulCode.Reflection
             enumType.IsEnum.Named($"{nameof(enumType)} is Enum").Must().BeTrue().OrThrow();
 
             var result =
-                GetEnumValues(enumType)
+                EnumExtensions.GetEnumValues(enumType)
                     .Where(
                         _ =>
                             attributeFilter == null

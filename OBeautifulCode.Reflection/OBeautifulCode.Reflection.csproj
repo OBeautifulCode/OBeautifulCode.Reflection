@@ -43,6 +43,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include=".OBeautifulCode.Recipes\OBeautifulCode.Enum\EnumExtensions.cs" />
     <Compile Include=".Spritely.Recipes\MustValidation\MakeRule.cs" />
     <Compile Include=".Spritely.Recipes\MustValidation\MustExtensions.cs" />
     <Compile Include=".Spritely.Recipes\MustValidation\RuleExtensions.cs" />

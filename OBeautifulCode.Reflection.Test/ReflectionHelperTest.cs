@@ -433,62 +433,6 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
-        public static void GetEnumValues_TEnum___Should_throw_ArgumentException___When_generic_type_parameter_is_not_of_type_Enum()
-        {
-            // Arrange, Act
-            var ex1 = Record.Exception(() => ReflectionHelper.GetEnumValues<int>());
-            var ex2 = Record.Exception(() => ReflectionHelper.GetEnumValues<bool>());
-            var ex3 = Record.Exception(() => ReflectionHelper.GetEnumValues<byte>());
-            var ex4 = Record.Exception(() => ReflectionHelper.GetEnumValues<char>());
-
-            // Assert
-            ex1.Should().BeOfType<ArgumentException>();
-            ex2.Should().BeOfType<ArgumentException>();
-            ex3.Should().BeOfType<ArgumentException>();
-            ex4.Should().BeOfType<ArgumentException>();
-        }
-
-        [Fact]
-        public static void GetEnumValues_TEnum___Should_return_enum_values_in_order___When_called()
-        {
-            // Arrange, Act
-            var enumValues1 = ReflectionHelper.GetEnumValues<Empty>();
-            var enumValues2 = ReflectionHelper.GetEnumValues<GoodStuff>();
-
-            // Assert
-            enumValues1.Should().BeEmpty();
-            enumValues2.Should().Equal(GoodStuff.WorkingFromHome, GoodStuff.Chocolate, GoodStuff.Vacation, GoodStuff.Bulldogs);
-        }
-
-        [Fact]
-        public static void GetEnumValues_Type___Should_throw_ArgumentException___When_generic_type_parameter_is_not_of_type_Enum()
-        {
-            // Arrange, Act
-            var ex1 = Record.Exception(() => typeof(int).GetEnumValues());
-            var ex2 = Record.Exception(() => typeof(bool).GetEnumValues());
-            var ex3 = Record.Exception(() => typeof(byte).GetEnumValues());
-            var ex4 = Record.Exception(() => typeof(char).GetEnumValues());
-
-            // Assert
-            ex1.Should().BeOfType<ArgumentException>();
-            ex2.Should().BeOfType<ArgumentException>();
-            ex3.Should().BeOfType<ArgumentException>();
-            ex4.Should().BeOfType<ArgumentException>();
-        }
-
-        [Fact]
-        public static void GetEnumValues_Type___Should_return_enum_values_in_order___When_called()
-        {
-            // Arrange, Act
-            var enumValues1 = typeof(Empty).GetEnumValues();
-            var enumValues2 = typeof(GoodStuff).GetEnumValues();
-
-            // Assert
-            enumValues1.Should().BeEmpty();
-            enumValues2.Should().Equal(GoodStuff.WorkingFromHome, GoodStuff.Chocolate, GoodStuff.Vacation, GoodStuff.Bulldogs);
-        }
-
-        [Fact]
         public static void GetEnumValuesHaving_TEnum_TAttribute___Should_throw_ArgumentException___When_TEnum_is_not_an_Enum_type()
         {
             // Arrange, Act
