@@ -422,7 +422,7 @@ namespace OBeautifulCode.Reflection.Test
         {
             // Arrange
             var assembly = typeof(AssemblyHelper).Assembly;
-            var expectedEnding = @"OBeautifulCode.Reflection\OBeautifulCode.Reflection.Test\bin\Debug\OBeautifulCode.Reflection.DLL";
+            var expectedEnding = @"OBeautifulCode.Reflection.Test\bin\Debug\OBeautifulCode.Reflection.DLL";
 
             // Act
             var actual = assembly.GetCodeBaseAsPathInsteadOfUri();
