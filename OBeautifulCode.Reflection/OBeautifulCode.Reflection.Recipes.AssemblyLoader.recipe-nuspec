@@ -10,6 +10,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="AssemblyLoader.cs" target="content\net45\.recipes\.OBeautifulCode.Recipes\OBeautifulCode.Reflection\AssemblyLoader.cs" />
+    <file src="AssemblyLoader.cs" target="content\net45\.recipes\OBeautifulCode.Reflection\AssemblyLoader.cs" />
   </files>
 </package>
