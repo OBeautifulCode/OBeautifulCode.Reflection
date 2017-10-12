@@ -7,7 +7,7 @@
 // </auto-generated>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.Reflection
+namespace OBeautifulCode.Reflection.Recipes
 {
     using System;
     using System.Collections.Generic;

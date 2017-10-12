@@ -7,7 +7,7 @@
 // </auto-generated>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.Reflection
+namespace OBeautifulCode.Reflection.Recipes
 {
     using System;
     using System.Collections.Generic;
@@ -90,6 +90,7 @@ namespace OBeautifulCode.Reflection
             Func<TAttribute, bool> attributeFilter = null)
             where TAttribute : Attribute
         {
+            new { enumType }.Must().NotBeNull().OrThrow();
             enumType.IsEnum.Named($"{nameof(enumType)} is Enum").Must().BeTrue().OrThrow();
 
             var result =

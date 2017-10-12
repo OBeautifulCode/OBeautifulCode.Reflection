@@ -7,12 +7,14 @@
 // </auto-generated>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.Reflection
+namespace OBeautifulCode.Reflection.Recipes
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+
+    using Spritely.Recipes;
 
     /// <summary>
     /// Provides useful methods related to reflection.
@@ -46,6 +48,7 @@ namespace OBeautifulCode.Reflection
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = "Correct name.")]
         public static IReadOnlyCollection<string> GetPropertyNames(this Type type, BindingFlags bindingFlags = DefaultBindingFlags)
         {
+            new { type }.Must().NotBeNull().OrThrow();
             var allProperties = type.GetProperties(bindingFlags);
             var ret = allProperties.Select(_ => _.Name).ToList();
             return ret;

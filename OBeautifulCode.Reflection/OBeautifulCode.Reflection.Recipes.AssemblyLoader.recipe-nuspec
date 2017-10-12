@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>OBeautifulCode.Reflection.Recipes.AssemblyLoader</id>
+    <description>Provides class to manage loading assemblies from disk.</description>
+    <tags>reflection assembly load</tags>
+    <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Reflection/master/OBeautifulCode.Reflection/nuget-icon.png</iconUrl>
+    <dependencies>
+      <dependency id="Spritely.Recipes.MustValidation" version="0.6.2" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="AssemblyLoader.cs" target="content\net45\.OBeautifulCode.Recipes\OBeautifulCode.Reflection\AssemblyLoader.cs" />
+  </files>
+</package>

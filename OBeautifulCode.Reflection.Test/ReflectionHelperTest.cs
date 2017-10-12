@@ -14,6 +14,8 @@ namespace OBeautifulCode.Reflection.Test
 
     using FluentAssertions;
 
+    using OBeautifulCode.Reflection.Recipes;
+
     using Xunit;
 
     /// <summary>

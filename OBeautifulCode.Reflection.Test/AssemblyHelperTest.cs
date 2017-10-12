@@ -11,6 +11,8 @@ namespace OBeautifulCode.Reflection.Test
 
     using FluentAssertions;
 
+    using OBeautifulCode.Reflection.Recipes;
+
     using Xunit;
 
     /// <summary>
@@ -139,6 +141,8 @@ namespace OBeautifulCode.Reflection.Test
             actual.Dispose();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "gzip", Justification = "Spelling/name is correct.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Gzip", Justification = "Spelling/name is correct.")]
         [Fact]
         public static void OpenEmbeddedResourceStream_without_assembly___Should_return_decompressed_read_only_stream_of_the_embedded_resource___When_parameter_decompressionMethod_is_Gzip_and_embedded_resource_was_compressed_using_gzip()
         {
@@ -252,6 +256,8 @@ namespace OBeautifulCode.Reflection.Test
             actual.Dispose();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "gzip", Justification = "Spelling/name is correct.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Gzip", Justification = "Spelling/name is correct.")]
         [Fact]
         public static void OpenEmbeddedResourceStream_with_assembly___Should_return_decompressed_read_only_stream_of_the_embedded_resource___When_parameter_decompressionMethod_is_Gzip_and_embedded_resource_was_compressed_using_gzip()
         {
@@ -372,6 +378,8 @@ namespace OBeautifulCode.Reflection.Test
             Assert.NotEmpty(actual);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "gzip", Justification = "Spelling/name is correct.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Gzip", Justification = "Spelling/name is correct.")]
         [Fact]
         public static void ReadEmbeddedResourceString___Should_throw_InvalidDataException___When_resource_has_not_been_compressed_using_gzip_and_parameter_decompressionMethod_is_Gzip()
         {
@@ -382,6 +390,8 @@ namespace OBeautifulCode.Reflection.Test
             ex.Should().BeOfType<InvalidDataException>();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Gzip", Justification = "Spelling/name is correct.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "gzip", Justification = "Spelling/name is correct.")]
         [Fact]
         public static void ReadEmbeddedResourceString___Should_return_string_decompressed_from_embedded_resource___When_resource_has_been_compressed_using_gzip_and_parameter_decompressionMethod_is_Gzip()
         {
@@ -390,6 +400,35 @@ namespace OBeautifulCode.Reflection.Test
 
             // Assert
             actual.Should().Be(ExpectedTextFileContents);
+        }
+
+        [Fact]
+        public static void GetCodeBaseAsPathInsteadOfUri___Null_assembly___Throws()
+        {
+            // Arrange
+            Action action = () => AssemblyHelper.GetCodeBaseAsPathInsteadOfUri(null);
+
+            // Act
+            var exception = Record.Exception(action);
+
+            // Assert
+            exception.Should().NotBeNull();
+            exception.Should().BeOfType<ArgumentNullException>();
+            exception.Message.Should().Be("\r\nParameter name: assembly");
+        }
+
+        [Fact]
+        public static void GetCodeBaseAsPathInsteadOfUri___Valid_assembly___Valid_path()
+        {
+            // Arrange
+            var assembly = typeof(AssemblyHelper).Assembly;
+            var expectedEnding = @"OBeautifulCode.Reflection\OBeautifulCode.Reflection.Test\bin\Debug\OBeautifulCode.Reflection.DLL";
+
+            // Act
+            var actual = assembly.GetCodeBaseAsPathInsteadOfUri();
+
+            // Assert
+            actual.Should().EndWith(expectedEnding);
         }
 
         // ReSharper restore InconsistentNaming
