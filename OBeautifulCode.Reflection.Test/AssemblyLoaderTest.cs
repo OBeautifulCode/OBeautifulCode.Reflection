@@ -124,7 +124,7 @@ namespace OBeautifulCode.Reflection.Test
             }
         }
 
-        [Fact]
+        [Fact(Skip = "Debug test to test actual load logic.")]
         public static void LoadFromDirectory___Packages_path___Works()
         {
             // Arrange
