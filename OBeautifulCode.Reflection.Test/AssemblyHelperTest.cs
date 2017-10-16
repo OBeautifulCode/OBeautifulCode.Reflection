@@ -15,9 +15,6 @@ namespace OBeautifulCode.Reflection.Test
 
     using Xunit;
 
-    /// <summary>
-    /// Tests the <see cref="AssemblyHelper"/> class.
-    /// </summary>
     public static class AssemblyHelperTest
     {
         private const string ExpectedTextFileContents = "this is an embedded text file";

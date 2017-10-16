@@ -7,7 +7,7 @@
 // </auto-generated>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.AutoFakeItEasy
+namespace OBeautifulCode.AutoFakeItEasy.Recipes
 {
     using System.Collections.Generic;
 

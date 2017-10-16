@@ -18,14 +18,6 @@ namespace OBeautifulCode.Reflection.Test
 
     using Xunit;
 
-    /// <summary>
-    /// Tests the <see cref="ReflectionHelper"/> class.
-    /// </summary>
-    /// <remarks>
-    /// This was ported from an older code base.
-    /// The test are monolitic and need to be broken up.
-    /// Also, need to use latest unit testing conventions.
-    /// </remarks>
     public static class ReflectionHelperTest
     {
         [Fact]

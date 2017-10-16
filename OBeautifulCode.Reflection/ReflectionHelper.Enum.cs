@@ -13,7 +13,7 @@ namespace OBeautifulCode.Reflection.Recipes
     using System.Collections.Generic;
     using System.Linq;
 
-    using OBeautifulCode.Enum;
+    using OBeautifulCode.Enum.Recipes;
 
     using Spritely.Recipes;
 

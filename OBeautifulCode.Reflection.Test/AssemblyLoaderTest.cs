@@ -17,9 +17,6 @@ namespace OBeautifulCode.Reflection.Test
 
     using static System.FormattableString;
 
-    /// <summary>
-    /// Tests the <see cref="AssemblyLoader"/> class.
-    /// </summary>
     public static class AssemblyLoaderTest
     {
         [Fact]

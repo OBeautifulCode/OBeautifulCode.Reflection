@@ -7,7 +7,7 @@
 // </auto-generated>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.Enum
+namespace OBeautifulCode.Enum.Recipes
 {
     using System;
     using System.Collections.Generic;
