@@ -419,13 +419,16 @@ namespace OBeautifulCode.Reflection.Test
         {
             // Arrange
             var assembly = typeof(AssemblyHelper).Assembly;
-            var expectedEnding = @"OBeautifulCode.Reflection.Test\bin\Debug\OBeautifulCode.Reflection.DLL";
+            var expectedEnding1 = @"OBeautifulCode.Reflection.Test\bin\Debug\OBeautifulCode.Reflection.DLL";
+            var expectedEnding2 = @"OBeautifulCode.Reflection.Test\bin\Release\OBeautifulCode.Reflection.DLL";
 
             // Act
             var actual = assembly.GetCodeBaseAsPathInsteadOfUri();
 
             // Assert
-            actual.Should().EndWith(expectedEnding);
+            var actualEndsWithExpected1 = actual.EndsWith(expectedEnding1, StringComparison.Ordinal);
+            var actualEndsWithExpected2 = actual.EndsWith(expectedEnding2, StringComparison.Ordinal);
+            (actualEndsWithExpected1 || actualEndsWithExpected2).Should().BeTrue($"actual was expected to be {expectedEnding1} or {expectedEnding2}");
         }
 
         // ReSharper restore InconsistentNaming
