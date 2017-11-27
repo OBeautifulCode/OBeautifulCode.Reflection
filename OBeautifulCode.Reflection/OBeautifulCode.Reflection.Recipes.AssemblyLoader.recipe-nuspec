@@ -7,6 +7,7 @@
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Reflection/master/OBeautifulCode.Reflection/nuget-icon.png</iconUrl>
     <dependencies>
       <dependency id="Spritely.Recipes.MustValidation" version="0.6.3" />
+      <dependency id="OBeautifulCode.Collection.Recipes.EnumerableExtensions" version="1.0.16" />
     </dependencies>
   </metadata>
   <files>

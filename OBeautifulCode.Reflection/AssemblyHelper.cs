@@ -10,13 +10,17 @@
 namespace OBeautifulCode.Reflection.Recipes
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
     using System.IO.Compression;
+    using System.Linq;
     using System.Reflection;
     using System.Runtime.CompilerServices;
-
+    using OBeautifulCode.Collection.Recipes;
     using Spritely.Recipes;
+
+    using static System.FormattableString;
 
     /// <summary>
     /// Provides useful methods for extracting information from and
@@ -184,6 +188,35 @@ namespace OBeautifulCode.Reflection.Recipes
         }
 
         /// <summary>
+        /// Gets all types defined within a set of assemblies.
+        /// </summary>
+        /// <remarks>
+        /// If you want to get all loaded types, then pass-in the result of AssemblyLoader.GetLoadedAssemblies()
+        /// </remarks>
+        /// <param name="assemblies">The assemblies.</param>
+        /// <returns>
+        /// The types defined within the specified assemblies.
+        /// </returns>
+        public static IReadOnlyCollection<Type> GetTypesFromAssemblies(
+            this IReadOnlyCollection<Assembly> assemblies)
+        {
+            new { assemblies }.Must().NotBeNull().And().NotContainAnyNulls<Assembly>().OrThrowFirstFailure();
+
+            try
+            {
+                var result = assemblies.SelectMany(_ => _.GetTypes()).ToList();
+                return result;
+            }
+            catch (ReflectionTypeLoadException reflectionTypeLoadException)
+            {
+                var loaderExceptions = reflectionTypeLoadException.LoaderExceptions.Select(_ => _.ToString()).ToCsv();
+                var typesLoaded = reflectionTypeLoadException.Types.Select(_ => _.ToString()).ToCsv();
+                var message = Invariant($"{nameof(ReflectionTypeLoadException)} was thrown when getting types from assemblies.{Environment.NewLine}The assemblies pased-in were: {assemblies.Select(_ => _.ToString()).ToCsv()}{Environment.NewLine}{Environment.NewLine}The loader exceptions are: {loaderExceptions}.{Environment.NewLine}{Environment.NewLine}The types loaded are: {typesLoaded}.{Environment.NewLine}{Environment.NewLine}See inner exception for the original exception.");
+                throw new TypeLoadException(message, reflectionTypeLoadException);
+            }            
+        }
+
+        /// <summary>
         /// Resolves a resource name.
         /// </summary>
         /// <param name="resourceName">The supplied resource name.</param>
@@ -211,6 +244,6 @@ namespace OBeautifulCode.Reflection.Recipes
             }
 
             return resourceName;
-        }
+        }        
     }
 }
