@@ -138,9 +138,10 @@ namespace OBeautifulCode.Reflection.Recipes
                 k => k,
                 v =>
                     {
+                        var assemblyNameWithoutExtension = Path.GetFileName(v) ?? string.Empty;
+
                         try
                         {
-                            var assemblyNameWithoutExtension = Path.GetFileName(v) ?? string.Empty;
                             foreach (var extension in this.AssemblyFileExtensionsWithoutPeriodToLoad)
                             {
                                 assemblyNameWithoutExtension = assemblyNameWithoutExtension.Replace("." + extension, string.Empty);
@@ -155,10 +156,10 @@ namespace OBeautifulCode.Reflection.Recipes
                         }
                         catch (ReflectionTypeLoadException reflectionTypeLoadException)
                         {
-                            throw new ReflectionTypeLoadException(
-                                reflectionTypeLoadException.Types,
-                                reflectionTypeLoadException.LoaderExceptions,
-                                Invariant($"Failed to load assembly: {v}. {string.Join(",", reflectionTypeLoadException.LoaderExceptions.Select(_ => _.ToString()))}"));
+                            var loaderExceptions = reflectionTypeLoadException.LoaderExceptions?.Select(_ => _?.ToString() ?? "<null>").ToCsv();
+                            var typesLoaded = reflectionTypeLoadException.Types?.Select(_ => _?.ToString() ?? "<null>").ToCsv();
+                            var message = Invariant($"{nameof(ReflectionTypeLoadException)} was thrown when loading assembly: {assemblyNameWithoutExtension}.{Environment.NewLine}The loader exceptions are: {loaderExceptions ?? "<null>"}.{Environment.NewLine}{Environment.NewLine}The types loaded are: {typesLoaded ?? "<null>"}.{Environment.NewLine}{Environment.NewLine}See inner exception for the original exception.");
+                            throw new TypeLoadException(message, reflectionTypeLoadException);
                         }
                     });
         }
