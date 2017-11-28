@@ -125,6 +125,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <summary>
         /// Initializes the manager by configuring <see cref="AppDomain" /> hooks and discovering then loading the assemblies in the given path.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "This is a complex method by it's nature.")]
         public void Initialize()
         {
             // find all assemblies files to search for handlers.
