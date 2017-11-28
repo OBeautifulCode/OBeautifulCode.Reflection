@@ -209,9 +209,9 @@ namespace OBeautifulCode.Reflection.Recipes
             }
             catch (ReflectionTypeLoadException reflectionTypeLoadException)
             {
-                var loaderExceptions = reflectionTypeLoadException.LoaderExceptions.Select(_ => _.ToString()).ToCsv();
-                var typesLoaded = reflectionTypeLoadException.Types.Select(_ => _.ToString()).ToCsv();
-                var message = Invariant($"{nameof(ReflectionTypeLoadException)} was thrown when getting types from assemblies.{Environment.NewLine}The assemblies pased-in were: {assemblies.Select(_ => _.ToString()).ToCsv()}{Environment.NewLine}{Environment.NewLine}The loader exceptions are: {loaderExceptions}.{Environment.NewLine}{Environment.NewLine}The types loaded are: {typesLoaded}.{Environment.NewLine}{Environment.NewLine}See inner exception for the original exception.");
+                var loaderExceptions = reflectionTypeLoadException.LoaderExceptions?.Select(_ => _.ToString()).ToCsv();
+                var typesLoaded = reflectionTypeLoadException.Types?.Select(_ => _.ToString()).ToCsv();
+                var message = Invariant($"{nameof(ReflectionTypeLoadException)} was thrown when getting types from assemblies.{Environment.NewLine}The assemblies pased-in were: {assemblies.Select(_ => _.ToString()).ToCsv()}{Environment.NewLine}{Environment.NewLine}The loader exceptions are: {loaderExceptions ?? "<null>"}.{Environment.NewLine}{Environment.NewLine}The types loaded are: {typesLoaded ?? "<null>"}.{Environment.NewLine}{Environment.NewLine}See inner exception for the original exception.");
                 throw new TypeLoadException(message, reflectionTypeLoadException);
             }            
         }
