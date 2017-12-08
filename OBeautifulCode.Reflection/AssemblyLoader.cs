@@ -126,7 +126,10 @@ namespace OBeautifulCode.Reflection.Recipes
         /// Initializes the manager by configuring <see cref="AppDomain" /> hooks and discovering then loading the assemblies in the given path.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "This is a complex method by it's nature.")]
-        public void Initialize()
+        public void Initialize(
+            bool suppressFileLoadException = false,
+            bool suppressBadImageFormatException = false,
+            bool suppressReflectionTypeLoadException = false)
         {
             // find all assemblies files to search for handlers.
             var searchOption = this.LoadRecursively ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
@@ -138,31 +141,63 @@ namespace OBeautifulCode.Reflection.Recipes
             this.FilePathToAssemblyMap = assemblyFilePaths.ToDictionary(
                 k => k,
                 v =>
+                {
+                    var assemblyNameWithoutExtension = Path.GetFileName(v) ?? string.Empty;
+
+                    try
                     {
-                        var assemblyNameWithoutExtension = Path.GetFileName(v) ?? string.Empty;
-
-                        try
+                        foreach (var extension in this.AssemblyFileExtensionsWithoutPeriodToLoad)
                         {
-                            foreach (var extension in this.AssemblyFileExtensionsWithoutPeriodToLoad)
-                            {
-                                assemblyNameWithoutExtension = assemblyNameWithoutExtension.Replace("." + extension, string.Empty);
-                            }
-
-                            // since the assembly might have been already loaded as a depdendency of another assembly...
-                            var alreadyLoaded = TryResolveAssemblyFromLoaded(v);
-
-                            // Can't use Assembly.LoadFrom() here because it fails for some reason.
-                            var assembly = alreadyLoaded ?? this.LoadAssemblyFromDisk(assemblyNameWithoutExtension, v);
-                            return assembly;
+                            assemblyNameWithoutExtension =
+                                assemblyNameWithoutExtension.Replace("." + extension, string.Empty);
                         }
-                        catch (ReflectionTypeLoadException reflectionTypeLoadException)
+
+                        // since the assembly might have been already loaded as a depdendency of another assembly...
+                        var alreadyLoaded = TryResolveAssemblyFromLoaded(v);
+
+                        // Can't use Assembly.LoadFrom() here because it fails for some reason.
+                        var assembly = alreadyLoaded ?? this.LoadAssemblyFromDisk(assemblyNameWithoutExtension, v);
+                        return assembly;
+                    }
+                    catch (ReflectionTypeLoadException reflectionTypeLoadException)
+                    {
+                        if (suppressReflectionTypeLoadException)
+                        {
+                            return null;
+                        }
+                        else
                         {
                             var loaderExceptions = reflectionTypeLoadException.LoaderExceptions?.Select(_ => _?.ToString() ?? "<null>").ToCsv();
                             var typesLoaded = reflectionTypeLoadException.Types?.Select(_ => _?.ToString() ?? "<null>").ToCsv();
                             var message = Invariant($"{nameof(ReflectionTypeLoadException)} was thrown when loading assembly: {assemblyNameWithoutExtension}.{Environment.NewLine}The loader exceptions are: {loaderExceptions ?? "<null>"}.{Environment.NewLine}{Environment.NewLine}The types loaded are: {typesLoaded ?? "<null>"}.{Environment.NewLine}{Environment.NewLine}See inner exception for the original exception.");
                             throw new TypeLoadException(message, reflectionTypeLoadException);
                         }
-                    });
+                    }
+                    catch (FileLoadException)
+                    {
+                        if (suppressFileLoadException)
+                        {
+                            return null;
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    catch (BadImageFormatException)
+                    {
+                        if (suppressBadImageFormatException)
+                        {
+                            return null;
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                });
+
+            this.FilePathToAssemblyMap = this.FilePathToAssemblyMap.Where(_ => _.Value != null).ToDictionary(_ => _.Key, _ => _.Value);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods", MessageId = "System.Reflection.Assembly.LoadFrom", Justification = "Other methods don't load dependent assemblies correctly.")]
