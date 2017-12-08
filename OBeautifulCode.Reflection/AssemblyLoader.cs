@@ -125,6 +125,9 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <summary>
         /// Initializes the manager by configuring <see cref="AppDomain" /> hooks and discovering then loading the assemblies in the given path.
         /// </summary>
+        /// <param name="suppressFileLoadException">Optionally suppress <see cref="FileLoadException"/></param>
+        /// <param name="suppressBadImageFormatException">Optinally suppress <see cref="BadImageFormatException"/></param>
+        /// <param name="suppressReflectionTypeLoadException">Optionally suppress <see cref="ReflectionTypeLoadException"/></param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "This is a complex method by it's nature.")]
         public void Initialize(
             bool suppressFileLoadException = false,
@@ -295,6 +298,9 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <param name="assemblyFileExtensionsWithoutDotToLoad">Optional list of assembly file extensions to process; ONLY the file extension not including the period e.g. "dll" NOT ".dll"; DEFAULT is <see cref="DefaultAssemblyFileExtensionsWithoutPeriodToLoad" />.</param>
         /// <param name="symbolFileExtensionsWithoutPeriodToConsider">Optional list of symbol file extensions to process; ONLY the file extension not including the period e.g. "pdb" NOT ".pdb"; DEFAULT is <see cref="DefaultSymbolFileExtensionsWithoutPeriodToLoad" />.</param>
         /// <param name="assemblyFileNameRegexBlacklist">Optional list of regular expressions to evaluate against each file name and skip loading on matches; DEFAULT is <see cref="DefaultAssemblyFileNameRegexBlacklist" />.</param>
+        /// <param name="suppressFileLoadException">Optionally suppress <see cref="FileLoadException"/></param>
+        /// <param name="suppressBadImageFormatException">Optionally suppress <see cref="BadImageFormatException"/></param>
+        /// <param name="suppressReflectionTypeLoadException">Optionally suppress <see cref="ReflectionTypeLoadException"/></param>
         /// <returns>Initialized <see cref="AssemblyLoader" /> this needs to be in scope and is dispoable so keep this alive at your most top level while reflecting.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "Factory method function and not intended to deal with disposing.")]
         public static AssemblyLoader CreateAndLoadFromDirectory(
@@ -303,7 +309,10 @@ namespace OBeautifulCode.Reflection.Recipes
             bool loadRecursively = true,
             IReadOnlyCollection<string> assemblyFileExtensionsWithoutDotToLoad = null,
             IReadOnlyCollection<string> symbolFileExtensionsWithoutPeriodToConsider = null,
-            IReadOnlyCollection<string> assemblyFileNameRegexBlacklist = null)
+            IReadOnlyCollection<string> assemblyFileNameRegexBlacklist = null,
+            bool suppressFileLoadException = false,
+            bool suppressBadImageFormatException = false,
+            bool suppressReflectionTypeLoadException = false)
         {
             void NullLogger(string message)
             {
@@ -317,7 +326,7 @@ namespace OBeautifulCode.Reflection.Recipes
                 symbolFileExtensionsWithoutPeriodToConsider ?? DefaultSymbolFileExtensionsWithoutPeriodToLoad,
                 assemblyFileNameRegexBlacklist ?? DefaultAssemblyFileNameRegexBlacklist,
                 logger ?? NullLogger);
-            ret.Initialize();
+            ret.Initialize(suppressFileLoadException, suppressBadImageFormatException, suppressReflectionTypeLoadException);
             return ret;
         }
 
