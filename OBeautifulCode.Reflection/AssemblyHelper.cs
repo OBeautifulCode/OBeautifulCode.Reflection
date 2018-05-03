@@ -27,7 +27,6 @@ namespace OBeautifulCode.Reflection.Recipes
     /// interacting with assemblies using reflection.
     /// </summary>
 #if !OBeautifulCodeReflectionRecipesProject
-    [System.Diagnostics.DebuggerStepThrough]
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Reflection", "See package version number")]
 #endif

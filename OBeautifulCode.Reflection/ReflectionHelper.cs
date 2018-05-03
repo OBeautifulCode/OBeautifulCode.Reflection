@@ -20,7 +20,6 @@ namespace OBeautifulCode.Reflection.Recipes
     /// Provides useful methods related to reflection.
     /// </summary>
 #if !OBeautifulCodeReflectionRecipesProject
-    [System.Diagnostics.DebuggerStepThrough]
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Reflection", "See package version number")]
 #endif

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>OBeautifulCode.Reflection.Recipes.TypeHelper</id>
+    <description>Provides useful methods related to types.</description>
+    <tags>reflection type</tags>
+    <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Reflection/master/OBeautifulCode.Reflection/nuget-icon.png</iconUrl>
+  </metadata>
+  <files>
+    <file src="TypeHelper.cs" target="content\net461\.recipes\OBeautifulCode.Reflection\TypeHelper.cs" />
+  </files>
+</package>

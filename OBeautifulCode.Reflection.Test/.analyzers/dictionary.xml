@@ -14,11 +14,20 @@
       <!-- The name of the SAAS platform we use for continuous integration -->
       <Word>AppVeyor</Word>
 
+      <!-- Acronym for Amazon Web Services -->
+      <Word>AWS</Word>
+
       <!-- Binary JSON -->
       <Word>Bson</Word>
 
       <!-- Describes a boolean -->
       <Word>bool</Word>
+
+      <!-- Acronym for Cryptographic Message Syntax -->
+      <Word>CMS</Word>
+
+      <!-- Acronym for Certificate Signing Request -->
+      <Word>CSR</Word>
 
       <!-- A piece of data. -->
       <Word>datapoint</Word>
@@ -57,6 +66,12 @@
       <!-- Acronym for Portable Document Format -->
       <Word>pdf</Word>
 
+      <!-- 
+      The de facto file format for storing and sending cryptographic keys, 
+      certificates, and other data   
+      -->
+      <Word>PEM</Word>
+
       <!-- Describes something that persists information. -->
       <Word>persistor</Word>
 
@@ -65,6 +80,9 @@
       and it's associated certificate chain. 
       -->
       <Word>PFX</Word>
+
+      <!-- Acronym for Public Key Cryptography Standards -->
+      <Word>PKCS</Word>
 
       <!-- Acronym for Secure Hash Algorithm. -->
       <Word>SHA</Word>

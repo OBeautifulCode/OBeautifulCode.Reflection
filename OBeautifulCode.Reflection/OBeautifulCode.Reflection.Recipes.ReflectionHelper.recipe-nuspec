@@ -11,10 +11,10 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="ReflectionHelper.Attribute.cs" target="content\net45\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Attribute.cs" />
-    <file src="ReflectionHelper.cs" target="content\net45\.recipes\OBeautifulCode.Reflection\ReflectionHelper.cs" />
-    <file src="ReflectionHelper.Enum.cs" target="content\net45\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Enum.cs" />
-    <file src="ReflectionHelper.Field.cs" target="content\net45\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Field.cs" />
-    <file src="ReflectionHelper.Property.cs" target="content\net45\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Property.cs" />
+    <file src="ReflectionHelper.Attribute.cs" target="content\net461\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Attribute.cs" />
+    <file src="ReflectionHelper.cs" target="content\net461\.recipes\OBeautifulCode.Reflection\ReflectionHelper.cs" />
+    <file src="ReflectionHelper.Enum.cs" target="content\net461\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Enum.cs" />
+    <file src="ReflectionHelper.Field.cs" target="content\net461\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Field.cs" />
+    <file src="ReflectionHelper.Property.cs" target="content\net461\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Property.cs" />
   </files>
 </package>

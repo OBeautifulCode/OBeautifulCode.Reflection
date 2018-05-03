@@ -26,7 +26,6 @@ namespace OBeautifulCode.Reflection.Recipes
     /// Helper that will load all the assemblies in a directory and wire up all the necessary <see cref="AppDomain" /> logic to allow them to be reflected into.
     /// </summary>
 #if !OBeautifulCodeReflectionRecipesProject
-    [System.Diagnostics.DebuggerStepThrough]
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Reflection", "See package version number")]
 #endif

@@ -11,7 +11,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="AssemblyHelper.cs" target="content\net45\.recipes\OBeautifulCode.Reflection\AssemblyHelper.cs" />
-    <file src="CompressionMethod.cs" target="content\net45\.recipes\OBeautifulCode.Reflection\CompressionMethod.cs" />
+    <file src="AssemblyHelper.cs" target="content\net461\.recipes\OBeautifulCode.Reflection\AssemblyHelper.cs" />
+    <file src="CompressionMethod.cs" target="content\net461\.recipes\OBeautifulCode.Reflection\CompressionMethod.cs" />
   </files>
 </package>

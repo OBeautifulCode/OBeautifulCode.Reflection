@@ -11,8 +11,10 @@ namespace OBeautifulCode.Enum.Recipes
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
+    using System.Reflection;
 
     using Spritely.Recipes;
 
@@ -20,8 +22,7 @@ namespace OBeautifulCode.Enum.Recipes
     /// Adds some convenient extension methods to enums.
     /// </summary>
 #if !OBeautifulCodeEnumRecipesProject
-    [System.Diagnostics.DebuggerStepThrough]
-    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Enum", "See package version number")]
 #endif
 #if !OBeautifulCodeEnumRecipesProject
@@ -40,13 +41,14 @@ namespace OBeautifulCode.Enum.Recipes
         /// For flags enums, returns all individual and combined flags.
         /// </returns>
         /// <exception cref="ArgumentException"><typeparamref name="TEnum"/> is not an enum.</exception>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
+        [SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
         public static IReadOnlyCollection<TEnum> GetEnumValues<TEnum>()
             where TEnum : struct
         {
             typeof(TEnum).IsEnum.Named($"typeof {nameof(TEnum)} is Enum").Must().BeTrue().OrThrow();
-            var results = Enum.GetValues(typeof(TEnum)).Cast<TEnum>().ToList().AsReadOnly();
-            return results;
+
+            var result = Enum.GetValues(typeof(TEnum)).Cast<TEnum>().ToList();
+            return result;
         }
 
         /// <summary>
@@ -58,13 +60,55 @@ namespace OBeautifulCode.Enum.Recipes
         /// For flags enums, returns all individual and combined flags.
         /// </returns>
         /// <exception cref="ArgumentException"><paramref name="enumType"/> is not an enum.</exception>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
+        [SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
         public static IReadOnlyCollection<Enum> GetEnumValues(
             this Type enumType)
         {
+            new { enumType }.Must().NotBeNull().OrThrow();
             enumType.IsEnum.Named($"{nameof(enumType)} is Enum").Must().BeTrue().OrThrow();
-            var results = Enum.GetValues(enumType).Cast<Enum>().ToList().AsReadOnly();
-            return results;
+
+            var result = Enum.GetValues(enumType).Cast<Enum>().ToList().AsReadOnly();
+            return result;
+        }
+
+        /// <summary>
+        /// Determines if the specified enum is a flags enum.
+        /// </summary>
+        /// <typeparam name="TEnum">The type of enum.</typeparam>
+        /// <returns>
+        /// true if the specified enum is a flags enum, otherwise false.
+        /// </returns>
+        /// <exception cref="ArgumentException"><typeparamref name="TEnum"/> is not an enum.</exception>
+        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "This method signature is here for completeness.")]
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = "'Flags' is the most appropriate term here.")]
+        [SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
+        public static bool IsFlagsEnum<TEnum>()
+            where TEnum : struct
+        {
+            typeof(TEnum).IsEnum.Named($"typeof {nameof(TEnum)} is Enum").Must().BeTrue().OrThrow();
+
+            var result = typeof(TEnum).GetCustomAttributes<FlagsAttribute>().Any();
+            return result;
+        }
+
+        /// <summary>
+        /// Determines if the specified enum is a flags enum.
+        /// </summary>
+        /// <param name="enumType">The enum type.</param>
+        /// <returns>
+        /// true if the specified enum is a flags enum, otherwise false.
+        /// </returns>
+        /// <exception cref="ArgumentException"><paramref name="enumType"/> is not an enum.</exception>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = "'Flags' is the most appropriate term here.")]
+        [SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
+        public static bool IsFlagsEnum(
+            this Type enumType)
+        {
+            new { enumType }.Must().NotBeNull().OrThrow();
+            enumType.IsEnum.Named($"{nameof(enumType)} is Enum").Must().BeTrue().OrThrow();
+
+            var result = enumType.GetCustomAttributes<FlagsAttribute>().Any();
+            return result;
         }
 
         /// <summary>
@@ -83,12 +127,13 @@ namespace OBeautifulCode.Enum.Recipes
         /// If value is 0, then a collection with only the 0 value is returned.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = "'Flags' is the most appropriate term here.")]
-        public static IReadOnlyCollection<Enum> GetFlagsCombinedWherePossible(this Enum value)
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = "'Flags' is the most appropriate term here.")]
+        public static IReadOnlyCollection<Enum> GetFlagsCombinedWherePossible(
+            this Enum value)
         {
             new { value }.Must().NotBeNull().OrThrow();
 
-            var result = GetFlags(value, GetEnumValues(value.GetType()).ToArray()).ToList().AsReadOnly();
+            var result = GetFlags(value, GetEnumValues(value.GetType()).ToArray()).ToList();
             return result;
         }
 
@@ -110,16 +155,32 @@ namespace OBeautifulCode.Enum.Recipes
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
         /// <exception cref="ArgumentException"><typeparamref name="TEnum"/> is not an enum.</exception>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = "'Flags' is the most appropriate term here.")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static IReadOnlyCollection<TEnum> GetFlagsCombinedWherePossible<TEnum>(this Enum value)
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = "'Flags' is the most appropriate term here.")]
+        [SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
+        public static IReadOnlyCollection<TEnum> GetFlagsCombinedWherePossible<TEnum>(
+            this Enum value)
             where TEnum : struct
         {
             new { value }.Must().NotBeNull().OrThrow();
             typeof(TEnum).IsEnum.Named($"typeof {nameof(TEnum)} is Enum").Must().BeTrue().OrThrow();
 
-            var result = GetFlags(value, GetEnumValues(value.GetType()).ToArray()).Cast<TEnum>().ToList().AsReadOnly();
+            var result = GetFlags(value, GetEnumValues(value.GetType()).ToArray()).Cast<TEnum>().ToList();
             return result;
+        }
+
+        /// <summary>
+        /// Checks if there is any overlap between the two <see cref="FlagsAttribute" /> enumerations.
+        /// </summary>
+        /// <param name="first">First to check.</param>
+        /// <param name="second">Second to check.</param>
+        /// <returns>Value indicating whether there is any overlap.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag", Justification = "'Flag' is the most appropriate term here.")]
+        public static bool HasFlagOverlap(this Enum first, Enum second)
+        {
+            new { first, second }.Must().NotBeNull().OrThrowFirstFailure();
+
+            var ret = first.GetIndividualFlags().Intersect(second.GetIndividualFlags()).Any();
+            return ret;
         }
 
         /// <summary>
@@ -130,16 +191,28 @@ namespace OBeautifulCode.Enum.Recipes
         /// Adapted from: <a href="http://stackoverflow.com/a/4171168/356790" />
         /// </remarks>
         /// <returns>
-        /// The individuals flags of the specified flags enum.
+        /// The individuals flags of the specified flags enum
         /// If value is 0, then a collection with only the 0 value is returned.
+        /// If the enum is not a flags enum then a collection with the enum value itself is returned.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = "'Flags' is the most appropriate term here.")]
-        public static IReadOnlyCollection<Enum> GetIndividualFlags(this Enum value)
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = "'Flags' is the most appropriate term here.")]
+        public static IReadOnlyCollection<Enum> GetIndividualFlags(
+            this Enum value)
         {
             new { value }.Must().NotBeNull().OrThrow();
 
-            var result = GetFlags(value, GetFlagValues(value.GetType()).ToArray()).ToList().AsReadOnly();
+            IReadOnlyCollection<Enum> result;
+            var enumType = value.GetType();
+            if (enumType.IsFlagsEnum())
+            {
+                result = GetFlags(value, GetFlagValues(value.GetType()).ToArray()).ToList();
+            }
+            else
+            {
+                result = new[] { value };
+            }
+
             return result;
         }
 
@@ -154,22 +227,36 @@ namespace OBeautifulCode.Enum.Recipes
         /// <returns>
         /// The individuals flags of the specified flags enum.
         /// If value is 0, then a collection with only the 0 value is returned.
+        /// If the enum is not a flags enum then a collection with the enum value itself is returned.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
         /// <exception cref="ArgumentException"><typeparamref name="TEnum"/> is not an enum.</exception>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = "'Flags' is the most appropriate term here.")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
-        public static IReadOnlyCollection<TEnum> GetIndividualFlags<TEnum>(this Enum value)
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = "'Flags' is the most appropriate term here.")]
+        [SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
+        public static IReadOnlyCollection<TEnum> GetIndividualFlags<TEnum>(
+            this Enum value)
             where TEnum : struct
         {
             new { value }.Must().NotBeNull().OrThrow();
             typeof(TEnum).IsEnum.Named($"typeof {nameof(TEnum)} is Enum").Must().BeTrue().OrThrow();
 
-            var result = GetFlags(value, GetFlagValues(value.GetType()).ToArray()).Cast<TEnum>().ToList().AsReadOnly();
+            IReadOnlyCollection<TEnum> result;
+            var enumType = value.GetType();
+            if (enumType.IsFlagsEnum())
+            {
+                result = GetFlags(value, GetFlagValues(value.GetType()).ToArray()).Cast<TEnum>().ToList();
+            }
+            else
+            {
+                result = new [] { value }.Cast<TEnum>().ToArray();
+            }
+
             return result;
         }
 
-        private static IEnumerable<Enum> GetFlags(Enum value, IList<Enum> values)
+        private static IEnumerable<Enum> GetFlags(
+            Enum value, 
+            IList<Enum> values)
         {
             ulong bits = Convert.ToUInt64(value, CultureInfo.InvariantCulture);
             List<Enum> results = new List<Enum>();
@@ -207,7 +294,8 @@ namespace OBeautifulCode.Enum.Recipes
             return Enumerable.Empty<Enum>();
         }
 
-        private static IEnumerable<Enum> GetFlagValues(Type enumType)
+        private static IEnumerable<Enum> GetFlagValues(
+            Type enumType)
         {
             ulong flag = 0x1;
             foreach (var value in Enum.GetValues(enumType).Cast<Enum>())
