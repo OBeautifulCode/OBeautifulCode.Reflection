@@ -13,6 +13,8 @@ namespace OBeautifulCode.Reflection.Recipes
     using System.Reflection;
     using System.Runtime.CompilerServices;
 
+    using Spritely.Recipes;
+
     /// <summary>
     /// Provides useful methods related to reflection.
     /// </summary>
@@ -28,22 +30,37 @@ namespace OBeautifulCode.Reflection.Recipes
     static class TypeHelper
     {
         /// <summary>
-        /// Extension on <see cref="Type" /> to see if it is an anonymous type.
+        /// Determines if a type is an anonymous type.
         /// </summary>
         /// <param name="type">Type to check.</param>
         /// <returns>A value indicating whether or not the type provided is anonymous.</returns>
-        public static bool IsAnonymous(this Type type)
+        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
+        public static bool IsAnonymous(
+            this Type type)
         {
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
+            new { type }.Must().NotBeNull().OrThrow();
 
             var result = Attribute.IsDefined(type, typeof(CompilerGeneratedAttribute), false)
                              && type.Namespace == null
                              && type.IsGenericType && type.Name.Contains("AnonymousType")
                              && (type.Name.StartsWith("<>", StringComparison.Ordinal) || type.Name.StartsWith("VB$", StringComparison.Ordinal))
                              && (type.Attributes & TypeAttributes.NotPublic) == TypeAttributes.NotPublic;
+
+            return result;
+        }
+
+        /// <summary>
+        /// Determines if a type is an anonymous type using a faster, but potentially
+        /// less accurate heuristic than <see cref="IsAnonymous(Type)"/>.
+        /// </summary>
+        /// <param name="type">Type to check.</param>
+        /// <returns>A value indicating whether or not the type provided is anonymous.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
+        public static bool IsAnonymousFastCheck(this Type type)
+        {
+            new { type }.Must().NotBeNull().OrThrow();
+
+            var result = type.Namespace == null;
 
             return result;
         }
