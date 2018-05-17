@@ -3,7 +3,7 @@
   "settings": {
     "documentationRules": {
       "companyName": "OBeautifulCode",
-      "copyrightText": "  Copyright (c) {companyName} 2017. All rights reserved.",
+      "copyrightText": "  Copyright (c) {companyName} 2018. All rights reserved.",
       "xmlHeader": true,
       "fileNamingConvention": "stylecop"
     },

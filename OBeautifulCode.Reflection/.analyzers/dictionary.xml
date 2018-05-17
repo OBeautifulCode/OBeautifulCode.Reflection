@@ -14,6 +14,9 @@
       <!-- The name of the SAAS platform we use for continuous integration -->
       <Word>AppVeyor</Word>
 
+      <!-- A character encoding: American Standard Code for Information Interchange -->
+      <Word>ascii</Word>
+
       <!-- Acronym for Amazon Web Services -->
       <Word>AWS</Word>
 
