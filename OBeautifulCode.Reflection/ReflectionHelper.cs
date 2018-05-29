@@ -14,7 +14,7 @@ namespace OBeautifulCode.Reflection.Recipes
     using System.Linq;
     using System.Reflection;
 
-    using Spritely.Recipes;
+    using OBeautifulCode.Validation.Recipes;
 
     /// <summary>
     /// Provides useful methods related to reflection.
@@ -117,7 +117,7 @@ namespace OBeautifulCode.Reflection.Recipes
             Func<TAttribute, bool> attributeFilter = null)
             where TAttribute : Attribute
         {
-            new { assembly }.Must().NotBeNull().OrThrow();
+            new { assembly }.Must().NotBeNull();
 
             var attributeType = typeof(TAttribute);
             var result = assembly.GetTypes()

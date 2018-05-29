@@ -13,7 +13,7 @@ namespace OBeautifulCode.Reflection.Recipes
     using System.Reflection;
     using System.Runtime.CompilerServices;
 
-    using Spritely.Recipes;
+    using OBeautifulCode.Validation.Recipes;
 
     /// <summary>
     /// Provides useful methods related to reflection.
@@ -36,7 +36,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static bool IsAnonymous(
             this Type type)
         {
-            new { type }.Must().NotBeNull().OrThrow();
+            new { type }.Must().NotBeNull();
 
             var result = Attribute.IsDefined(type, typeof(CompilerGeneratedAttribute), false)
                              && type.Namespace == null
@@ -56,7 +56,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
         public static bool IsAnonymousFastCheck(this Type type)
         {
-            new { type }.Must().NotBeNull().OrThrow();
+            new { type }.Must().NotBeNull();
 
             var result = type.Namespace == null;
 

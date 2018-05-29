@@ -17,8 +17,7 @@ namespace OBeautifulCode.Reflection.Recipes
     using System.Text.RegularExpressions;
 
     using OBeautifulCode.Collection.Recipes;
-
-    using Spritely.Recipes;
+    using OBeautifulCode.Validation.Recipes;
 
     using static System.FormattableString;
 
@@ -64,11 +63,12 @@ namespace OBeautifulCode.Reflection.Recipes
             IReadOnlyCollection<string> assemblyFileNameRegexBlacklist,
             Action<string> logger)
         {
-            new { directoryPath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
-            new { assemblyFileExtensionsWithoutPeriodToLoad }.Must().NotBeNull().And().NotBeEmptyEnumerable<string>().OrThrowFirstFailure();
-            new { symbolFileExtensionsWithoutPeriodToConsider, assemblyFileNameRegexBlacklist, logger }.Must().NotBeNull().OrThrowFirstFailure();
-
-            Directory.Exists(directoryPath).Named(Invariant($"{nameof(directoryPath)}MustBeDirectoryAndExist-{directoryPath}-DoesNotExist")).Must().BeTrue().OrThrowFirstFailure();
+            new { directoryPath }.Must().NotBeNullNorWhiteSpace();
+            new { assemblyFileExtensionsWithoutPeriodToLoad }.Must().NotBeNull().And().NotBeEmptyEnumerable();
+            new { symbolFileExtensionsWithoutPeriodToConsider }.Must().NotBeNull();
+            new { assemblyFileNameRegexBlacklist }.Must().NotBeNull();
+            new { logger }.Must().NotBeNull();
+            Directory.Exists(directoryPath).Named(Invariant($"{nameof(directoryPath)}MustBeDirectoryAndExist-{directoryPath}-DoesNotExist")).Must().BeTrue("");
 
             this.FilePathToAssemblyMap = new Dictionary<string, Assembly>();
 

@@ -19,8 +19,7 @@ namespace OBeautifulCode.Reflection.Recipes
     using System.Runtime.CompilerServices;
 
     using OBeautifulCode.Collection.Recipes;
-
-    using Spritely.Recipes;
+    using OBeautifulCode.Validation.Recipes;
 
     using static System.FormattableString;
 
@@ -46,7 +45,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static string GetCodeBaseAsPathInsteadOfUri(
             this Assembly assembly)
         {
-            new { assembly }.Must().NotBeNull().OrThrowFirstFailure();
+            new { assembly }.Must().NotBeNull();
 
             var nonUriCodeBase = assembly.CodeBase.Replace(@"file:///", string.Empty).Replace('/', '\\');
             return nonUriCodeBase;
@@ -208,7 +207,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static IReadOnlyCollection<Type> GetTypesFromAssemblies(
             this IReadOnlyCollection<Assembly> assemblies)
         {
-            new { assemblies }.Must().NotBeNull().And().NotContainAnyNulls<Assembly>().OrThrowFirstFailure();
+            new { assemblies }.Must().NotBeNull().And().NotContainAnyNulls();
 
             try
             {
