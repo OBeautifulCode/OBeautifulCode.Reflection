@@ -403,7 +403,7 @@ namespace OBeautifulCode.Reflection.Test
             // Assert
             exception.Should().NotBeNull();
             exception.Should().BeOfType<ArgumentNullException>();
-            exception.Message.Should().Be("\r\nParameter name: assembly");
+            exception.Message.Should().Be("parameter 'assembly' is null");
         }
 
         [Fact]

@@ -68,7 +68,7 @@ namespace OBeautifulCode.Reflection.Recipes
             new { symbolFileExtensionsWithoutPeriodToConsider }.Must().NotBeNull();
             new { assemblyFileNameRegexBlacklist }.Must().NotBeNull();
             new { logger }.Must().NotBeNull();
-            Directory.Exists(directoryPath).Named(Invariant($"{nameof(directoryPath)}MustBeDirectoryAndExist-{directoryPath}-DoesNotExist")).Must().BeTrue("");
+            Directory.Exists(directoryPath).Named(Invariant($"{nameof(directoryPath)}MustBeDirectoryAndExist-{directoryPath}-DoesNotExist")).Must().BeTrue();
 
             this.FilePathToAssemblyMap = new Dictionary<string, Assembly>();
 

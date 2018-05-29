@@ -74,7 +74,7 @@ namespace OBeautifulCode.Reflection.Recipes
         {
             new { enumValue }.Must().NotBeNull();
             var enumValueAsEnum = enumValue as Enum;
-            enumValueAsEnum.Named($"{nameof(enumValue)} as Enum").Must().NotBeNull();
+            (enumValueAsEnum != null).Named($"{nameof(enumValue)} is Enum").Must().BeTrue();
 
             var result = enumValueAsEnum.GetAttributeOnEnumValue<TAttribute>();
             return result;
