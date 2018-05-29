@@ -31,7 +31,6 @@ namespace OBeautifulCode.Reflection.Test
 
         private static readonly string FullQualifiedEmbeddedIcoFileName = typeof(AssemblyHelperTest).Namespace + "." + EmbeddedIcoFileName;
 
-        // ReSharper disable InconsistentNaming
         [Fact]
         public static void OpenEmbeddedResourceStream_without_assembly___Should_throw_ArgumentNullException___When_parameter_resourceName_is_null()
         {
@@ -118,10 +117,8 @@ namespace OBeautifulCode.Reflection.Test
             Stream actual;
             using (Stream priorOpenStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(FullQualifiedEmbeddedTextFileName))
             {
-                // ReSharper disable once PossibleNullReferenceException
                 priorOpenStream.Read(new byte[1], 0, 1);
                 actual = AssemblyHelper.OpenEmbeddedResourceStream(FullQualifiedEmbeddedTextFileName, false);
-                // ReSharper restore PossibleNullReferenceException
             }
 
             // Assert
@@ -233,10 +230,8 @@ namespace OBeautifulCode.Reflection.Test
             Stream actual;
             using (Stream priorOpenStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(FullQualifiedEmbeddedTextFileName))
             {
-                // ReSharper disable once PossibleNullReferenceException
                 priorOpenStream.Read(new byte[1], 0, 1);
                 actual = System.Reflection.Assembly.GetExecutingAssembly().OpenEmbeddedResourceStream(FullQualifiedEmbeddedTextFileName);
-                // ReSharper restore PossibleNullReferenceException
             }
 
             // Assert
@@ -341,14 +336,11 @@ namespace OBeautifulCode.Reflection.Test
             string actual;
             using (Stream priorOpenStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(FullQualifiedEmbeddedTextFileName))
             {
-                // ReSharper disable AssignNullToNotNullAttribute
                 using (var reader = new StreamReader(priorOpenStream))
                 {
                     reader.Read();
                     actual = AssemblyHelper.ReadEmbeddedResourceAsString(FullQualifiedEmbeddedTextFileName, false);
                 }
-
-                // ReSharper restore AssignNullToNotNullAttribute
             }
 
             // Assert
@@ -430,7 +422,5 @@ namespace OBeautifulCode.Reflection.Test
             var actualEndsWithExpected2 = actual.EndsWith(expectedEnding2, StringComparison.Ordinal);
             (actualEndsWithExpected1 || actualEndsWithExpected2).Should().BeTrue($"actual was expected to be {expectedEnding1} or {expectedEnding2}");
         }
-
-        // ReSharper restore InconsistentNaming
     }
 }

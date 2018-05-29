@@ -4,7 +4,6 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-// ReSharper disable CheckNamespace
 namespace OBeautifulCode.Reflection.Test
 {
 #pragma warning disable SA1649 // File name must match first type name
@@ -14,7 +13,7 @@ namespace OBeautifulCode.Reflection.Test
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix", Justification = "This is for test purposes.")]
     public enum EqualOpportunityEnum
     {
-        None
+        None,
     }
 
     [EqualOpportunity("interface with everyone")]
@@ -43,5 +42,3 @@ namespace OBeautifulCode.Reflection.Test
 #pragma warning restore SA1402 // File may only contain a single class
 #pragma warning restore SA1649 // File name must match first type name
 }
-
-// ReSharper restore CheckNamespace

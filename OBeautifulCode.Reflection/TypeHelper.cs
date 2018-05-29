@@ -21,8 +21,6 @@ namespace OBeautifulCode.Reflection.Recipes
 #if !OBeautifulCodeReflectionRecipesProject
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Reflection", "See package version number")]
-#endif
-#if !OBeautifulCodeReflectionRecipesProject
     internal
 #else
     public

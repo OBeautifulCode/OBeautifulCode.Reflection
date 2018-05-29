@@ -13,11 +13,6 @@ namespace OBeautifulCode.Reflection.Test
     #pragma warning disable SA1124 // Do not use regions
     #pragma warning disable SA1309 // Field names must not begin with underscore
     #pragma warning disable SA1214 // Readonly fields must appear before non-readonly fields
-    // ReSharper disable ConvertToAutoProperty
-    // ReSharper disable InconsistentNaming
-    // ReSharper disable UnusedAutoPropertyAccessor.Local
-    // ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
-    // ReSharper disable UnusedMember.Local
 
     public class Parent : IDisposable
     {
@@ -130,11 +125,6 @@ namespace OBeautifulCode.Reflection.Test
         }
     }
 
-    // ReSharper restore UnusedMember.Local
-    // ReSharper restore AutoPropertyCanBeMadeGetOnly.Local
-    // ReSharper restore UnusedAutoPropertyAccessor.Local
-    // ReSharper restore InconsistentNaming
-    // ReSharper restore ConvertToAutoProperty
     #pragma warning restore SA1214 // Readonly fields must appear before non-readonly fields
     #pragma warning restore SA1309 // Field names must not begin with underscore
     #pragma warning restore SA1124 // Do not use regions

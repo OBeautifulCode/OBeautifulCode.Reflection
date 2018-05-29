@@ -114,7 +114,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// Only useful when the attribute is configured such that more one instance can be applied.
         /// </summary>
         /// <remarks>
-        /// adapted from <a href="http://stackoverflow.com/a/2656211/356790"/>
+        /// adapted from <a href="http://stackoverflow.com/a/2656211/356790"/>.
         /// </remarks>
         /// <typeparam name="TAttribute">The type of the attributes to return.</typeparam>
         /// <param name="type">The type to scope the attribute search to.</param>
@@ -164,7 +164,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// Only useful when the attribute is configured such that more one instance can be applied to an enum value.
         /// </summary>
         /// <remarks>
-        /// adapted from <a href="http://stackoverflow.com/a/9276348/356790"/>
+        /// adapted from <a href="http://stackoverflow.com/a/9276348/356790"/>.
         /// </remarks>
         /// <typeparam name="TAttribute">The type of the attributes to return.</typeparam>
         /// <param name="enumValue">The enum value to scope the attribute search to.</param>
@@ -192,8 +192,8 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <typeparam name="TAttribute">The type of the attributes to search for.</typeparam>
         /// <param name="type">The type to scope the attribute search to.</param>
         /// <param name="throwOnMultiple">
-        /// Optional.  Determines if method should throw when multiple instances of the specified 
-        /// attribute have been applied to the specified type.  Default is true 
+        /// Optional.  Determines if method should throw when multiple instances of the specified
+        /// attribute have been applied to the specified type.  Default is true
         /// (it's typically unlikely that multiple attributes of the same type are applied to a type).
         /// </param>
         /// <returns>
@@ -226,8 +226,8 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <typeparam name="TAttribute">The type of the attributes to search for.</typeparam>
         /// <param name="enumValue">The enum value to scope the attribute search to.</param>
         /// <param name="throwOnMultiple">
-        /// Optional.  Determines if method should throw when multiple instances of the specified 
-        /// attribute have been applied to the specified enum value.  Default is true 
+        /// Optional.  Determines if method should throw when multiple instances of the specified
+        /// attribute have been applied to the specified enum value.  Default is true
         /// (it's typically unlikely that multiple attributes of the same type are applied to an enum value).
         /// </param>
         /// <returns>
@@ -261,8 +261,8 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <typeparam name="TAttribute">The type of the attributes to serach for.</typeparam>
         /// <param name="enumValue">The enum value to scope the attribute search to.</param>
         /// <param name="throwOnMultiple">
-        /// Optional.  Determines if method should throw when multiple instances of the specified 
-        /// attribute have been applied to the specified enum value.  Default is true 
+        /// Optional.  Determines if method should throw when multiple instances of the specified
+        /// attribute have been applied to the specified enum value.  Default is true
         /// (it's typically unlikely that multiple attributes of the same type are applied to an enum value).
         /// </param>
         /// <returns>

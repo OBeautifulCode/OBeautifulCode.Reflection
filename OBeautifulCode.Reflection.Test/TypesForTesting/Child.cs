@@ -7,9 +7,6 @@
 namespace OBeautifulCode.Reflection.Test
 {
     #pragma warning disable SA1309 // Field names must not begin with underscore
-    // ReSharper disable ConvertToAutoProperty
-    // ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
-
     public class Child : Parent
     {
         private double _privateChildDoubleField = 123;
@@ -35,7 +32,5 @@ namespace OBeautifulCode.Reflection.Test
         private string PrivateChildStringProperty { get; set; }
     }
 
-    // ReSharper restore AutoPropertyCanBeMadeGetOnly.Local
-    // ReSharper restore ConvertToAutoProperty
     #pragma warning restore SA1309 // Field names must not begin with underscore
 }

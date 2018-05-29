@@ -17,7 +17,9 @@ namespace OBeautifulCode.Reflection.Recipes
     using System.Linq;
     using System.Reflection;
     using System.Runtime.CompilerServices;
+
     using OBeautifulCode.Collection.Recipes;
+
     using Spritely.Recipes;
 
     using static System.FormattableString;
@@ -29,9 +31,7 @@ namespace OBeautifulCode.Reflection.Recipes
 #if !OBeautifulCodeReflectionRecipesProject
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Reflection", "See package version number")]
-#endif
-#if !OBeautifulCodeReflectionRecipesProject
-    internal 
+    internal
 #else
     public
 #endif
@@ -43,7 +43,8 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <param name="assembly">Assembly to extend functionality of.</param>
         /// <returns>CodeBase as real path.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings", Justification = "Correct return type.")]
-        public static string GetCodeBaseAsPathInsteadOfUri(this Assembly assembly)
+        public static string GetCodeBaseAsPathInsteadOfUri(
+            this Assembly assembly)
         {
             new { assembly }.Must().NotBeNull().OrThrowFirstFailure();
 
@@ -68,7 +69,10 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <exception cref="InvalidOperationException">The resource was not an embedded resource (that is, non-linked).</exception>
         /// <exception cref="NotImplementedException">Resource length is greater than Int64.MaxValue.</exception>
         /// <exception cref="InvalidDataException">When compression method is Gzip, but the resource was not compressed using Gzip.</exception>
-        public static Stream OpenEmbeddedResourceStream(this Assembly assembly, string resourceName, CompressionMethod decompressionMethod = CompressionMethod.None)
+        public static Stream OpenEmbeddedResourceStream(
+            this Assembly assembly,
+            string resourceName,
+            CompressionMethod decompressionMethod = CompressionMethod.None)
         {
             // here's a good article about .net resources
             // http://www.grimes.demon.co.uk/workshops/fusWSNine.htm
@@ -109,10 +113,9 @@ namespace OBeautifulCode.Reflection.Recipes
 
             if (decompressionMethod == CompressionMethod.Gzip)
             {
-                // ReSharper disable AssignNullToNotNullAttribute
+                // ReSharper disable once AssignNullToNotNullAttribute
                 var decompressionStream = new GZipStream(embeddedResourceStream, CompressionMode.Decompress);
                 return decompressionStream;
-                // ReSharper restore AssignNullToNotNullAttribute
             }
 
             throw new NotSupportedException("This compression method is not supported: " + decompressionMethod);
@@ -126,7 +129,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// Determines whether to add the namespace of the calling method to the resource name.
         /// If false, then the resource name is used as-is.
         /// If true, then the resource name is prepended with the fully qualified namespace of the calling method, followed by a period
-        /// (e.g. if resource name = "MyFile.txt" then it changed to something like "MyNamespace.MySubNamespace.MyFile.txt")
+        /// (e.g. if resource name = "MyFile.txt" then it changed to something like "MyNamespace.MySubNamespace.MyFile.txt").
         /// </param>
         /// <param name="decompressionMethod">
         /// The compression algorithm and/or archive file format that was used to compress the resource.
@@ -139,7 +142,10 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <exception cref="InvalidOperationException">The resource was not an embedded resource (that is, non-linked).</exception>
         /// <exception cref="NotImplementedException">Resource length is greater than Int64.MaxValue.</exception>
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static Stream OpenEmbeddedResourceStream(string resourceName, bool addCallerNamespace = true, CompressionMethod decompressionMethod = CompressionMethod.None)
+        public static Stream OpenEmbeddedResourceStream(
+            string resourceName,
+            bool addCallerNamespace = true,
+            CompressionMethod decompressionMethod = CompressionMethod.None)
         {
             resourceName = ResolveResourceName(resourceName, addCallerNamespace);
             var embeddedResourceStream = OpenEmbeddedResourceStream(Assembly.GetCallingAssembly(), resourceName, decompressionMethod);
@@ -154,7 +160,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// Determines whether to add the namespace of the calling method to the resource name.
         /// If false, then the resource name is used as-is.
         /// If true, then the resource name is prepended with the fully qualified namespace of the calling method, followed by a period
-        /// (e.g. if resource name = "MyFile.txt" then it changed to something like "MyNamespace.MySubNamespace.MyFile.txt")
+        /// (e.g. if resource name = "MyFile.txt" then it changed to something like "MyNamespace.MySubNamespace.MyFile.txt").
         /// </param>
         /// <param name="decompressionMethod">
         /// The compression algorithm and/or archive file format that was used to compress the resource.
@@ -174,7 +180,10 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <exception cref="NotImplementedException">Resource length is greater than Int64.MaxValue.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "Objects are not being disposed multiple times.")]
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static string ReadEmbeddedResourceAsString(string resourceName, bool addCallerNamespace = true, CompressionMethod decompressionMethod = CompressionMethod.None)
+        public static string ReadEmbeddedResourceAsString(
+            string resourceName,
+            bool addCallerNamespace = true,
+            CompressionMethod decompressionMethod = CompressionMethod.None)
         {
             resourceName = ResolveResourceName(resourceName, addCallerNamespace);
             using (var embeddedResourceStream = OpenEmbeddedResourceStream(Assembly.GetCallingAssembly(), resourceName, decompressionMethod))
@@ -190,7 +199,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// Gets all types defined within a set of assemblies.
         /// </summary>
         /// <remarks>
-        /// If you want to get all loaded types, then pass-in the result of AssemblyLoader.GetLoadedAssemblies()
+        /// If you want to get all loaded types, then pass-in the result of AssemblyLoader.GetLoadedAssemblies().
         /// </remarks>
         /// <param name="assemblies">The assemblies.</param>
         /// <returns>
@@ -212,7 +221,7 @@ namespace OBeautifulCode.Reflection.Recipes
                 var typesLoaded = reflectionTypeLoadException.Types?.Select(_ => _?.ToString() ?? "<null>").ToCsv();
                 var message = Invariant($"{nameof(ReflectionTypeLoadException)} was thrown when getting types from assemblies.{Environment.NewLine}The assemblies pased-in were: {assemblies.Select(_ => _.ToString()).ToCsv()}{Environment.NewLine}{Environment.NewLine}The loader exceptions are: {loaderExceptions ?? "<null>"}.{Environment.NewLine}{Environment.NewLine}The types loaded are: {typesLoaded ?? "<null>"}.{Environment.NewLine}{Environment.NewLine}See inner exception for the original exception.");
                 throw new TypeLoadException(message, reflectionTypeLoadException);
-            }            
+            }
         }
 
         /// <summary>
@@ -223,13 +232,15 @@ namespace OBeautifulCode.Reflection.Recipes
         /// Determines whether to add the namespace of the calling method to the resource name.
         /// If false, then the resource name is used as-is.
         /// If true, then the resource name is prepended with the fully qualified namespace of the calling method, followed by a period
-        /// (e.g. if resource name = "MyFile.txt" then it changed to something like "MyNamespace.MySubNamespace.MyFile.txt")
+        /// (e.g. if resource name = "MyFile.txt" then it changed to something like "MyNamespace.MySubNamespace.MyFile.txt").
         /// </param>
         /// <returns>
         /// The resolved resource name.
         /// </returns>
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private static string ResolveResourceName(string resourceName, bool addCallerNamespace)
+        private static string ResolveResourceName(
+            string resourceName,
+            bool addCallerNamespace)
         {
             if (addCallerNamespace)
             {
@@ -243,6 +254,6 @@ namespace OBeautifulCode.Reflection.Recipes
             }
 
             return resourceName;
-        }        
+        }
     }
 }

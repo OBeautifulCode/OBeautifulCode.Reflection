@@ -6,11 +6,11 @@
     <tags>reflection assembly load</tags>
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Reflection/master/OBeautifulCode.Reflection/nuget-icon.png</iconUrl>
     <dependencies>
-      <dependency id="Spritely.Recipes.MustValidation" version="0.6.3" />
-      <dependency id="OBeautifulCode.Collection.Recipes.EnumerableExtensions" version="1.0.16" />
+      <dependency id="OBeautifulCode.Validation.Recipes.ParameterValidator" version="1.0.11" />
+      <dependency id="OBeautifulCode.Collection.Recipes.EnumerableExtensions" version="1.0.20" />
     </dependencies>
   </metadata>
   <files>
-    <file src="AssemblyLoader.cs" target="content\net461\.recipes\OBeautifulCode.Reflection\AssemblyLoader.cs" />
+    <file src="AssemblyLoader.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\AssemblyLoader.cs" />
   </files>
 </package>

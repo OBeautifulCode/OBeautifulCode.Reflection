@@ -14,8 +14,6 @@ namespace OBeautifulCode.Reflection.Recipes
     /// </summary>
 #if !OBeautifulCodeReflectionRecipesProject
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Reflection", "See package version number")]
-#endif
-#if !OBeautifulCodeReflectionRecipesProject
     internal
 #else
     public
@@ -32,6 +30,6 @@ namespace OBeautifulCode.Reflection.Recipes
         /// using the DEFLATE algorithm.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Gzip", Justification = "Spelling/name is correct.")]
-        Gzip
+        Gzip,
     }
 }
