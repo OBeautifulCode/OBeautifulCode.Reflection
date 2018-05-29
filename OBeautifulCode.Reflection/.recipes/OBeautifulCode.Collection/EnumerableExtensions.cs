@@ -7,7 +7,6 @@
 // </auto-generated>
 // --------------------------------------------------------------------------------------------------------------------
 
-// ReSharper disable once CheckNamespace
 namespace OBeautifulCode.Collection.Recipes
 {
     using System;
@@ -16,17 +15,19 @@ namespace OBeautifulCode.Collection.Recipes
     using System.Linq;
 
     using OBeautifulCode.String.Recipes;
-
-    using Spritely.Recipes;
+    using OBeautifulCode.Validation.Recipes;
 
     /// <summary>
-    /// Helper methods for operating on objects of type <see cref="IEnumerable"/> and <see cref="IEnumerable{T}"/>
+    /// Helper methods for operating on objects of type <see cref="IEnumerable"/> and <see cref="IEnumerable{T}"/>.
     /// </summary>
 #if !OBeautifulCodeCollectionRecipesProject
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Collection", "See package version number")]
+    internal
+#else
+    public
 #endif
-    internal static class EnumerableExtensions
+    static class EnumerableExtensions
     {
         /// <summary>
         /// Concatenates the individual values in an <see cref="IEnumerable"/> with a given delimiter
@@ -41,51 +42,53 @@ namespace OBeautifulCode.Collection.Recipes
         /// Returns a string that contains each element in the input enumerable, separated by the given delimiter.
         /// If the enumerable is empty, then this method returns null.
         /// </returns>
-        /// <exception cref="ArgumentNullException">value is null.</exception>
-        /// <exception cref="ArgumentNullException">delimiter is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="delimiter"/> is null.</exception>
         public static string ToDelimitedString(
-            this IEnumerable<string> value, 
+            this IEnumerable<string> value,
             string delimiter)
         {
-            // ReSharper disable PossibleMultipleEnumeration
-            value.Named(nameof(value)).Must().NotBeNull().OrThrow();
-            delimiter.Named(nameof(delimiter)).Must().NotBeNull().OrThrow();
+            // ReSharper disable once PossibleMultipleEnumeration
+            new { value }.Must().NotBeNull();
+            new { delimiter }.Must().NotBeNull();
 
+            // ReSharper disable once PossibleMultipleEnumeration
             var valueAsList = value.ToList();
             if (valueAsList.Count == 0)
             {
                 return null;
             }
 
+            // ReSharper disable once PossibleMultipleEnumeration
             var result = string.Join(delimiter, value);
             return result;
-            // ReSharper restore PossibleMultipleEnumeration
         }
 
         /// <summary>
         /// Creates a common separated values (CSV) string from the individual strings in an <see cref="IEnumerable"/>,
-        /// making CSV treatments where needed (double quotes around strings with commas, etc.)
+        /// making CSV treatments where needed (double quotes around strings with commas, etc.).
         /// </summary>
         /// <param name="value">The enumerable to transform into a CSV string.</param>
         /// <param name="nullValueEncoding">Optional value to use when encoding null elements.  Defaults to the empty string.</param>
         /// <remarks>
-        /// CSV treatments: <a href="http://en.wikipedia.org/wiki/Comma-separated_values"/>
+        /// CSV treatments: <a href="http://en.wikipedia.org/wiki/Comma-separated_values"/>.
         /// </remarks>
         /// <returns>
-        /// Returns a string that contains each element in the input enumerable, 
+        /// Returns a string that contains each element in the input enumerable,
         /// separated by a comma and with the proper escaping.
         /// If the enumerable is empty, returns null.
         /// </returns>
-        /// <exception cref="ArgumentNullException">value is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
         public static string ToCsv(
             this IEnumerable<string> value,
             string nullValueEncoding = "")
         {
-            // ReSharper disable PossibleMultipleEnumeration
-            value.Named(nameof(value)).Must().NotBeNull().OrThrow();
+            // ReSharper disable once PossibleMultipleEnumeration
+            new { value }.Must().NotBeNull();
+
+            // ReSharper disable once PossibleMultipleEnumeration
             var result = value.Select(item => item == null ? nullValueEncoding : item.ToCsvSafe()).ToDelimitedString(",");
             return result;
-            // ReSharper restore PossibleMultipleEnumeration
         }
 
         /// <summary>
@@ -99,7 +102,7 @@ namespace OBeautifulCode.Collection.Recipes
         /// Returns a string that contains each element in the input enumerable, separated by a newline.
         /// If the enumerable is empty, then this method returns null.
         /// </returns>
-        /// <exception cref="ArgumentNullException">value is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
         public static string ToNewLineDelimited(
             this IEnumerable<string> value)
         {
@@ -120,16 +123,16 @@ namespace OBeautifulCode.Collection.Recipes
         /// <param name="secondSet">The second enumerable to compare against the first.</param>
         /// <param name="comparer">The comparer object to use to compare each item in the collection.  If null uses EqualityComparer(T).Default.</param>
         /// <returns>Returns an <see cref="IEnumerable{T}"/> with the symmetric difference of the two sets.</returns>
-        /// <exception cref="ArgumentNullException">value is null.</exception>
-        /// <exception cref="ArgumentNullException">secondSet is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="secondSet"/> is null.</exception>
         public static IEnumerable<TSource> SymmetricDifference<TSource>(
-            this IEnumerable<TSource> value, 
-            IEnumerable<TSource> secondSet, 
+            this IEnumerable<TSource> value,
+            IEnumerable<TSource> secondSet,
             IEqualityComparer<TSource> comparer)
         {
             // ReSharper disable PossibleMultipleEnumeration
-            value.Named(nameof(value)).Must().NotBeNull().OrThrow();
-            secondSet.Named(nameof(secondSet)).Must().NotBeNull().OrThrow();
+            new { value }.Must().NotBeNull();
+            new { secondSet }.Must().NotBeNull();
 
             if (comparer == null)
             {
@@ -138,6 +141,7 @@ namespace OBeautifulCode.Collection.Recipes
 
             var result = value.Except(secondSet, comparer).Union(secondSet.Except(value, comparer), comparer);
             return result;
+
             // ReSharper restore PossibleMultipleEnumeration
         }
 
@@ -153,10 +157,10 @@ namespace OBeautifulCode.Collection.Recipes
         /// <param name="value">The first enumerable.</param>
         /// <param name="secondSet">The second enumerable to compare against the first.</param>
         /// <returns>IEnumerable(T) with the symmetric difference of the two sets.</returns>
-        /// <exception cref="ArgumentNullException">value is null.</exception>
-        /// <exception cref="ArgumentNullException">secondSet is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="secondSet"/> is null.</exception>
         public static IEnumerable<TSource> SymmetricDifference<TSource>(
-            this IEnumerable<TSource> value, 
+            this IEnumerable<TSource> value,
             IEnumerable<TSource> secondSet)
         {
             var result = SymmetricDifference(value, secondSet, null);
@@ -174,10 +178,10 @@ namespace OBeautifulCode.Collection.Recipes
         /// <param name="value">The first enumerable.</param>
         /// <param name="secondSet">The second enumerable to compare against the first.</param>
         /// <returns>IEnumerable(T) with the symmetric difference of the two sets.</returns>
-        /// <exception cref="ArgumentNullException">value is null.</exception>
-        /// <exception cref="ArgumentNullException">secondSet is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="secondSet"/> is null.</exception>
         public static IEnumerable SymmetricDifference(
-            this IEnumerable value, 
+            this IEnumerable value,
             IEnumerable secondSet)
         {
             var result = SymmetricDifference(value.OfType<object>(), secondSet.OfType<object>());
