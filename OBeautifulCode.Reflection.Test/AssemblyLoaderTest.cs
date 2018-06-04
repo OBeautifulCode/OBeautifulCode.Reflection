@@ -31,7 +31,7 @@ namespace OBeautifulCode.Reflection.Test
             // Assert
             exception.Should().NotBeNull();
             exception.Should().BeOfType<ArgumentNullException>();
-            exception.Message.Should().Be("parameter 'directoryPath' is null");
+            exception.Message.Should().Be("Parameter 'directoryPath' is null.");
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace OBeautifulCode.Reflection.Test
             // Assert
             exception.Should().NotBeNull();
             exception.Should().BeOfType<ArgumentException>();
-            exception.Message.Should().Be("parameter 'directoryPath' is white space");
+            exception.Message.Should().Be("Parameter 'directoryPath' is white space.  Parameter value is ''.");
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace OBeautifulCode.Reflection.Test
             // Assert
             exception.Should().NotBeNull();
             exception.Should().BeOfType<ArgumentException>();
-            exception.Message.Should().Be("parameter 'directoryPath' is white space");
+            exception.Message.Should().Be("Parameter 'directoryPath' is white space.  Parameter value is '\t'.");
         }
 
         [Fact]
@@ -69,7 +69,7 @@ namespace OBeautifulCode.Reflection.Test
         {
             // Arrange
             var fakePath = Invariant($"C:\\{Guid.NewGuid()}\\");
-            var expectedExceptionMessage = Invariant($"parameter 'directoryPathMustBeDirectoryAndExist-{fakePath}-DoesNotExist' is not true");
+            var expectedExceptionMessage = Invariant($"Parameter 'directoryPathMustBeDirectoryAndExist-{fakePath}-DoesNotExist' is not true.  Parameter value is 'False'.");
             Action action = () => AssemblyLoader.CreateAndLoadFromDirectory(fakePath);
 
             // Act
