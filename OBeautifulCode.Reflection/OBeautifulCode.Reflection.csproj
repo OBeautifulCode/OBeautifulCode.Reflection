@@ -47,6 +47,7 @@
     <Compile Include=".recipes\OBeautifulCode.Collection\EnumerableExtensions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Enum\EnumExtensions.cs" />
     <Compile Include=".recipes\OBeautifulCode.String\StringExtensions.cs" />
+    <Compile Include=".recipes\OBeautifulCode.Validation\ApplyBecause.cs" />
     <Compile Include=".recipes\OBeautifulCode.Validation\Parameter.cs" />
     <Compile Include=".recipes\OBeautifulCode.Validation\ParameterShould.cs" />
     <Compile Include=".recipes\OBeautifulCode.Validation\ParameterValidation.cs" />
