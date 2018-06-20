@@ -207,7 +207,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static IReadOnlyCollection<Type> GetTypesFromAssemblies(
             this IReadOnlyCollection<Assembly> assemblies)
         {
-            new { assemblies }.Must().NotBeNull().And().NotContainAnyNulls();
+            new { assemblies }.Must().NotBeNull().And().NotContainAnyNullElements();
 
             try
             {
