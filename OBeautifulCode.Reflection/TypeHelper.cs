@@ -91,7 +91,7 @@ namespace OBeautifulCode.Reflection.Recipes
             // OBC.Validation cannot take a reference to OBC.Reflection because it creates a circular reference
             // since OBC.Reflection itself depends on OBC.Validation.
             // We considered converting all usages of OBC.Validation in OBC.Reflection to vanilla if..then..throw
-            // but decided against because it was going to be too much work and we like the way OBC.Validation reads (e.g. Must().NotBeNull()).
+            // but decided against because it was going to be too much work and we like the way OBC.Validation reads (e.g. Must().NotBeNull()) in OBC.Reflection.
             // The other option was to create a third package that OBC.Validation and OBC.Reflection could both depend on, but
             // that didn't feel right because this method naturally fits with TypeHelper.
 

@@ -6,7 +6,7 @@
     <tags>reflection assembly assemblies embedded resources</tags>
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Reflection/master/OBeautifulCode.Reflection/nuget-icon.png</iconUrl>
     <dependencies>
-      <dependency id="OBeautifulCode.Validation.Recipes.ParameterValidator" version="1.0.16" />
+      <dependency id="OBeautifulCode.Validation.Recipes.ParameterValidator" version="1.0.17" />
       <dependency id="OBeautifulCode.Collection.Recipes.EnumerableExtensions" version="1.0.24" />
     </dependencies>
   </metadata>
