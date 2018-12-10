@@ -120,8 +120,8 @@ namespace OBeautifulCode.Reflection.Test
             var actual1 = typeof(List<string>).IsAssignableTo(typeof(List<object>));
             var actual2 = typeof(List<string>).IsAssignableTo(typeof(IList<object>));
             var actual3 = typeof(object).IsAssignableTo(typeof(string));
-            var actual4 = typeof(GenericBaseClass<string>).IsAssignableTo(typeof(GenericSubclass<string>));
-            var actual5 = typeof(IList<string>).IsAssignableTo(typeof(GenericBaseClass<string>));
+            var actual4 = typeof(BaseCollection<string>).IsAssignableTo(typeof(SubclassCollection<string>));
+            var actual5 = typeof(IList<string>).IsAssignableTo(typeof(BaseCollection<string>));
 
             // Assert
             actual1.Should().BeFalse();
@@ -138,8 +138,8 @@ namespace OBeautifulCode.Reflection.Test
             var actual1 = typeof(List<string>).IsAssignableTo(typeof(List<object>), treatUnboundGenericAsAssignableTo: true);
             var actual2 = typeof(List<string>).IsAssignableTo(typeof(IList<object>), treatUnboundGenericAsAssignableTo: true);
             var actual3 = typeof(object).IsAssignableTo(typeof(string), treatUnboundGenericAsAssignableTo: true);
-            var actual4 = typeof(GenericBaseClass<string>).IsAssignableTo(typeof(GenericSubclass<string>), treatUnboundGenericAsAssignableTo: true);
-            var actual5 = typeof(IList<string>).IsAssignableTo(typeof(GenericBaseClass<string>), treatUnboundGenericAsAssignableTo: true);
+            var actual4 = typeof(BaseCollection<string>).IsAssignableTo(typeof(SubclassCollection<string>), treatUnboundGenericAsAssignableTo: true);
+            var actual5 = typeof(IList<string>).IsAssignableTo(typeof(BaseCollection<string>), treatUnboundGenericAsAssignableTo: true);
 
             // Assert
             actual1.Should().BeFalse();
@@ -184,8 +184,8 @@ namespace OBeautifulCode.Reflection.Test
             var actual1 = typeof(List<string>).IsAssignableTo(typeof(IList<>), treatUnboundGenericAsAssignableTo: true);
             var actual2 = typeof(List<string>).IsAssignableTo(typeof(IEnumerable<>), treatUnboundGenericAsAssignableTo: true);
             var actual3 = typeof(IList<string>).IsAssignableTo(typeof(IEnumerable<>), treatUnboundGenericAsAssignableTo: true);
-            var actual4 = typeof(GenericSubclass<string>).IsAssignableTo(typeof(IEnumerable<>), treatUnboundGenericAsAssignableTo: true);
-            var actual5 = typeof(GenericSubclass<string>).IsAssignableTo(typeof(GenericBaseClass<>), treatUnboundGenericAsAssignableTo: true);
+            var actual4 = typeof(SubclassCollection<string>).IsAssignableTo(typeof(IEnumerable<>), treatUnboundGenericAsAssignableTo: true);
+            var actual5 = typeof(SubclassCollection<string>).IsAssignableTo(typeof(BaseCollection<>), treatUnboundGenericAsAssignableTo: true);
 
             // Assert
             actual1.Should().BeTrue();
@@ -202,8 +202,8 @@ namespace OBeautifulCode.Reflection.Test
             var actual1 = typeof(List<string>).IsAssignableTo(typeof(IList<>));
             var actual2 = typeof(List<string>).IsAssignableTo(typeof(IEnumerable<>));
             var actual3 = typeof(IList<string>).IsAssignableTo(typeof(IEnumerable<>));
-            var actual4 = typeof(GenericSubclass<string>).IsAssignableTo(typeof(IEnumerable<>));
-            var actual5 = typeof(GenericSubclass<string>).IsAssignableTo(typeof(GenericBaseClass<>));
+            var actual4 = typeof(SubclassCollection<string>).IsAssignableTo(typeof(IEnumerable<>));
+            var actual5 = typeof(SubclassCollection<string>).IsAssignableTo(typeof(BaseCollection<>));
 
             // Assert
             actual1.Should().BeFalse();
@@ -220,8 +220,8 @@ namespace OBeautifulCode.Reflection.Test
             var actual1 = typeof(IList<string>).IsAssignableTo(typeof(List<>), treatUnboundGenericAsAssignableTo: true);
             var actual2 = typeof(IEnumerable<string>).IsAssignableTo(typeof(IList<>), treatUnboundGenericAsAssignableTo: true);
             var actual3 = typeof(IEnumerable<string>).IsAssignableTo(typeof(List<>), treatUnboundGenericAsAssignableTo: true);
-            var actual4 = typeof(GenericBaseClass<string>).IsAssignableTo(typeof(GenericSubclass<>), treatUnboundGenericAsAssignableTo: true);
-            var actual5 = typeof(IList<string>).IsAssignableTo(typeof(GenericBaseClass<>), treatUnboundGenericAsAssignableTo: true);
+            var actual4 = typeof(BaseCollection<string>).IsAssignableTo(typeof(SubclassCollection<>), treatUnboundGenericAsAssignableTo: true);
+            var actual5 = typeof(IList<string>).IsAssignableTo(typeof(BaseCollection<>), treatUnboundGenericAsAssignableTo: true);
 
             // Assert
             actual1.Should().BeFalse();
@@ -235,7 +235,7 @@ namespace OBeautifulCode.Reflection.Test
         public static void IsAssignableTo___Should_return_true___When_type_BaseType_implements_or_inherits_an_interface_whose_generic_type_definition_equals_otherType_and_treatUnboundGenericAsAssignableTo_is_true()
         {
             // Arrange, Act
-            var actual = typeof(MyList<string>).IsAssignableTo(typeof(List<>), treatUnboundGenericAsAssignableTo: true);
+            var actual = typeof(MyCollection<string>).IsAssignableTo(typeof(List<>), treatUnboundGenericAsAssignableTo: true);
 
             // Assert
             actual.Should().BeTrue();
@@ -245,13 +245,13 @@ namespace OBeautifulCode.Reflection.Test
         public static void IsAssignableTo___Should_return_false___When_type_BaseType_implements_or_inherits_an_interface_whose_generic_type_definition_equals_otherType_and_treatUnboundGenericAsAssignableTo_is_false()
         {
             // Arrange, Act
-            var actual = typeof(MyList<string>).IsAssignableTo(typeof(List<>));
+            var actual = typeof(MyCollection<string>).IsAssignableTo(typeof(List<>));
 
             // Assert
             actual.Should().BeFalse();
         }
 
-        public class GenericBaseClass<T> : IList<T>
+        private class BaseCollection<T> : IList<T>
         {
             public int Count { get; }
 
@@ -314,11 +314,11 @@ namespace OBeautifulCode.Reflection.Test
             }
         }
 
-        public class GenericSubclass<T> : GenericBaseClass<T>
+        private class SubclassCollection<T> : BaseCollection<T>
         {
         }
 
-        public class MyList<T> : List<T>
+        private class MyCollection<T> : List<T>
         {
         }
     }
