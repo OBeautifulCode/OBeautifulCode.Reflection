@@ -10,10 +10,13 @@
 namespace OBeautifulCode.Reflection.Recipes
 {
     using System;
+    using System.Linq;
     using System.Reflection;
     using System.Runtime.CompilerServices;
 
     using OBeautifulCode.Validation.Recipes;
+
+    using static System.FormattableString;
 
     /// <summary>
     /// Provides useful methods related to reflection.
@@ -61,6 +64,71 @@ namespace OBeautifulCode.Reflection.Recipes
             var result = type.Namespace == null;
 
             return result;
+        }
+
+        /// <summary>
+        /// Determines if a type if assignable to another type.
+        /// </summary>
+        /// <remarks>
+        /// Adapted from: <a href="https://stackoverflow.com/questions/74616/how-to-detect-if-type-is-another-generic-type/1075059#1075059" />.
+        /// </remarks>
+        /// <param name="type">The current type.</param>
+        /// <param name="otherType">The type to check for ability to assign to.</param>
+        /// <param name="treatUnboundGenericAsAssignableTo">Treats an unbound generic as a type that can be assigned to (e.g. IsAssignableTo(List&lt;int&gt;, List&lt;&gt;)).</param>
+        /// <returns>
+        /// true if <paramref name="type"/> can be assigned to <paramref name="otherType"/>; otherwise false.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="otherType"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="type"/>.<see cref="Type.IsGenericTypeDefinition"/> is true.</exception>
+        public static bool IsAssignableTo(
+            this Type type,
+            Type otherType,
+            bool treatUnboundGenericAsAssignableTo = false)
+        {
+            new { type }.Must().NotBeNull();
+            new { otherType }.Must().NotBeNull();
+            type.IsGenericTypeDefinition.Named(Invariant($"{nameof(type)}.{nameof(Type.IsGenericTypeDefinition)}")).Must().BeFalse();
+
+            // type is equal to the other type
+            if (type == otherType)
+            {
+                return true;
+            }
+
+            // type is assignable to the other type
+            if (otherType.IsAssignableFrom(type))
+            {
+                return true;
+            }
+
+            // type is generic and other type is an unbounded generic type
+            if (treatUnboundGenericAsAssignableTo && otherType.IsGenericTypeDefinition)
+            {
+                // type's unbounded generic version is the other type
+                if (type.IsGenericType && type.GetGenericTypeDefinition() == otherType)
+                {
+                    return true;
+                }
+
+                // type implements an interface who's unbounded generic version is the other type
+                if (type.GetInterfaces().Any(_ => _.IsGenericType && (_.GetGenericTypeDefinition() == otherType)))
+                {
+                    return true;
+                }
+
+                var baseType = type.BaseType;
+                if (baseType == null)
+                {
+                    return false;
+                }
+
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+                var result = baseType.IsAssignableTo(otherType, treatUnboundGenericAsAssignableTo);
+                return result;
+            }
+
+            return false;
         }
     }
 }
