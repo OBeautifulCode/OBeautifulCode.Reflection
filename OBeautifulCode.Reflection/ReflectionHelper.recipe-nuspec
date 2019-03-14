@@ -6,6 +6,7 @@
     <tags>reflection extension extensions</tags>
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Reflection/master/OBeautifulCode.Reflection/nuget-icon.png</iconUrl>
     <dependencies>
+      <dependency id="OBeautifulCode.Reflection.Recipes.TypeHelper" version="1.0.60" />
       <dependency id="OBeautifulCode.Validation.Recipes.ParameterValidator" version="1.0.17" />
       <dependency id="OBeautifulCode.Enum.Recipes.EnumExtensions" version="1.0.15" />
     </dependencies>
