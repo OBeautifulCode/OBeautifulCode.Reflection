@@ -83,6 +83,8 @@
     <Compile Include="TypeHelperTest.cs" />
     <Compile Include="AssemblyLoaderTest.cs" />
     <Compile Include="AssemblyHelperTest.cs" />
+    <Compile Include="TypesForTesting\NullAndNotNullFields.cs" />
+    <Compile Include="TypesForTesting\NullAndNotNullProperties.cs" />
     <Compile Include="TypesForTesting\Attributes.cs" />
     <Compile Include="TypesForTesting\AttributesOnClasses.cs" />
     <Compile Include="TypesForTesting\AttributesOnTypes.cs" />

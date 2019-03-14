@@ -7,6 +7,7 @@
 namespace OBeautifulCode.Reflection.Test
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
 
@@ -1164,6 +1165,178 @@ namespace OBeautifulCode.Reflection.Test
             // testing MemoryStream for IDisposable
             parentClass.SetFieldValue("_privateParentIDisposableField", new MemoryStream(new byte[] { 0, 0, 0, 0, 0 }, true));
             Assert.Equal(5, ((MemoryStream)parentClass.PublicParentIDisposableField).Length);
+        }
+
+        [Fact]
+        public static void GetPropertyValue___Should_throw_InvalidCastException___When_property_value_is_null_and_property_type_is_not_assignable_to_generic_type_parameter()
+        {
+            // Arrange
+            var item = new NullAndNotNullProperties
+            {
+                NotNullObject = new object(),
+                NotNullString = A.Dummy<string>(),
+            };
+
+            // Act
+            var actual1 = Record.Exception(() => item.GetPropertyValue<IDictionary<string, string>>(nameof(NullAndNotNullProperties.NullString)));
+            var actual2 = Record.Exception(() => item.GetPropertyValue<IDictionary<string, string>>(nameof(NullAndNotNullProperties.NullObject)));
+            var actual3 = Record.Exception(() => item.GetPropertyValue<string>(nameof(NullAndNotNullProperties.NullObject)));
+
+            // Assert
+            actual1.Should().BeOfType<InvalidCastException>();
+            actual2.Should().BeOfType<InvalidCastException>();
+            actual3.Should().BeOfType<InvalidCastException>();
+        }
+
+        [Fact]
+        public static void GetPropertyValue___Should_throw_InvalidCastException___When_property_value_is_not_null_and_cannot_be_casted_to_generic_type_parameter()
+        {
+            // Arrange
+            var item = new NullAndNotNullProperties
+            {
+                NotNullObject = new object(),
+                NotNullString = A.Dummy<string>(),
+            };
+
+            // Act
+            var actual1 = Record.Exception(() => item.GetPropertyValue<IDictionary<string, string>>(nameof(NullAndNotNullProperties.NotNullString)));
+            var actual2 = Record.Exception(() => item.GetPropertyValue<IDictionary<string, string>>(nameof(NullAndNotNullProperties.NotNullObject)));
+            var actual3 = Record.Exception(() => item.GetPropertyValue<string>(nameof(NullAndNotNullProperties.NotNullObject)));
+
+            // Assert
+            actual1.Should().BeOfType<InvalidCastException>();
+            actual2.Should().BeOfType<InvalidCastException>();
+            actual3.Should().BeOfType<InvalidCastException>();
+        }
+
+        [Fact]
+        public static void GetPropertyValue___Should_return_null___When_property_value_is_null_and_property_type_is_assignable_to_generic_type_parameter()
+        {
+            // Arrange
+            var item = new NullAndNotNullProperties
+            {
+                NotNullObject = A.Dummy<string>(),
+                NotNullString = A.Dummy<string>(),
+            };
+
+            // Act
+            var actual1 = item.GetPropertyValue<string>(nameof(NullAndNotNullProperties.NullString));
+            var actual2 = item.GetPropertyValue<object>(nameof(NullAndNotNullProperties.NullString));
+            var actual3 = item.GetPropertyValue<object>(nameof(NullAndNotNullProperties.NullString));
+
+            // Assert
+            actual1.Should().BeNull();
+            actual2.Should().BeNull();
+            actual3.Should().BeNull();
+        }
+
+        [Fact]
+        public static void GetPropertyValue___Should_return_property_value___When_property_value_is_not_null_and_can_be_casted_to_generic_type_parameter()
+        {
+            // Arrange
+            var item = new NullAndNotNullProperties
+            {
+                NotNullObject = A.Dummy<string>(),
+                NotNullString = A.Dummy<string>(),
+            };
+
+            // Act
+            var actual1 = item.GetPropertyValue<string>(nameof(NullAndNotNullProperties.NotNullString));
+            var actual2 = item.GetPropertyValue<object>(nameof(NullAndNotNullProperties.NotNullString));
+            var actual3 = item.GetPropertyValue<string>(nameof(NullAndNotNullProperties.NotNullObject));
+            var actual4 = item.GetPropertyValue<object>(nameof(NullAndNotNullProperties.NotNullObject));
+
+            // Assert
+            actual1.Should().Be(item.NotNullString);
+            actual2.Should().Be(item.NotNullString);
+            actual3.Should().Be(item.NotNullObject.ToString());
+            actual4.Should().Be(item.NotNullObject);
+        }
+
+        [Fact]
+        public static void GetFieldValue___Should_throw_InvalidCastException___When_field_value_is_null_and_field_type_is_not_assignable_to_generic_type_parameter()
+        {
+            // Arrange
+            var item = new NullAndNotNullFields
+            {
+                NotNullObject = new object(),
+                NotNullString = A.Dummy<string>(),
+            };
+
+            // Act
+            var actual1 = Record.Exception(() => item.GetFieldValue<IDictionary<string, string>>(nameof(NullAndNotNullFields.NullString)));
+            var actual2 = Record.Exception(() => item.GetFieldValue<IDictionary<string, string>>(nameof(NullAndNotNullFields.NullObject)));
+            var actual3 = Record.Exception(() => item.GetFieldValue<string>(nameof(NullAndNotNullFields.NullObject)));
+
+            // Assert
+            actual1.Should().BeOfType<InvalidCastException>();
+            actual2.Should().BeOfType<InvalidCastException>();
+            actual3.Should().BeOfType<InvalidCastException>();
+        }
+
+        [Fact]
+        public static void GetFieldValue___Should_throw_InvalidCastException___When_field_value_is_not_null_and_cannot_be_casted_to_generic_type_parameter()
+        {
+            // Arrange
+            var item = new NullAndNotNullFields
+            {
+                NotNullObject = new object(),
+                NotNullString = A.Dummy<string>(),
+            };
+
+            // Act
+            var actual1 = Record.Exception(() => item.GetFieldValue<IDictionary<string, string>>(nameof(NullAndNotNullFields.NotNullString)));
+            var actual2 = Record.Exception(() => item.GetFieldValue<IDictionary<string, string>>(nameof(NullAndNotNullFields.NotNullObject)));
+            var actual3 = Record.Exception(() => item.GetFieldValue<string>(nameof(NullAndNotNullFields.NotNullObject)));
+
+            // Assert
+            actual1.Should().BeOfType<InvalidCastException>();
+            actual2.Should().BeOfType<InvalidCastException>();
+            actual3.Should().BeOfType<InvalidCastException>();
+        }
+
+        [Fact]
+        public static void GetFieldValue___Should_return_null___When_field_value_is_null_and_field_type_is_assignable_to_generic_type_parameter()
+        {
+            // Arrange
+            var item = new NullAndNotNullFields
+            {
+                NotNullObject = A.Dummy<string>(),
+                NotNullString = A.Dummy<string>(),
+            };
+
+            // Act
+            var actual1 = item.GetFieldValue<string>(nameof(NullAndNotNullFields.NullString));
+            var actual2 = item.GetFieldValue<object>(nameof(NullAndNotNullFields.NullString));
+            var actual3 = item.GetFieldValue<object>(nameof(NullAndNotNullFields.NullString));
+
+            // Assert
+            actual1.Should().BeNull();
+            actual2.Should().BeNull();
+            actual3.Should().BeNull();
+        }
+
+        [Fact]
+        public static void GetFieldValue___Should_return_field_value___When_field_value_is_not_null_and_can_be_casted_to_generic_type_parameter()
+        {
+            // Arrange
+            var item = new NullAndNotNullFields
+            {
+                NotNullObject = A.Dummy<string>(),
+                NotNullString = A.Dummy<string>(),
+            };
+
+            // Act
+            var actual1 = item.GetFieldValue<string>(nameof(NullAndNotNullFields.NotNullString));
+            var actual2 = item.GetFieldValue<object>(nameof(NullAndNotNullFields.NotNullString));
+            var actual3 = item.GetFieldValue<string>(nameof(NullAndNotNullFields.NotNullObject));
+            var actual4 = item.GetFieldValue<object>(nameof(NullAndNotNullFields.NotNullObject));
+
+            // Assert
+            actual1.Should().Be(item.NotNullString);
+            actual2.Should().Be(item.NotNullString);
+            actual3.Should().Be(item.NotNullObject.ToString());
+            actual4.Should().Be(item.NotNullObject);
         }
     }
 }
