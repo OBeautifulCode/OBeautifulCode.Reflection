@@ -8,7 +8,10 @@ namespace OBeautifulCode.Reflection.Test
 {
     using System;
     using System.Collections;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
 
     using FakeItEasy;
 
@@ -251,6 +254,126 @@ namespace OBeautifulCode.Reflection.Test
             actual.Should().BeFalse();
         }
 
+        [Fact]
+        public static void IsSystemCollectionType___Should_throw_ArgumentNullException___When_parameter_type_is_null()
+        {
+            // Arrange, Act
+            var actual = Record.Exception(() => TypeHelper.IsSystemCollectionType(null));
+
+            // Assert
+            actual.Should().BeOfType<ArgumentNullException>();
+            actual.Message.Should().Contain("type");
+        }
+
+        [Fact]
+        public static void IsSystemCollectionType___Should_return_false___When_parameter_type_is_not_a_System_collection_type()
+        {
+            // Arrange
+            var types = new[]
+            {
+                typeof(Guid),
+                typeof(Guid?),
+                typeof(string),
+                typeof(int),
+                typeof(CollectionDerivative),
+                typeof(KeyValuePair<,>),
+                typeof(KeyValuePair<string, string>),
+            };
+
+            // Act
+            var actuals = types.Select(_ => _.IsSystemCollectionType()).ToList();
+
+            // Assert
+            actuals.Should().AllBeEquivalentTo(false);
+        }
+
+        [Fact]
+        public static void IsSystemCollectionType___Should_return_true___When_parameter_type_is_a_System_collection_type()
+        {
+            // Arrange
+            var types = new[]
+            {
+                typeof(Collection<>),
+                typeof(ICollection<>),
+                typeof(ReadOnlyCollection<>),
+                typeof(IReadOnlyCollection<>),
+                typeof(List<>),
+                typeof(IList<>),
+                typeof(IReadOnlyList<>),
+                typeof(Collection<string>),
+                typeof(ICollection<string>),
+                typeof(ReadOnlyCollection<string>),
+                typeof(IReadOnlyCollection<string>),
+                typeof(List<string>),
+                typeof(IList<string>),
+                typeof(IReadOnlyList<string>),
+            };
+
+            // Act
+            var actuals = types.Select(_ => _.IsSystemCollectionType()).ToList();
+
+            // Assert
+            actuals.Should().AllBeEquivalentTo(true);
+        }
+
+        [Fact]
+        public static void IsSystemDictionaryType___Should_throw_ArgumentNullException___When_parameter_type_is_null()
+        {
+            // Arrange, Act
+            var actual = Record.Exception(() => TypeHelper.IsSystemDictionaryType(null));
+
+            // Assert
+            actual.Should().BeOfType<ArgumentNullException>();
+            actual.Message.Should().Contain("type");
+        }
+
+        [Fact]
+        public static void IsSystemDictionaryType___Should_return_false___When_parameter_type_is_not_a_System_dictionary_type()
+        {
+            // Arrange
+            var types = new[]
+            {
+                typeof(Guid),
+                typeof(Guid?),
+                typeof(string),
+                typeof(int),
+                typeof(DictionaryDerivative),
+                typeof(KeyValuePair<,>),
+                typeof(KeyValuePair<string, string>),
+            };
+
+            // Act
+            var actuals = types.Select(_ => _.IsSystemDictionaryType()).ToList();
+
+            // Assert
+            actuals.Should().AllBeEquivalentTo(false);
+        }
+
+        [Fact]
+        public static void IsSystemDictionaryType___Should_return_true___When_parameter_type_is_a_System_dictionary_type()
+        {
+            // Arrange
+            var types = new[]
+            {
+                typeof(Dictionary<,>),
+                typeof(IDictionary<,>),
+                typeof(ReadOnlyDictionary<,>),
+                typeof(IReadOnlyDictionary<,>),
+                typeof(ConcurrentDictionary<,>),
+                typeof(Dictionary<string, string>),
+                typeof(IDictionary<string, string>),
+                typeof(ReadOnlyDictionary<string, string>),
+                typeof(IReadOnlyDictionary<string, string>),
+                typeof(ConcurrentDictionary<string, string>),
+            };
+
+            // Act
+            var actuals = types.Select(_ => _.IsSystemDictionaryType()).ToList();
+
+            // Assert
+            actuals.Should().AllBeEquivalentTo(true);
+        }
+
         private class BaseCollection<T> : IList<T>
         {
             public int Count { get; }
@@ -319,6 +442,14 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         private class MyCollection<T> : List<T>
+        {
+        }
+
+        private class CollectionDerivative : Collection<string>
+        {
+        }
+
+        private class DictionaryDerivative : Dictionary<string, string>
         {
         }
     }
