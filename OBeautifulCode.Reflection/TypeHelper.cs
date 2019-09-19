@@ -164,6 +164,30 @@ namespace OBeautifulCode.Reflection.Recipes
         }
 
         /// <summary>
+        /// Determines if the specified type is a class type, that's not anonymous, and is closed.
+        /// </summary>
+        /// <remarks>
+        /// This is basically asking, "Is this a class type that can be constructed/new-ed up?"
+        /// </remarks>
+        /// <param name="type">The type.</param>
+        /// <returns>
+        /// true if the specified type is a class type, non-anonymous, and closed.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
+        public static bool IsNonAnonymousClosedClassType(
+            this Type type)
+        {
+            new { type }.Must().NotBeNull();
+
+            var result =
+                type.IsClass &&
+                (!type.IsAnonymous()) &&
+                (!type.IsGenericTypeDefinition); // can't do an IsAssignableTo check on generic type definitions
+
+            return result;
+        }
+
+        /// <summary>
         /// Determines if the specified type is one of the following <see cref="System"/> collection types: <see cref="CollectionTypes"/>.
         /// </summary>
         /// <param name="type">The type.</param>

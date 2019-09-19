@@ -255,6 +255,84 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
+        public static void IsNonAnonymousClosedClassType___Should_throw_ArgumentNullException___When_parameter_type_is_null()
+        {
+            // Arrange, Act
+            var actual = Record.Exception(() => TypeHelper.IsNonAnonymousClosedClassType(null));
+
+            // Assert
+            actual.Should().BeOfType<ArgumentNullException>();
+            actual.Message.Should().Contain("type");
+        }
+
+        [Fact]
+        public static void IsNonAnonymousClosedClassType___Should_return_false___When_parameter_type_is_an_interface_type()
+        {
+            // Arrange
+            var types = new[]
+            {
+                typeof(IList),
+                typeof(IList<string>),
+            };
+
+            // Act
+            var actuals = types.Select(_ => _.IsNonAnonymousClosedClassType()).ToList();
+
+            // Assert
+            actuals.Should().AllBeEquivalentTo(false);
+        }
+
+        [Fact]
+        public static void IsNonAnonymousClosedClassType___Should_return_false___When_parameter_type_is_an_open_generic_type()
+        {
+            // Arrange
+            var types = new[]
+            {
+                typeof(List<>),
+                typeof(Dictionary<,>),
+            };
+
+            // Act
+            var actuals = types.Select(_ => _.IsNonAnonymousClosedClassType()).ToList();
+
+            // Assert
+            actuals.Should().AllBeEquivalentTo(false);
+        }
+
+        [Fact]
+        public static void IsNonAnonymousClosedClassType___Should_return_false___When_parameter_type_is_an_anonymous_type()
+        {
+            // Arrange
+            var types = new[]
+            {
+                new { test = "test" }.GetType(),
+            };
+
+            // Act
+            var actuals = types.Select(_ => _.IsNonAnonymousClosedClassType()).ToList();
+
+            // Assert
+            actuals.Should().AllBeEquivalentTo(false);
+        }
+
+        [Fact]
+        public static void IsNonAnonymousClosedClassType___Should_return_true___When_parameter_type_is_a_not_anonymous_closed_class()
+        {
+            // Arrange
+            var types = new[]
+            {
+                typeof(List<string>),
+                typeof(Dictionary<string, string>),
+            };
+
+            // Act
+            var actuals = types.Select(_ => _.IsNonAnonymousClosedClassType()).ToList();
+
+            // Assert
+            actuals.Should().AllBeEquivalentTo(true);
+        }
+
+        [Fact]
         public static void IsSystemCollectionType___Should_throw_ArgumentNullException___When_parameter_type_is_null()
         {
             // Arrange, Act
