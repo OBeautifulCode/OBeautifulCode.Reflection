@@ -188,6 +188,25 @@ namespace OBeautifulCode.Reflection.Recipes
         }
 
         /// <summary>
+        /// Determines if the specified type is <see cref="Nullable{T}"/>.
+        /// </summary>
+        /// <remarks>Adapted from: <a href="https://stackoverflow.com/a/41281601/356790" />.</remarks>
+        /// <param name="type">The type.</param>
+        /// <returns>
+        /// true if the specified type is <see cref="Nullable{T}"/>, otherwise false.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
+        public static bool IsNullableType(
+            this Type type)
+        {
+            new { type }.Must().NotBeNull();
+
+            var result = Nullable.GetUnderlyingType(type) != null;
+
+            return result;
+        }
+        
+        /// <summary>
         /// Determines if the specified type is one of the following <see cref="System"/> collection types: <see cref="CollectionTypes"/>.
         /// </summary>
         /// <param name="type">The type.</param>

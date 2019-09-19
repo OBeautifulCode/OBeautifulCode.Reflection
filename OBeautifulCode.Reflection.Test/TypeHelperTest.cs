@@ -333,6 +333,55 @@ namespace OBeautifulCode.Reflection.Test
         }
 
         [Fact]
+        public static void IsNullableType___Should_throw_ArgumentNullException___When_parameter_type_is_null()
+        {
+            // Arrange, Act
+            var actual = Record.Exception(() => TypeHelper.IsNullableType(null));
+
+            // Assert
+            actual.Should().BeOfType<ArgumentNullException>();
+            actual.Message.Should().Contain("type");
+        }
+
+        [Fact]
+        public static void IsNullableType___Should_return_false___When_parameter_type_is_not_Nullable()
+        {
+            // Arrange
+            var types = new[]
+            {
+                typeof(string),
+                typeof(int),
+                typeof(Guid),
+                typeof(bool),
+                typeof(BaseCollection<string>),
+            };
+
+            // Act
+            var actuals = types.Select(_ => _.IsNullableType()).ToList();
+
+            // Assert
+            actuals.Should().AllBeEquivalentTo(false);
+        }
+
+        [Fact]
+        public static void IsNullableType___Should_return_true___When_parameter_type_is_Nullable()
+        {
+            // Arrange
+            var types = new[]
+            {
+                typeof(int?),
+                typeof(Guid?),
+                typeof(bool?),
+            };
+
+            // Act
+            var actuals = types.Select(_ => _.IsNullableType()).ToList();
+
+            // Assert
+            actuals.Should().AllBeEquivalentTo(true);
+        }
+
+        [Fact]
         public static void IsSystemCollectionType___Should_throw_ArgumentNullException___When_parameter_type_is_null()
         {
             // Arrange, Act
