@@ -199,6 +199,10 @@ namespace OBeautifulCode.Reflection.Recipes
         public static bool IsNullableType(
             this Type type)
         {
+            // A copy of this method exists in OBC.Validation.
+            // Any bug fixes made here should also be applied to OBC.Validation.
+            // OBC.Validation cannot take a reference to OBC.Reflection because it creates a circular reference
+            // since OBC.Reflection itself depends on OBC.Validation.
             new { type }.Must().NotBeNull();
 
             var result = Nullable.GetUnderlyingType(type) != null;
