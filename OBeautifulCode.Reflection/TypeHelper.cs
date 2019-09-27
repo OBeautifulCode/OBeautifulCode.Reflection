@@ -44,6 +44,15 @@ namespace OBeautifulCode.Reflection.Recipes
             typeof(IReadOnlyList<>)
         };
 
+        private static readonly Type[] OrderedCollectionTypes =
+        {
+            typeof(Collection<>),
+            typeof(ReadOnlyCollection<>),
+            typeof(List<>),
+            typeof(IList<>),
+            typeof(IReadOnlyList<>)
+        };
+
         private static readonly Type[] DictionaryTypes =
         {
             typeof(Dictionary<,>),
@@ -213,7 +222,7 @@ namespace OBeautifulCode.Reflection.Recipes
 
             return result;
         }
-        
+
         /// <summary>
         /// Determines if the specified type is one of the following <see cref="System"/> collection types: <see cref="CollectionTypes"/>.
         /// </summary>
@@ -259,6 +268,37 @@ namespace OBeautifulCode.Reflection.Recipes
             var genericType = type.GetGenericTypeDefinition();
 
             var result = DictionaryTypes.Any(_ => genericType == _);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Determines if the specified type is a <see cref="System"/> ordered <see cref="IEnumerable{T}"/>:
+        /// Either an <see cref="Array"/> or one of these types: <see cref="OrderedCollectionTypes"/>.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>
+        /// true if the specified type is a <see cref="System"/> ordered <see cref="IEnumerable{T}"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
+        public static bool IsSystemOrderedEnumerableType(
+            this Type type)
+        {
+            new { type }.Must().NotBeNull();
+
+            if (type.IsArray)
+            {
+                return true;
+            }
+            
+            if (!type.IsGenericType)
+            {
+                return false;
+            }
+
+            var genericType = type.GetGenericTypeDefinition();
+
+            var result = OrderedCollectionTypes.Any(_ => genericType == _);
 
             return result;
         }

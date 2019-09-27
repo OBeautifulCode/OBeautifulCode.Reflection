@@ -405,6 +405,10 @@ namespace OBeautifulCode.Reflection.Test
                 typeof(CollectionDerivative),
                 typeof(KeyValuePair<,>),
                 typeof(KeyValuePair<string, string>),
+                typeof(IReadOnlyDictionary<string, string>),
+                typeof(Dictionary<string, string>),
+                typeof(bool[]),
+                typeof(string[]),
             };
 
             // Act
@@ -496,6 +500,72 @@ namespace OBeautifulCode.Reflection.Test
 
             // Act
             var actuals = types.Select(_ => _.IsSystemDictionaryType()).ToList();
+
+            // Assert
+            actuals.Should().AllBeEquivalentTo(true);
+        }
+
+        [Fact]
+        public static void IsSystemOrderedEnumerableType___Should_throw_ArgumentNullException___When_parameter_type_is_null()
+        {
+            // Arrange, Act
+            var actual = Record.Exception(() => TypeHelper.IsSystemOrderedEnumerableType(null));
+
+            // Assert
+            actual.Should().BeOfType<ArgumentNullException>();
+            actual.Message.Should().Contain("type");
+        }
+
+        [Fact]
+        public static void IsSystemOrderedEnumerableType___Should_return_false___When_parameter_type_is_not_a_System_collection_type()
+        {
+            // Arrange
+            var types = new[]
+            {
+                typeof(Guid),
+                typeof(Guid?),
+                typeof(string),
+                typeof(int),
+                typeof(CollectionDerivative),
+                typeof(KeyValuePair<,>),
+                typeof(KeyValuePair<string, string>),
+                typeof(IReadOnlyDictionary<string, string>),
+                typeof(Dictionary<string, string>),
+                typeof(ICollection<>),
+                typeof(ICollection<string>),
+                typeof(IReadOnlyCollection<>),
+                typeof(IReadOnlyCollection<string>),
+            };
+
+            // Act
+            var actuals = types.Select(_ => _.IsSystemOrderedEnumerableType()).ToList();
+
+            // Assert
+            actuals.Should().AllBeEquivalentTo(false);
+        }
+
+        [Fact]
+        public static void IsSystemOrderedEnumerableType___Should_return_true___When_parameter_type_is_a_System_collection_type()
+        {
+            // Arrange
+            var types = new[]
+            {
+                typeof(Collection<>),
+                typeof(ReadOnlyCollection<>),
+                typeof(List<>),
+                typeof(IList<>),
+                typeof(IReadOnlyList<>),
+                typeof(Collection<string>),
+                typeof(ReadOnlyCollection<string>),
+                typeof(List<string>),
+                typeof(IList<string>),
+                typeof(IReadOnlyList<string>),
+                typeof(bool[]),
+                typeof(string[]),
+            };
+
+            // Act
+            var actuals = types.Select(_ => _.IsSystemOrderedEnumerableType()).ToList();
 
             // Assert
             actuals.Should().AllBeEquivalentTo(true);
