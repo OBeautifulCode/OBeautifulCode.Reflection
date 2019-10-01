@@ -14,6 +14,7 @@ namespace OBeautifulCode.Reflection.Recipes
     using System.Linq;
     using System.Reflection;
 
+    using OBeautifulCode.Type.Recipes;
     using OBeautifulCode.Validation.Recipes;
 
     /// <summary>
@@ -223,7 +224,7 @@ namespace OBeautifulCode.Reflection.Recipes
 
                 if (value == null)
                 {
-                    // can't solely rely on the ( T ) cast - if fi.GetValue returns null, then null can be casted to any reference type.
+                    // can't solely rely on the ( T ) cast - if fi.GetValue returns null, then null can be cast to any reference type.
                     if (!fi.FieldType.IsAssignableTo(returnType))
                     {
                         throw new InvalidCastException($"Unable to cast object of type '{fi.FieldType.FullName}' to type '{returnType.FullName}'.");

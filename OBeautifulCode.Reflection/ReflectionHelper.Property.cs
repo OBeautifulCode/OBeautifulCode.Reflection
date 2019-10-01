@@ -14,6 +14,7 @@ namespace OBeautifulCode.Reflection.Recipes
     using System.Linq;
     using System.Reflection;
 
+    using OBeautifulCode.Type.Recipes;
     using OBeautifulCode.Validation.Recipes;
 
     /// <summary>

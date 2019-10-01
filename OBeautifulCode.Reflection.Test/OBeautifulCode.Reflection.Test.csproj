@@ -82,7 +82,6 @@
   <ItemGroup>
     <Compile Include=".analyzers\SuppressBecause.cs" />
     <Compile Include=".recipes\OBeautifulCode.AutoFakeItEasy\AutoFakeItEasyBootstrapper.cs" />
-    <Compile Include="TypeHelperTest.cs" />
     <Compile Include="AssemblyLoaderTest.cs" />
     <Compile Include="AssemblyHelperTest.cs" />
     <Compile Include="TypesForTesting\NullAndNotNullFields.cs" />
