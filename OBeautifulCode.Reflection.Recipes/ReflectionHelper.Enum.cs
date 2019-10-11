@@ -14,7 +14,7 @@ namespace OBeautifulCode.Reflection.Recipes
     using System.Linq;
 
     using OBeautifulCode.Enum.Recipes;
-    using OBeautifulCode.Validation.Recipes;
+    using OBeautifulCode.Assertion.Recipes;
 
     /// <summary>
     /// Provides useful methods related to reflection.
@@ -49,10 +49,10 @@ namespace OBeautifulCode.Reflection.Recipes
             where TEnum : struct
             where TAttribute : Attribute
         {
-            typeof(TEnum).IsEnum.Named($"typeof {nameof(TEnum)} is Enum").Must().BeTrue();
+            typeof(TEnum).IsEnum.AsArg($"typeof {nameof(TEnum)} is Enum").Must().BeTrue();
 
             var result =
-                EnumExtensions.GetEnumValues<TEnum>()
+                EnumExtensions.GetDefinedEnumValues<TEnum>()
                 .Cast<Enum>()
                 .Where(
                         _ =>
@@ -89,11 +89,11 @@ namespace OBeautifulCode.Reflection.Recipes
             Func<TAttribute, bool> attributeFilter = null)
             where TAttribute : Attribute
         {
-            new { enumType }.Must().NotBeNull();
-            enumType.IsEnum.Named($"{nameof(enumType)} is Enum").Must().BeTrue();
+            new { enumType }.AsArg().Must().NotBeNull();
+            enumType.IsEnum.AsArg($"{nameof(enumType)} is Enum").Must().BeTrue();
 
             var result =
-                EnumExtensions.GetEnumValues(enumType)
+                EnumExtensions.GetDefinedEnumValues(enumType)
                     .Where(
                         _ =>
                             attributeFilter == null

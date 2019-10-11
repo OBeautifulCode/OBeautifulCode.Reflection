@@ -14,8 +14,8 @@ namespace OBeautifulCode.Reflection.Recipes
     using System.Linq;
     using System.Reflection;
 
+    using OBeautifulCode.Assertion.Recipes;
     using OBeautifulCode.Type.Recipes;
-    using OBeautifulCode.Validation.Recipes;
 
     /// <summary>
     /// Provides useful methods related to reflection.
@@ -57,7 +57,7 @@ namespace OBeautifulCode.Reflection.Recipes
             this Type type,
             BindingFlags bindingFlags = DefaultBindingFlags)
         {
-            new { type }.Must().NotBeNull();
+            new { type }.AsArg().Must().NotBeNull();
             var allProperties = type.GetProperties(bindingFlags);
             var ret = allProperties.Select(_ => _.Name).ToList();
             return ret;
