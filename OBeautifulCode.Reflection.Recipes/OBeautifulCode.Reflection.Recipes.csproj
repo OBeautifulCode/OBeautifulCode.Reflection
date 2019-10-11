@@ -79,7 +79,6 @@
     <AdditionalFiles Include=".analyzers\stylecop.json" />
     <None Include=".analyzers\release.ruleset" />
     <None Include="AssemblyHelper.recipe-nuspec" />
-    <None Include="OBeautifulCode.Reflection.Recipes.override-nuspec" />
     <None Include="AssemblyLoader.recipe-nuspec">
       <SubType>Designer</SubType>
     </None>
