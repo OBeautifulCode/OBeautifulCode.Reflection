@@ -1,7 +1,0 @@
-﻿<package>
-  <metadata>
-    <description>Provides reflection-related convenience/helper methods.</description>
-    <tags>reflection extension extensions</tags>
-    <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Reflection/master/OBeautifulCode.Reflection/nuget-icon.png</iconUrl>
-  </metadata>
-</package>

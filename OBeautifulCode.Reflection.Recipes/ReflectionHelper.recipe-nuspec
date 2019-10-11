@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>OBeautifulCode.Reflection.Recipes.ReflectionHelper</id>
+    <description>Provides useful methods related to reflection.</description>
+    <tags>reflection extension extensions</tags>
+    <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Reflection/master/OBeautifulCode.Reflection.Recipes/nuget-icon.png</iconUrl>
+    <dependencies>
+      <dependency id="OBeautifulCode.Reflection.Recipes.TypeHelper" version="1.0.65" />
+      <dependency id="OBeautifulCode.Validation.Recipes.ParameterValidator" version="1.0.25" />
+      <dependency id="OBeautifulCode.Enum.Recipes.EnumExtensions" version="1.0.15" />
+      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.16" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="ReflectionHelper.Attribute.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Attribute.cs" />
+    <file src="ReflectionHelper.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.cs" />
+    <file src="ReflectionHelper.Enum.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Enum.cs" />
+    <file src="ReflectionHelper.Field.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Field.cs" />
+    <file src="ReflectionHelper.Property.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Property.cs" />
+  </files>
+</package>
