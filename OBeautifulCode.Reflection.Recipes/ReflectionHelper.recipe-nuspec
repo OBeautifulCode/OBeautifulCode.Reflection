@@ -7,8 +7,8 @@
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Reflection/master/OBeautifulCode.Reflection.Recipes/nuget-icon.png</iconUrl>
     <dependencies>
       <dependency id="OBeautifulCode.Assertion.Recipes.Must" version="1.0.15" />
-      <dependency id="OBeautifulCode.Enum.Recipes.EnumExtensions" version="1.0.19" />
-      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.39" />
+      <dependency id="OBeautifulCode.Enum.Recipes.EnumExtensions" version="1.0.20" />
+      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.49" />
     </dependencies>
   </metadata>
   <files>

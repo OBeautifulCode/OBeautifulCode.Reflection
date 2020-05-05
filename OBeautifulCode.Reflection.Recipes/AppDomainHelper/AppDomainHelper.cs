@@ -10,14 +10,18 @@
 namespace OBeautifulCode.Reflection.Recipes
 {
     using System;
-
+    using System.Diagnostics.CodeAnalysis;
     using System.Security.Policy;
 
     using OBeautifulCode.Assertion.Recipes;
+    using OBeautifulCode.Assertion.Recipes.Internal;
 
     /// <summary>
     /// Provides useful methods for creating and executing code within an <see cref="AppDomain"/>.
     /// </summary>
+    /// <remarks>
+    /// Adapted from <a href="https://malvinly.com/2012/04/08/executing-code-in-a-new-application-domain/" />.
+    /// </remarks>
 #if !OBeautifulCodeReflectionRecipesProject
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Reflection.Recipes", "See package version number")]
@@ -313,12 +317,14 @@ namespace OBeautifulCode.Reflection.Recipes
 
         private class AppDomainDelegate : MarshalByRefObject
         {
+            [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This is how the method was specified in the blog post.  Will making it static somehow break the consumer because of MarshalByRefObject?")]
             public void Execute(
                 Action action)
             {
                 action();
             }
 
+            [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This is how the method was specified in the blog post.  Will making it static somehow break the consumer because of MarshalByRefObject?")]
             public void Execute<T>(
                 Action<T> action,
                 T parameter)
@@ -326,17 +332,23 @@ namespace OBeautifulCode.Reflection.Recipes
                 action(parameter);
             }
 
+            [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This is how the method was specified in the blog post.  Will making it static somehow break the consumer because of MarshalByRefObject?")]
             public T Execute<T>(
                 Func<T> func)
             {
-                return func();
+                var result = func();
+
+                return result;
             }
 
+            [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This is how the method was specified in the blog post.  Will making it static somehow break the consumer because of MarshalByRefObject?")]
             public TResult Execute<T, TResult>(
                 Func<T, TResult> func,
                 T parameter)
             {
-                return func(parameter);
+                var result = func(parameter);
+
+                return result;
             }
         }
     }
