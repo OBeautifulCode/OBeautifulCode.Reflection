@@ -86,17 +86,17 @@
     <Compile Include=".recipes\OBeautifulCode.Type\SuppressBecause.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringReadableOptions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\TypeExtensions.cs" />
-    <Compile Include="AssemblyHelper.cs" />
-    <Compile Include="CompressionMethod.cs" />
+    <Compile Include="AssemblyHelper\AssemblyHelper.cs" />
+    <Compile Include="AssemblyHelper\CompressionMethod.cs" />
     <Compile Include="AppDomainHelper\DisposableAppDomain.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AssemblyLoader.cs" />
-    <Compile Include="ReflectionHelper.Attribute.cs" />
-    <Compile Include="ReflectionHelper.cs" />
-    <Compile Include="ReflectionHelper.Enum.cs" />
-    <Compile Include="ReflectionHelper.Field.cs" />
-    <Compile Include="ReflectionHelper.Property.cs" />
+    <Compile Include="AssemblyLoader\AssemblyLoader.cs" />
+    <Compile Include="ReflectionHelper\ReflectionHelper.Attribute.cs" />
+    <Compile Include="ReflectionHelper\ReflectionHelper.cs" />
+    <Compile Include="ReflectionHelper\ReflectionHelper.Enum.cs" />
+    <Compile Include="ReflectionHelper\ReflectionHelper.Field.cs" />
+    <Compile Include="ReflectionHelper\ReflectionHelper.Property.cs" />
     <Compile Include="AppDomainHelper\AppDomainHelper.cs" />
   </ItemGroup>
   <ItemGroup>

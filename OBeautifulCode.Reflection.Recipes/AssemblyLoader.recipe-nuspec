@@ -12,6 +12,6 @@
   </metadata>
   <files>
     <file src=".analyzers\SuppressBecause.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\SuppressBecause.cs" />
-    <file src="AssemblyLoader.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\AssemblyLoader.cs" />
+    <file src="AssemblyLoader\AssemblyLoader.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\AssemblyLoader.cs" />
   </files>
 </package>

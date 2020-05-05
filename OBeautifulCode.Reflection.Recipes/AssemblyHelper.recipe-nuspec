@@ -12,7 +12,7 @@
   </metadata>
   <files>
     <file src=".analyzers\SuppressBecause.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\SuppressBecause.cs" />
-    <file src="AssemblyHelper.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\AssemblyHelper.cs" />
-    <file src="CompressionMethod.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\CompressionMethod.cs" />
+    <file src="AssemblyHelper\AssemblyHelper.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\AssemblyHelper.cs" />
+    <file src="AssemblyHelper\CompressionMethod.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\CompressionMethod.cs" />
   </files>
 </package>
