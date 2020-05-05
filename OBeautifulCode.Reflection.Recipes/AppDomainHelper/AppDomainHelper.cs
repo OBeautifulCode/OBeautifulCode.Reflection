@@ -103,10 +103,7 @@ namespace OBeautifulCode.Reflection.Recipes
             new { disposableAppDomain }.AsArg().Must().NotBeNull();
             new { action }.AsArg().Must().NotBeNull();
 
-            // ReSharper disable once AssignNullToNotNullAttribute
-            var domainDelegate = (AppDomainDelegate)disposableAppDomain.AppDomain.CreateInstanceAndUnwrap(
-                typeof(AppDomainDelegate).Assembly.FullName,
-                typeof(AppDomainDelegate).FullName);
+            var domainDelegate = disposableAppDomain.BuildAppDomainDelegate();
 
             domainDelegate.Execute(action);
         }
@@ -162,10 +159,7 @@ namespace OBeautifulCode.Reflection.Recipes
             new { disposableAppDomain }.AsArg().Must().NotBeNull();
             new { action }.AsArg().Must().NotBeNull();
 
-            // ReSharper disable once AssignNullToNotNullAttribute
-            var domainDelegate = (AppDomainDelegate)disposableAppDomain.AppDomain.CreateInstanceAndUnwrap(
-                typeof(AppDomainDelegate).Assembly.FullName,
-                typeof(AppDomainDelegate).FullName);
+            var domainDelegate = disposableAppDomain.BuildAppDomainDelegate();
 
             domainDelegate.Execute(action, parameter);
         }
@@ -228,10 +222,7 @@ namespace OBeautifulCode.Reflection.Recipes
             new { disposableAppDomain }.AsArg().Must().NotBeNull();
             new { func }.AsArg().Must().NotBeNull();
 
-            // ReSharper disable once AssignNullToNotNullAttribute
-            var domainDelegate = (AppDomainDelegate)disposableAppDomain.AppDomain.CreateInstanceAndUnwrap(
-                typeof(AppDomainDelegate).Assembly.FullName,
-                typeof(AppDomainDelegate).FullName);
+            var domainDelegate = disposableAppDomain.BuildAppDomainDelegate();
 
             var result = domainDelegate.Execute(func);
 
@@ -305,10 +296,7 @@ namespace OBeautifulCode.Reflection.Recipes
             new { disposableAppDomain }.AsArg().Must().NotBeNull();
             new { func }.AsArg().Must().NotBeNull();
 
-            // ReSharper disable once AssignNullToNotNullAttribute
-            var domainDelegate = (AppDomainDelegate)disposableAppDomain.AppDomain.CreateInstanceAndUnwrap(
-                typeof(AppDomainDelegate).Assembly.FullName,
-                typeof(AppDomainDelegate).FullName);
+            var domainDelegate = disposableAppDomain.BuildAppDomainDelegate();
 
             var result = domainDelegate.Execute(func, parameter);
 
@@ -391,12 +379,20 @@ namespace OBeautifulCode.Reflection.Recipes
             new { disposableAppDomain }.AsArg().Must().NotBeNull();
             new { func }.AsArg().Must().NotBeNull();
 
-            // ReSharper disable once AssignNullToNotNullAttribute
-            var domainDelegate = (AppDomainDelegate)disposableAppDomain.AppDomain.CreateInstanceAndUnwrap(
-                typeof(AppDomainDelegate).Assembly.FullName,
-                typeof(AppDomainDelegate).FullName);
+            var domainDelegate = disposableAppDomain.BuildAppDomainDelegate();
 
             var result = domainDelegate.Execute(func, parameter1, parameter2);
+
+            return result;
+        }
+
+        private static AppDomainDelegate BuildAppDomainDelegate(
+            this DisposableAppDomain disposableAppDomain)
+        {
+            // ReSharper disable once AssignNullToNotNullAttribute
+            var result = (AppDomainDelegate)disposableAppDomain.AppDomain.CreateInstanceAndUnwrap(
+                typeof(AppDomainDelegate).Assembly.FullName,
+                typeof(AppDomainDelegate).FullName);
 
             return result;
         }
