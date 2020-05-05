@@ -38,6 +38,9 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             // Assert
             actual.AsTest().Must().BeOfType<InvalidOperationException>();
             actual.Message.AsTest().Must().BeEqualTo(domainName);
+
+            // Cleanup
+            domain.Dispose();
         }
 
         [Fact]
@@ -68,6 +71,9 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             // Assert
             actual.AsTest().Must().BeOfType<InvalidOperationException>();
             actual.Message.AsTest().Must().BeEqualTo(parameter + domainName);
+
+            // Cleanup
+            domain.Dispose();
         }
 
         [Fact]
@@ -97,6 +103,9 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             // Assert
             actual.AsTest().Must().BeOfType<InvalidOperationException>();
             actual.Message.AsTest().Must().BeEqualTo(domainName);
+
+            // Cleanup
+            domain.Dispose();
         }
 
         [Fact]
@@ -128,6 +137,9 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             // Assert
             actual.AsTest().Must().BeOfType<InvalidOperationException>();
             actual.Message.AsTest().Must().BeEqualTo(parameter + domainName);
+
+            // Cleanup
+            domain.Dispose();
         }
 
         [Fact]
