@@ -36,6 +36,8 @@ namespace OBeautifulCode.Reflection.Recipes
         public static bool IsCompilerGenerated(
             this MemberInfo memberInfo)
         {
+            new { memberInfo }.AsArg().Must().NotBeNull();
+
             var result = memberInfo.CustomAttributes.Select(s => s.AttributeType).Contains(typeof(CompilerGeneratedAttribute));
 
             return result;
