@@ -18,5 +18,6 @@
     <file src="ReflectionHelper\ReflectionHelper.Enum.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Enum.cs" />
     <file src="ReflectionHelper\ReflectionHelper.Field.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Field.cs" />
     <file src="ReflectionHelper\ReflectionHelper.Property.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Property.cs" />
+    <file src="ReflectionHelper\ReflectionHelper.MemberInfo.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.MemberInfo.cs" />
   </files>
 </package>
