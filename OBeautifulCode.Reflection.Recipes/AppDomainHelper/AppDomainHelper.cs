@@ -14,7 +14,6 @@ namespace OBeautifulCode.Reflection.Recipes
     using System.Security.Policy;
 
     using OBeautifulCode.Assertion.Recipes;
-    using OBeautifulCode.Assertion.Recipes.Internal;
 
     /// <summary>
     /// Provides useful methods for creating and executing code within an <see cref="AppDomain"/>.
@@ -361,7 +360,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// Executes the specified <see cref="Func{T1, T2, TResult}"/> in the specified Domain.
         /// </summary>
         /// <typeparam name="T1">The type of the first parameter of the method that <paramref name="func"/> encapsulates.</typeparam>
-        /// <typeparam name="T2">The type of the first parameter of the method that <paramref name="func"/> encapsulates.</typeparam>
+        /// <typeparam name="T2">The type of the second parameter of the method that <paramref name="func"/> encapsulates.</typeparam>
         /// <typeparam name="TResult">The type of the return value of the method that <paramref name="func"/> encapsulates.</typeparam>
         /// <param name="disposableAppDomain">The Domain within which to execute the specified func.</param>
         /// <param name="func">The func to execute.</param>
@@ -386,6 +385,98 @@ namespace OBeautifulCode.Reflection.Recipes
             return result;
         }
 
+        /// <summary>
+        /// Executes the specified <see cref="Func{T1, T2, T3, TResult}"/> in a new Domain created by this method.
+        /// </summary>
+        /// <typeparam name="T1">The type of the first parameter of the method that <paramref name="func"/> encapsulates.</typeparam>
+        /// <typeparam name="T2">The type of the second parameter of the method that <paramref name="func"/> encapsulates.</typeparam>
+        /// <typeparam name="T3">The type of the third parameter of the method that <paramref name="func"/> encapsulates.</typeparam>
+        /// <typeparam name="TResult">The type of the return value of the method that <paramref name="func"/> encapsulates.</typeparam>
+        /// <param name="func">The func to execute.</param>
+        /// <param name="parameter1">The first parameter to pass to the method that <paramref name="func"/> encapsulates.</param>
+        /// <param name="parameter2">The second parameter to pass to the method that <paramref name="func"/> encapsulates.</param>
+        /// <param name="parameter3">The third parameter to pass to the method that <paramref name="func"/> encapsulates.</param>
+        /// <returns>
+        /// The return value from executing the specified <see cref="Func{T1, T2, T3, TResult}"/> in a new Domain created by this method.
+        /// </returns>
+        public static TResult ExecuteInNewAppDomain<T1, T2, T3, TResult>(
+            this Func<T1, T2, T3, TResult> func,
+            T1 parameter1,
+            T2 parameter2,
+            T3 parameter3)
+        {
+            new { func }.AsArg().Must().NotBeNull();
+
+            using (var disposableAppDomain = CreateDisposableAppDomain())
+            {
+                var result = disposableAppDomain.Execute(func, parameter1, parameter2, parameter3);
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Executes the specified <see cref="Func{T1, T2, T3, TResult}"/> in the specified Domain.
+        /// </summary>
+        /// <typeparam name="T1">The type of the first parameter of the method that <paramref name="func"/> encapsulates.</typeparam>
+        /// <typeparam name="T2">The type of the second parameter of the method that <paramref name="func"/> encapsulates.</typeparam>
+        /// <typeparam name="T3">The type of the third parameter of the method that <paramref name="func"/> encapsulates.</typeparam>
+        /// <typeparam name="TResult">The type of the return value of the method that <paramref name="func"/> encapsulates.</typeparam>
+        /// <param name="func">The func to execute.</param>
+        /// <param name="parameter1">The first parameter to pass to the method that <paramref name="func"/> encapsulates.</param>
+        /// <param name="parameter2">The second parameter to pass to the method that <paramref name="func"/> encapsulates.</param>
+        /// <param name="parameter3">The third parameter to pass to the method that <paramref name="func"/> encapsulates.</param>
+        /// <param name="disposableAppDomain">The Domain within which to execute the specified func.</param>
+        /// <returns>
+        /// The return value from executing the specified <see cref="Func{T1, T2, T3, TResult}"/> in the specified Domain.
+        /// </returns>
+        public static TResult ExecuteInAppDomain<T1, T2, T3, TResult>(
+            this Func<T1, T2, T3, TResult> func,
+            T1 parameter1,
+            T2 parameter2,
+            T3 parameter3,
+            DisposableAppDomain disposableAppDomain)
+        {
+            new { func }.AsArg().Must().NotBeNull();
+            new { disposableAppDomain }.AsArg().Must().NotBeNull();
+
+            var result = disposableAppDomain.Execute(func, parameter1, parameter2, parameter3);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Executes the specified <see cref="Func{T1, T2, T3, TResult}"/> in the specified Domain.
+        /// </summary>
+        /// <typeparam name="T1">The type of the first parameter of the method that <paramref name="func"/> encapsulates.</typeparam>
+        /// <typeparam name="T2">The type of the second parameter of the method that <paramref name="func"/> encapsulates.</typeparam>
+        /// <typeparam name="T3">The type of the third parameter of the method that <paramref name="func"/> encapsulates.</typeparam>
+        /// <typeparam name="TResult">The type of the return value of the method that <paramref name="func"/> encapsulates.</typeparam>
+        /// <param name="disposableAppDomain">The Domain within which to execute the specified func.</param>
+        /// <param name="func">The func to execute.</param>
+        /// <param name="parameter1">The first parameter to pass to the method that <paramref name="func"/> encapsulates.</param>
+        /// <param name="parameter2">The second parameter to pass to the method that <paramref name="func"/> encapsulates.</param>
+        /// <param name="parameter3">The third parameter to pass to the method that <paramref name="func"/> encapsulates.</param>
+        /// <returns>
+        /// The return value from executing the specified <see cref="Func{T1, T2, T3, TResult}"/> in the specified Domain.
+        /// </returns>
+        public static TResult Execute<T1, T2, T3, TResult>(
+            this DisposableAppDomain disposableAppDomain,
+            Func<T1, T2, T3, TResult> func,
+            T1 parameter1,
+            T2 parameter2,
+            T3 parameter3)
+        {
+            new { disposableAppDomain }.AsArg().Must().NotBeNull();
+            new { func }.AsArg().Must().NotBeNull();
+
+            var domainDelegate = disposableAppDomain.BuildAppDomainDelegate();
+
+            var result = domainDelegate.Execute(func, parameter1, parameter2, parameter3);
+
+            return result;
+        }
+        
         private static AppDomainDelegate BuildAppDomainDelegate(
             this DisposableAppDomain disposableAppDomain)
         {
@@ -440,6 +531,18 @@ namespace OBeautifulCode.Reflection.Recipes
                 T2 parameter2)
             {
                 var result = func(parameter1, parameter2);
+
+                return result;
+            }
+
+            [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This is how the method was specified in the blog post.  Will making it static somehow break the consumer because of MarshalByRefObject?")]
+            public TResult Execute<T1, T2, T3, TResult>(
+                Func<T1, T2, T3, TResult> func,
+                T1 parameter1,
+                T2 parameter2,
+                T3 parameter3)
+            {
+                var result = func(parameter1, parameter2, parameter3);
 
                 return result;
             }
