@@ -418,7 +418,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             // Assert
             var actualEndsWithExpected1 = actual.EndsWith(expectedEnding1, StringComparison.Ordinal);
             var actualEndsWithExpected2 = actual.EndsWith(expectedEnding2, StringComparison.Ordinal);
-            (actualEndsWithExpected1 || actualEndsWithExpected2).Should().BeTrue($"actual was expected to be {expectedEnding1} or {expectedEnding2}");
+            (actualEndsWithExpected1 || actualEndsWithExpected2).Should().BeTrue($"actual was expected to end with {expectedEnding1} or {expectedEnding2}.  actual is {actual}");
         }
     }
 }
