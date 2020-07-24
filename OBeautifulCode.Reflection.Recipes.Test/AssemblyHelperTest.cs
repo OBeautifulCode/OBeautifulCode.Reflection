@@ -401,7 +401,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             // Assert
             exception.Should().NotBeNull();
             exception.Should().BeOfType<ArgumentNullException>();
-            exception.Message.Should().Be("Provided value (name: 'assembly') is null.");
+            exception.Message.Should().Contain("Parameter name: assembly");
         }
 
         [Fact]
