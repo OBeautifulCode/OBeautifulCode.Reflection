@@ -6,7 +6,6 @@
     <tags>reflection assembly assemblies embedded resources</tags>
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Reflection/master/OBeautifulCode.Reflection.Recipes/nuget-icon.png</iconUrl>
     <dependencies>
-      <dependency id="OBeautifulCode.Assertion.Recipes.Must" version="1.0.15" />
       <dependency id="OBeautifulCode.Collection.Recipes.EnumerableExtensions" version="1.0.42" />
     </dependencies>
   </metadata>

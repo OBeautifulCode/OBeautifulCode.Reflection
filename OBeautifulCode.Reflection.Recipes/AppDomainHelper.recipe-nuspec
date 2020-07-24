@@ -5,9 +5,6 @@
     <description>Provides useful methods for manipulating App Domains.</description>
     <tags>reflection appdomain app domain</tags>
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Reflection/master/OBeautifulCode.Reflection.Recipes/nuget-icon.png</iconUrl>
-    <dependencies>
-      <dependency id="OBeautifulCode.Assertion.Recipes.Must" version="1.0.15" />
-    </dependencies>
   </metadata>
   <files>
     <file src=".analyzers\SuppressBecause.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\SuppressBecause.cs" />
