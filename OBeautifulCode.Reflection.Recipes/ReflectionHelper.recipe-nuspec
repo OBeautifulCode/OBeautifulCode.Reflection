@@ -6,8 +6,8 @@
     <tags>reflection extension extensions</tags>
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Reflection/master/OBeautifulCode.Reflection.Recipes/nuget-icon.png</iconUrl>
     <dependencies>
-      <dependency id="OBeautifulCode.Enum.Recipes.EnumExtensions" version="1.0.20" />
-      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.49" />
+      <dependency id="OBeautifulCode.Enum.Recipes.EnumExtensions" version="1.0.21" />
+      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.51" />
     </dependencies>
   </metadata>
   <files>
