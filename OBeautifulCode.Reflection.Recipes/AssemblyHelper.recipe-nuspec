@@ -6,11 +6,11 @@
     <tags>reflection assembly assemblies embedded resources</tags>
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Reflection/master/OBeautifulCode.Reflection.Recipes/nuget-icon.png</iconUrl>
     <dependencies>
-      <dependency id="OBeautifulCode.Collection.Recipes.EnumerableExtensions" version="1.0.44" />
+      <dependency id="OBeautifulCode.Collection.Recipes.EnumerableExtensions" version="1.0.46" />
+      <dependency id="OBeautifulCode.CodeAnalysis.Recipes.SuppressBecause" version="1.0.6" />
     </dependencies>
   </metadata>
   <files>
-    <file src=".analyzers\SuppressBecause.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\SuppressBecause.cs" />
     <file src="AssemblyHelper\AssemblyHelper.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\AssemblyHelper.cs" />
     <file src="AssemblyHelper\CompressionMethod.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\CompressionMethod.cs" />
   </files>

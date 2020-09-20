@@ -6,12 +6,12 @@
     <tags>reflection extension extensions</tags>
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Reflection/master/OBeautifulCode.Reflection.Recipes/nuget-icon.png</iconUrl>
     <dependencies>
-      <dependency id="OBeautifulCode.Enum.Recipes.EnumExtensions" version="1.0.21" />
-      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.51" />
+      <dependency id="OBeautifulCode.Enum.Recipes.EnumExtensions" version="1.0.22" />
+      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.69" />
+      <dependency id="OBeautifulCode.CodeAnalysis.Recipes.SuppressBecause" version="1.0.6" />
     </dependencies>
   </metadata>
   <files>
-    <file src=".analyzers\SuppressBecause.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\SuppressBecause.cs" />
     <file src="ReflectionHelper\ReflectionHelper.Attribute.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Attribute.cs" />
     <file src="ReflectionHelper\ReflectionHelper.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.cs" />
     <file src="ReflectionHelper\ReflectionHelper.Enum.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Enum.cs" />
