@@ -17,7 +17,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
     using Xunit;
 
-    public static class ReflectionHelperTest
+    public static partial class ReflectionHelperTest
     {
         [Fact]
         public static void Construct___Should_construct_an_object_with_a_parameterless_constructor___When_parameter_parameters_is_null_or_empty()

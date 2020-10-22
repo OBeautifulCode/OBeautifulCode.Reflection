@@ -121,6 +121,8 @@
     <Compile Include="AssemblyLoaderTest.cs" />
     <Compile Include="AssemblyHelperTest.cs" />
     <Compile Include="AppDomainHelperTest.cs" />
+    <Compile Include="ReflectionHelperTest.Method.cs" />
+    <Compile Include="TypesForTesting\InterfaceTestTypes.cs" />
     <Compile Include="TypesForTesting\NullAndNotNullFields.cs" />
     <Compile Include="TypesForTesting\NullAndNotNullProperties.cs" />
     <Compile Include="TypesForTesting\Attributes.cs" />

@@ -16,9 +16,6 @@ namespace OBeautifulCode.Reflection.Recipes
 
     using OBeautifulCode.Type.Recipes;
 
-    /// <summary>
-    /// Provides useful methods related to reflection.
-    /// </summary>
 #if !OBeautifulCodeReflectionSolution
     internal
 #else

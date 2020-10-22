@@ -66,6 +66,8 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AssemblyLoader\AssemblyLoader.cs" />
+    <Compile Include="ReflectionHelper\PreconfiguredBindingFlags.cs" />
+    <Compile Include="ReflectionHelper\ReflectionHelper.Method.cs" />
     <Compile Include="ReflectionHelper\ReflectionHelper.MemberInfo.cs" />
     <Compile Include="ReflectionHelper\ReflectionHelper.Attribute.cs" />
     <Compile Include="ReflectionHelper\ReflectionHelper.cs" />

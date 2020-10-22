@@ -13,9 +13,6 @@ namespace OBeautifulCode.Reflection.Recipes
     using global::System.Collections.Generic;
     using global::System.Linq;
 
-    /// <summary>
-    /// Provides useful methods related to reflection.
-    /// </summary>
 #if !OBeautifulCodeReflectionSolution
     internal
 #else

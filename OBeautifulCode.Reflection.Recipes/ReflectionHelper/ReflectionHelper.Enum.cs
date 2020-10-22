@@ -15,9 +15,6 @@ namespace OBeautifulCode.Reflection.Recipes
 
     using OBeautifulCode.Enum.Recipes;
 
-    /// <summary>
-    /// Provides useful methods related to reflection.
-    /// </summary>
 #if !OBeautifulCodeReflectionSolution
     internal
 #else
@@ -102,7 +99,7 @@ namespace OBeautifulCode.Reflection.Recipes
             }
 
             var result =
-                EnumExtensions.GetDefinedEnumValues(enumType)
+                enumType.GetDefinedEnumValues()
                     .Where(
                         _ =>
                             attributeFilter == null
