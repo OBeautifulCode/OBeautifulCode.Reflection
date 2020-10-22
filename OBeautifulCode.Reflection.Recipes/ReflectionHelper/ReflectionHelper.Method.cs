@@ -48,7 +48,7 @@ namespace OBeautifulCode.Reflection.Recipes
             var result = new Type[0]
                 .Concat(new[] { interfaceType })
                 .Concat(interfaceType.GetInterfaces())
-                .SelectMany(_ => _.GetMethods(PreconfiguredBindingFlags.DeclaredButNotInheritedPublicInstanceMembers))
+                .SelectMany(_ => _.GetMethods(BindingFlagsFor.DeclaredButNotInheritedPublicInstanceMembers))
                 .ToList();
 
             return result;

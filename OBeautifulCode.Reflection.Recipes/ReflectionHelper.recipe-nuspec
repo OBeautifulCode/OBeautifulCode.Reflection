@@ -12,7 +12,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="ReflectionHelper\PreconfiguredBindingFlags.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\PreconfiguredBindingFlags.cs" />
+    <file src="ReflectionHelper\BindingFlagsFor.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\BindingFlagsFor.cs" />
     <file src="ReflectionHelper\ReflectionHelper.Attribute.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Attribute.cs" />
     <file src="ReflectionHelper\ReflectionHelper.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.cs" />
     <file src="ReflectionHelper\ReflectionHelper.Enum.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Enum.cs" />
