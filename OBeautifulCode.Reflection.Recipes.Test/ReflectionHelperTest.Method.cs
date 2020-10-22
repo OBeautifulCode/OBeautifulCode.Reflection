@@ -49,7 +49,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         }
 
         [Fact]
-        public static void GetInterfaceDeclaredAndImplementedMethods___Should_return_declared_and_implemented_methods___When_callled()
+        public static void GetInterfaceDeclaredAndImplementedMethods___Should_return_declared_and_implemented_methods___When_called()
         {
             // Arrange
             var interfaceTypeWithExpected = new[]
@@ -70,29 +70,29 @@ namespace OBeautifulCode.Reflection.Recipes.Test
                 },
                 new
                 {
-                    InterfaceType = typeof(ITestMultiLevelParent),
+                    InterfaceType = typeof(ITestMultilevelParent),
                     Expected = (IReadOnlyCollection<string>)new[]
                     {
-                        nameof(ITestMultiLevelParent.TestMultiLevelParentMethod),
+                        nameof(ITestMultilevelParent.TestMultilevelParentMethod),
                     },
                 },
                 new
                 {
-                    InterfaceType = typeof(ITestMultiLevelChild),
+                    InterfaceType = typeof(ITestMultilevelChild),
                     Expected = (IReadOnlyCollection<string>)new[]
                     {
-                        nameof(ITestMultiLevelParent.TestMultiLevelParentMethod),
-                        nameof(ITestMultiLevelChild.TestMultiLevelChildMethod),
+                        nameof(ITestMultilevelParent.TestMultilevelParentMethod),
+                        nameof(ITestMultilevelChild.TestMultilevelChildMethod),
                     },
                 },
                 new
                 {
-                    InterfaceType = typeof(ITestMultiLevelGrandChild),
+                    InterfaceType = typeof(ITestMultilevelGrandchild),
                     Expected = (IReadOnlyCollection<string>)new[]
                     {
-                        nameof(ITestMultiLevelParent.TestMultiLevelParentMethod),
-                        nameof(ITestMultiLevelChild.TestMultiLevelChildMethod),
-                        nameof(ITestMultiLevelGrandChild.TestMultiLevelGrandChildMethod),
+                        nameof(ITestMultilevelParent.TestMultilevelParentMethod),
+                        nameof(ITestMultilevelChild.TestMultilevelChildMethod),
+                        nameof(ITestMultilevelGrandchild.TestMultilevelGrandchildMethod),
                     },
                 },
             };

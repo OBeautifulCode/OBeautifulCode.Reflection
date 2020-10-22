@@ -19,19 +19,19 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         string TestSingleLevelMethod2(int value);
     }
 
-    public interface ITestMultiLevelParent
+    public interface ITestMultilevelParent
     {
-        string TestMultiLevelParentMethod();
+        string TestMultilevelParentMethod();
     }
 
-    public interface ITestMultiLevelChild : ITestMultiLevelParent
+    public interface ITestMultilevelChild : ITestMultilevelParent
     {
-        string TestMultiLevelChildMethod();
+        string TestMultilevelChildMethod();
     }
 
-    public interface ITestMultiLevelGrandChild : ITestMultiLevelChild
+    public interface ITestMultilevelGrandchild : ITestMultilevelChild
     {
-        string TestMultiLevelGrandChildMethod();
+        string TestMultilevelGrandchildMethod();
     }
 #pragma warning restore SA1402 // File may only contain a single class
 #pragma warning restore SA1649 // File name must match first type name

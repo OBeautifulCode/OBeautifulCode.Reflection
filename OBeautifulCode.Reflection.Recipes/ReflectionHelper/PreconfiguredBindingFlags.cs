@@ -10,10 +10,12 @@
 namespace OBeautifulCode.Reflection.Recipes
 {
     using global::System.Reflection;
+    using global::System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Contains some pre-configured <see cref="BindingFlags"/>.
     /// </summary>
+    [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = "This type is a bag of BindingFlags, so using the term 'Flags' is appropriate here.")]
 #if !OBeautifulCodeReflectionSolution
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Reflection.Recipes", "See package version number")]

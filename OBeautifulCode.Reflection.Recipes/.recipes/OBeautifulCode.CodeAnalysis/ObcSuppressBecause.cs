@@ -30,6 +30,11 @@ namespace OBeautifulCode.CodeAnalysis.Recipes
         public const string CA_ALL_AgreeWithAssessmentAndNeedsRefactoring = "We agree with the assessment.  This code needs refactoring but we cannot justify spending time on this right now.";
 
         /// <summary>
+        /// The nature of this type necessitates that we ignore all warnings.
+        /// </summary>
+        public const string CA_ALL_NatureOfTypeNecessitatesIgnoringAllWarnings = "The nature of this type necessitates that we ignore all warnings.";
+
+        /// <summary>
         /// A static property returns an instance of the generic class that contains the property.  The property exists for convenience in creating and configuring the instance.  It is most discoverable where it is, in-context of the class being instantiated.
         /// </summary>
         public const string CA1000_DoNotDeclareStaticMembersOnGenericTypes_StaticPropertyReturnsInstanceOfContainingGenericClassAndIsConvenientAndMostDiscoverableWhereDeclared = "A static property returns an instance of the generic class that contains the property.  The property exists for convenience in creating and configuring the instance.  It is most discoverable where it is, in-context of the class being instantiated.";
@@ -108,6 +113,11 @@ namespace OBeautifulCode.CodeAnalysis.Recipes
         /// We disagree with the assessment that this method as excessively complex.
         /// </summary>
         public const string CA1502_AvoidExcessiveComplexity_DisagreeWithAssessment = "We disagree with the assessment that this method as excessively complex.";
+
+        /// <summary>
+        /// We disagree with the assessment that this code is unmaintainable.
+        /// </summary>
+        public const string CA1505_AvoidUnmaintainableCode_DisagreeWithAssessment = "We disagree with the assessment that this code is unmaintainable.";
 
         /// <summary>
         /// We disagree with the assessment this type or method is excessively coupled.
