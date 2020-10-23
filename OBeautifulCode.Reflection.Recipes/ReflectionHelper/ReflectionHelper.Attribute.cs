@@ -14,6 +14,10 @@ namespace OBeautifulCode.Reflection.Recipes
     using global::System.Diagnostics.CodeAnalysis;
     using global::System.Linq;
 
+    using OBeautifulCode.CodeAnalysis.Recipes;
+
+    using static global::System.FormattableString;
+
 #if !OBeautifulCodeReflectionSolution
     internal
 #else
@@ -44,7 +48,7 @@ namespace OBeautifulCode.Reflection.Recipes
             var attributes = type.GetAttributes<TAttribute>();
             if (attributes.Count > 1)
             {
-                throw new InvalidOperationException($"Type '{type}' has multiple attributes of type '{typeof(TAttribute)}'.  Consider calling {nameof(GetAttributes)}.");
+                throw new InvalidOperationException(Invariant($"Type '{type}' has multiple attributes of type '{typeof(TAttribute)}'.  Consider calling {nameof(GetAttributes)}()."));
             }
 
             var result = attributes.SingleOrDefault();
@@ -135,7 +139,7 @@ namespace OBeautifulCode.Reflection.Recipes
             var attributes = enumValue.GetAttributesOnEnumValue<TAttribute>();
             if (attributes.Count > 1)
             {
-                throw new InvalidOperationException($"Enum value '{enumValue}' has multiple attributes of type '{typeof(TAttribute)}'.  Consider calling {nameof(GetAttributesOnEnumValue)}.");
+                throw new InvalidOperationException(Invariant($"Enum value '{enumValue}' has multiple attributes of type '{typeof(TAttribute)}'.  Consider calling {nameof(GetAttributesOnEnumValue)}()."));
             }
 
             var result = attributes.SingleOrDefault();

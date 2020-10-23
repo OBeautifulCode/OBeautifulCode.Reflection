@@ -7,7 +7,9 @@
 namespace OBeautifulCode.Reflection.Recipes.Test
 {
     using System;
+    using System.CodeDom.Compiler;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     using OBeautifulCode.Collection.Recipes;
@@ -16,6 +18,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
     #pragma warning disable SA1402 // File may only contain a single class
     #pragma warning disable SA1204 // Static elements should appear before instance elements
 
+    [GeneratedCode("too many warnings", "test type")]
     public class ParentInstanceProperties
     {
         public ParentInstanceProperties(
@@ -249,6 +252,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         }
     }
 
+    [GeneratedCode("too many warnings", "test type")]
     public class ChildInstanceProperties : ParentInstanceProperties
     {
         public ChildInstanceProperties(
@@ -425,6 +429,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         private Version ChildPrivateExpressionBodyReferenceTypeProperty => this.ChildPublicReadWriteReferenceTypeProperty;
     }
 
+    [GeneratedCode("too many warnings", "test type")]
     public class ParentStaticProperties
     {
         static ParentStaticProperties()
@@ -646,6 +651,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         }
     }
 
+    [GeneratedCode("too many warnings", "test type")]
     public class ChildStaticProperties : ParentStaticProperties
     {
         static ChildStaticProperties()

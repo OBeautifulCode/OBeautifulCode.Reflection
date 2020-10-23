@@ -14,6 +14,7 @@
   <files>
     <file src="ReflectionHelper\BindingFlagsFor.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\BindingFlagsFor.cs" />
     <file src="ReflectionHelper\ReflectionHelper.Attribute.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Attribute.cs" />
+    <file src="ReflectionHelper\ReflectionHelper.Constructor.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Constructor.cs" />
     <file src="ReflectionHelper\ReflectionHelper.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.cs" />
     <file src="ReflectionHelper\ReflectionHelper.Enum.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Enum.cs" />
     <file src="ReflectionHelper\ReflectionHelper.Field.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ReflectionHelper.Field.cs" />
