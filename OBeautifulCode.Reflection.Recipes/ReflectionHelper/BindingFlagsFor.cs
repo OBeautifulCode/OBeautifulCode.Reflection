@@ -26,20 +26,78 @@ namespace OBeautifulCode.Reflection.Recipes
     static class BindingFlagsFor
     {
         /// <summary>
-        /// Finds public instance (not static) members that are declared at the level of the specified type's hierarchy (not inherited).
-        /// </summary>
-        public const BindingFlags DeclaredButNotInheritedPublicInstanceMembers = BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly;
-
-        /// <summary>
-        /// Finds public instance (not static) members that are declared at the level of the specified type's hierarchy or inherited.
+        /// Finds all (public, protected, internal, private) instance and static members that are declared at the level of the specified type's hierarchy or inherited.
         /// Note that when an interface implements another interface (and so on), those implemented interfaces are NOT considered to be inherited.
+        /// <see cref="ReflectionHelper.GetInterfaceDeclaredAndImplementedMethods"/>
+        /// Note that private members in specified type's inheritance path are NOT inherited.  Public, internal, and protected members are.
         /// </summary>
-        public const BindingFlags DeclaredAndInheritedPublicInstanceMembers = BindingFlags.Instance | BindingFlags.Public;
+        public const BindingFlags AllDeclaredAndInheritedMembers = AllDeclaredAndInheritedInstanceMembers | AllDeclaredAndInheritedStaticMembers;
 
         /// <summary>
-        /// Finds all instance (not static) members that are declared at the level of the specified type's hierarchy or inherited.
-        /// Note that private members of the specified type's inheritance path are NOT inherited.  Public, internal, and protected members are.
+        /// Finds all (public, protected, internal, private) instance (not static) members that are declared at the level of the specified type's hierarchy or inherited.
+        /// Note that when an interface implements another interface (and so on), those implemented interfaces are NOT considered to be inherited.
+        /// <see cref="ReflectionHelper.GetInterfaceDeclaredAndImplementedMethods"/>
+        /// Note that private members in specified type's inheritance path are NOT inherited.  Public, internal, and protected members are.
         /// </summary>
-        public const BindingFlags DeclaredAndInheritedInstanceMembers = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+        public const BindingFlags AllDeclaredAndInheritedInstanceMembers = PublicDeclaredAndInheritedInstanceMembers | BindingFlags.NonPublic;
+
+        /// <summary>
+        /// Finds all static (not instance) members that are declared at the level of the specified type's hierarchy or inherited.
+        /// Note that when an interface implements another interface (and so on), those implemented interfaces are NOT considered to be inherited.
+        /// <see cref="ReflectionHelper.GetInterfaceDeclaredAndImplementedMethods"/>
+        /// </summary>
+        public const BindingFlags AllDeclaredAndInheritedStaticMembers = PublicDeclaredAndInheritedStaticMembers | BindingFlags.NonPublic;
+
+        /// <summary>
+        /// Finds public (not protected, not internal, not private) instance and public static members that are declared at the level of the specified type's hierarchy or inherited.
+        /// Note that when an interface implements another interface (and so on), those implemented interfaces are NOT considered to be inherited.
+        /// <see cref="ReflectionHelper.GetInterfaceDeclaredAndImplementedMethods"/>
+        /// Note that private members in specified type's inheritance path are NOT inherited.  Public, internal, and protected members are.
+        /// </summary>
+        public const BindingFlags PublicDeclaredAndInheritedMembers = PublicDeclaredAndInheritedInstanceMembers | PublicDeclaredAndInheritedStaticMembers;
+
+        /// <summary>
+        /// Finds public (not protected, not internal, not private) instance (not static) members that are declared at the level of the specified type's hierarchy or inherited.
+        /// Note that when an interface implements another interface (and so on), those implemented interfaces are NOT considered to be inherited.
+        /// <see cref="ReflectionHelper.GetInterfaceDeclaredAndImplementedMethods"/>
+        /// Note that private members in specified type's inheritance path are NOT inherited.  Public, internal, and protected members are.
+        /// </summary>
+        public const BindingFlags PublicDeclaredAndInheritedInstanceMembers = BindingFlags.Instance | BindingFlags.Public;
+
+        /// <summary>
+        /// Finds public (not protected, not internal, not private) static (not instance) members that are declared at the level of the specified type's hierarchy or inherited.
+        /// Note that private members in specified type's inheritance path are NOT inherited.  Public, internal, and protected members are.
+        /// </summary>
+        public const BindingFlags PublicDeclaredAndInheritedStaticMembers = BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy;
+
+        /// <summary>
+        /// Finds all (public, protected, internal, private) instance and static members that are declared at the level of the specified type's hierarchy (not inherited).
+        /// </summary>
+        public const BindingFlags AllDeclaredButNotInheritedMembers = AllDeclaredButNotInheritedInstanceMembers | AllDeclaredButNotInheritedStaticMembers;
+
+        /// <summary>
+        /// Finds all (public, protected, internal, private) instance (not static) members that are declared at the level of the specified type's hierarchy (not inherited).
+        /// </summary>
+        public const BindingFlags AllDeclaredButNotInheritedInstanceMembers = PublicDeclaredButNotInheritedInstanceMembers | BindingFlags.NonPublic;
+
+        /// <summary>
+        /// Finds all (public, protected, internal, private) static (not instance) members that are declared at the level of the specified type's hierarchy (not inherited).
+        /// </summary>
+        public const BindingFlags AllDeclaredButNotInheritedStaticMembers = PublicDeclaredButNotInheritedStaticMembers | BindingFlags.NonPublic;
+
+        /// <summary>
+        /// Finds public (not protected, not internal, not private) instance or static members that are declared at the level of the specified type's hierarchy (not inherited).
+        /// </summary>
+        public const BindingFlags PublicDeclaredButNotInheritedMembers = PublicDeclaredButNotInheritedInstanceMembers | PublicDeclaredButNotInheritedStaticMembers;
+
+        /// <summary>
+        /// Finds public (not protected, not internal, not private) instance (not static) members that are declared at the level of the specified type's hierarchy (not inherited).
+        /// </summary>
+        public const BindingFlags PublicDeclaredButNotInheritedInstanceMembers = BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly;
+
+        /// <summary>
+        /// Finds public (not protected, not internal, not private) static (not instance) members that are declared at the level of the specified type's hierarchy (not inherited).
+        /// </summary>
+        public const BindingFlags PublicDeclaredButNotInheritedStaticMembers = BindingFlags.Static | BindingFlags.Public | BindingFlags.DeclaredOnly;
     }
 }

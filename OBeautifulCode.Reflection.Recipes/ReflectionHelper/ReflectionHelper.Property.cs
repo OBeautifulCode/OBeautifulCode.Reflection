@@ -32,7 +32,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// </summary>
         /// <param name="type">The type to check.</param>
         /// <param name="propertyName">The name of the property to check for.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.DeclaredAndInheritedInstanceMembers"/>.</param>
+        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
         /// <returns>
         /// true if the type has a property of the specified property name, false if not.
         /// </returns>
@@ -43,7 +43,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static bool HasProperty(
             this Type type,
             string propertyName,
-            BindingFlags bindingFlags = BindingFlagsFor.DeclaredAndInheritedInstanceMembers)
+            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
         {
             if (type == null)
             {
@@ -78,7 +78,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// Gets the name of all of the properties.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.DeclaredAndInheritedInstanceMembers"/>.</param>
+        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
         /// <returns>
         /// The property names.
         /// </returns>
@@ -86,7 +86,7 @@ namespace OBeautifulCode.Reflection.Recipes
         [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
         public static IReadOnlyCollection<string> GetPropertyNames(
             this Type type,
-            BindingFlags bindingFlags = BindingFlagsFor.DeclaredAndInheritedInstanceMembers)
+            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
         {
             if (type == null)
             {
@@ -105,7 +105,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="propertyName">The name of the property.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.DeclaredAndInheritedInstanceMembers"/>.</param>
+        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
         /// <returns>
         /// The <see cref="PropertyInfo"/>.
         /// </returns>
@@ -118,7 +118,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static PropertyInfo GetPropertyInfo(
             this Type type,
             string propertyName,
-            BindingFlags bindingFlags = BindingFlagsFor.DeclaredAndInheritedInstanceMembers)
+            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
         {
             if (type == null)
             {
@@ -160,7 +160,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <typeparam name="T">The type of the property.</typeparam>
         /// <param name="item">The object.</param>
         /// <param name="propertyName">The name of the property.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.DeclaredAndInheritedInstanceMembers"/>.</param>
+        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
         /// <returns>
         /// The value of the property.
         /// </returns>
@@ -175,7 +175,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static T GetPropertyValue<T>(
             this object item,
             string propertyName,
-            BindingFlags bindingFlags = BindingFlagsFor.DeclaredAndInheritedInstanceMembers)
+            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
         {
             if (item == null)
             {
@@ -186,6 +186,212 @@ namespace OBeautifulCode.Reflection.Recipes
 
             var propertyValue = propertyInfo.GetValue(item);
 
+            var result = propertyValue.CastOrThrowIfTypeMismatch<T>(propertyInfo);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the value of a property.
+        /// </summary>
+        /// <param name="item">The object.</param>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
+        /// <returns>
+        /// The value of the property.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="item"/> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="propertyName"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="propertyName"/> is whitespace.</exception>
+        /// <exception cref="ArgumentException">There is no property named <paramref name="propertyName"/> on the object type using the specified binding constraints.</exception>
+        /// <exception cref="ArgumentException">There is more than one property named <paramref name="propertyName"/> on the object type using the specified binding constraints.</exception>
+        /// <exception cref="ArgumentException">The property does not have a get method.</exception>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
+        public static object GetPropertyValue(
+            this object item,
+            string propertyName,
+            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
+        {
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+
+            var propertyInfo = item.GetType().GetPropertyInfo(propertyName, bindingFlags);
+
+            var result = propertyInfo.GetValue(item);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the value of a static property.
+        /// </summary>
+        /// <typeparam name="T">The type of the property.</typeparam>
+        /// <param name="type">The type that contains the property.</param>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedStaticMembers"/>.</param>
+        /// <returns>
+        /// The value of the property.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="propertyName"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="propertyName"/> is whitespace.</exception>
+        /// <exception cref="ArgumentException">There is no property named <paramref name="propertyName"/> on type <paramref name="type"/> using the specified binding constraints.</exception>
+        /// <exception cref="ArgumentException">There is more than one property named <paramref name="propertyName"/> on type <paramref name="type"/> using the specified binding constraints.</exception>
+        /// <exception cref="ArgumentException">The property does not have a get method.</exception>
+        /// <exception cref="ArgumentException">The property is not static.</exception>
+        /// <exception cref="InvalidCastException">The property is not of the specified type.</exception>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
+        public static T GetStaticPropertyValue<T>(
+            this Type type,
+            string propertyName,
+            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedStaticMembers)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            var propertyInfo = type.GetPropertyInfo(propertyName, bindingFlags);
+
+            object propertyValue;
+
+            try
+            {
+                propertyValue = propertyInfo.GetValue(null);
+            }
+            catch (TargetException)
+            {
+                throw new ArgumentException("The property is not static.");
+            }
+
+            var result = propertyValue.CastOrThrowIfTypeMismatch<T>(propertyInfo);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the value of a property on a static type.
+        /// </summary>
+        /// <param name="type">The type that contains the property.</param>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedStaticMembers"/>.</param>
+        /// <returns>
+        /// The value of the property.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="propertyName"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="propertyName"/> is whitespace.</exception>
+        /// <exception cref="ArgumentException">There is no property named <paramref name="propertyName"/> on type <paramref name="type"/> using the specified binding constraints.</exception>
+        /// <exception cref="ArgumentException">There is more than one property named <paramref name="propertyName"/> on type <paramref name="type"/> using the specified binding constraints.</exception>
+        /// <exception cref="ArgumentException">The property does not have a get method.</exception>
+        /// <exception cref="ArgumentException">The property is not static.</exception>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
+        public static object GetStaticPropertyValue(
+            this Type type,
+            string propertyName,
+            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedStaticMembers)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            var propertyInfo = type.GetPropertyInfo(propertyName, bindingFlags);
+
+            object result;
+
+            try
+            {
+                result = propertyInfo.GetValue(null);
+            }
+            catch (TargetException)
+            {
+                throw new ArgumentException("The property is not static.");
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Sets a property's value.
+        /// </summary>
+        /// <param name="item">The object.</param>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <param name="value">The value to set the property to.</param>
+        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="item"/> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="propertyName"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="propertyName"/> is whitespace.</exception>
+        /// <exception cref="ArgumentException">There is no property named <paramref name="propertyName"/> on the object type using the specified binding constraints.</exception>
+        /// <exception cref="ArgumentException">There is more than one property named <paramref name="propertyName"/> on the object type using the specified binding constraints.</exception>
+        /// <exception cref="InvalidCastException">Unable to assign null to the property's type.</exception>
+        /// <exception cref="InvalidCastException">Unable to assign <paramref name="value"/> type to the property's type.</exception>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
+        public static void SetPropertyValue(
+            this object item,
+            string propertyName,
+            object value,
+            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
+        {
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+
+            var propertyInfo = item.GetType().GetPropertyInfo(propertyName, bindingFlags);
+
+            value.ThrowIfNotAssignableTo(propertyInfo);
+
+            propertyInfo.SetValue(item, value);
+        }
+
+        /// <summary>
+        /// Sets a static property's value.
+        /// </summary>
+        /// <param name="type">The type that contains the property.</param>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <param name="value">The value to set the property to.</param>
+        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedStaticMembers"/>.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="propertyName"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="propertyName"/> is whitespace.</exception>
+        /// <exception cref="ArgumentException">There is no property named <paramref name="propertyName"/> on type <paramref name="type"/> using the specified binding constraints.</exception>
+        /// <exception cref="ArgumentException">There is more than one property named <paramref name="propertyName"/> on type <paramref name="type"/> using the specified binding constraints.</exception>
+        /// <exception cref="InvalidCastException">Unable to assign null to the property's type.</exception>
+        /// <exception cref="InvalidCastException">Unable to assign <paramref name="value"/> type to the property's type.</exception>
+        /// <exception cref="ArgumentException">The property is not static.</exception>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
+        public static void SetStaticPropertyValue(
+            this Type type,
+            string propertyName,
+            object value,
+            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedStaticMembers)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            var propertyInfo = type.GetPropertyInfo(propertyName, bindingFlags);
+
+            value.ThrowIfNotAssignableTo(propertyInfo);
+
+            try
+            {
+                propertyInfo.SetValue(null, value);
+            }
+            catch (TargetException)
+            {
+                throw new ArgumentException("The property is not static.");
+            }
+        }
+
+        private static T CastOrThrowIfTypeMismatch<T>(
+            this object propertyValue,
+            PropertyInfo propertyInfo)
+        {
             var returnType = typeof(T);
 
             T result;
@@ -217,67 +423,10 @@ namespace OBeautifulCode.Reflection.Recipes
             return result;
         }
 
-        /// <summary>
-        /// Gets the value of a property.
-        /// </summary>
-        /// <param name="item">The object.</param>
-        /// <param name="propertyName">The name of the property.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.DeclaredAndInheritedInstanceMembers"/>.</param>
-        /// <returns>
-        /// The value of the property.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref name="item"/> is null.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="propertyName"/> is null.</exception>
-        /// <exception cref="ArgumentException"><paramref name="propertyName"/> is whitespace.</exception>
-        /// <exception cref="ArgumentException">There is no property named <paramref name="propertyName"/> on the object type using the specified binding constraints.</exception>
-        /// <exception cref="ArgumentException">There is more than one property named <paramref name="propertyName"/> on the object type using the specified binding constraints.</exception>
-        /// <exception cref="ArgumentException">The property does not have a get method.</exception>
-        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
-        public static object GetPropertyValue(
-            this object item,
-            string propertyName,
-            BindingFlags bindingFlags = BindingFlagsFor.DeclaredAndInheritedInstanceMembers)
+        private static void ThrowIfNotAssignableTo(
+            this object value,
+            PropertyInfo propertyInfo)
         {
-            if (item == null)
-            {
-                throw new ArgumentNullException(nameof(item));
-            }
-
-            var propertyInfo = item.GetType().GetPropertyInfo(propertyName, bindingFlags);
-
-            var result = propertyInfo.GetValue(item);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Sets a property's value.
-        /// </summary>
-        /// <param name="item">The object.</param>
-        /// <param name="propertyName">The name of the property.</param>
-        /// <param name="value">The value to set the property to.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.DeclaredAndInheritedInstanceMembers"/>.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="item"/> is null.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="propertyName"/> is null.</exception>
-        /// <exception cref="ArgumentException"><paramref name="propertyName"/> is whitespace.</exception>
-        /// <exception cref="ArgumentException">There is no property named <paramref name="propertyName"/> on the object type using the specified binding constraints.</exception>
-        /// <exception cref="ArgumentException">There is more than one property named <paramref name="propertyName"/> on the object type using the specified binding constraints.</exception>
-        /// <exception cref="InvalidCastException">Unable to assign null to the property's type.</exception>
-        /// <exception cref="InvalidCastException">Unable to assign <paramref name="item"/> type to the property's type.</exception>
-        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
-        public static void SetPropertyValue(
-            this object item,
-            string propertyName,
-            object value,
-            BindingFlags bindingFlags = BindingFlagsFor.DeclaredAndInheritedInstanceMembers)
-        {
-            if (item == null)
-            {
-                throw new ArgumentNullException(nameof(item));
-            }
-
-            var propertyInfo = item.GetType().GetPropertyInfo(propertyName, bindingFlags);
-
             var propertyType = propertyInfo.PropertyType;
 
             if (value == null)
@@ -296,8 +445,6 @@ namespace OBeautifulCode.Reflection.Recipes
                     throw new InvalidCastException(Invariant($"Unable to assign value of type '{valueType.ToStringReadable()}' to property of type '{propertyType.ToStringReadable()}'."));
                 }
             }
-
-            propertyInfo.SetValue(item, value);
         }
     }
 }
