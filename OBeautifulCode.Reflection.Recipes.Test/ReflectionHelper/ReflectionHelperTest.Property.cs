@@ -895,10 +895,10 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         }
 
         [Fact]
-        public static void IsGetterOnlyProperty___Should_throw_ArgumentNullException___When_parameter_propertyInfo_is_null()
+        public static void IsReadOnlyProperty___Should_throw_ArgumentNullException___When_parameter_propertyInfo_is_null()
         {
             // Arrange, Act
-            var actual = Record.Exception(() => ReflectionHelper.IsGetterOnlyProperty(null));
+            var actual = Record.Exception(() => ReflectionHelper.IsReadOnlyProperty(null));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentNullException>();
@@ -906,26 +906,100 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         }
 
         [Fact]
-        public static void IsGetterOnlyProperty___Should_return_false___When_property_is_not_getter_only()
+        public static void IsReadOnlyProperty___Should_return_false___When_property_is_not_read_only()
         {
             // Arrange
-            var propertyNames = GetParentPropertyNames().Where(_ => !_.Contains("ReadOnly")).ToList();
+            var propertyNames = GetParentWritablePropertyNames();
 
             // Act
-            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsGetterOnlyProperty());
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsReadOnlyProperty());
 
             // Assert
             actual.AsTest().Must().Each().BeFalse();
         }
 
         [Fact]
-        public static void IsGetterOnlyProperty___Should_return_true___When_property_is_not_getter_only()
+        public static void IsReadOnlyProperty___Should_return_true___When_property_is_read_only()
+        {
+            // Arrange
+            var propertyNames = GetParentNotWritablePropertyNames();
+
+            // Act
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsReadOnlyProperty());
+
+            // Assert
+            actual.AsTest().Must().Each().BeTrue();
+        }
+
+        [Fact]
+        public static void IsReadOnlyAutoProperty___Should_throw_ArgumentNullException___When_parameter_propertyInfo_is_null()
+        {
+            // Arrange, Act
+            var actual = Record.Exception(() => ReflectionHelper.IsReadOnlyAutoProperty(null));
+
+            // Assert
+            actual.AsTest().Must().BeOfType<ArgumentNullException>();
+            actual.Message.AsTest().Must().ContainString("propertyInfo");
+        }
+
+        [Fact]
+        public static void IsReadOnlyAutoProperty___Should_return_false___When_property_is_not_getter_only()
+        {
+            // Arrange
+            var propertyNames = GetParentPropertyNames().Where(_ => !_.Contains("ReadOnly")).ToList();
+
+            // Act
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsReadOnlyAutoProperty());
+
+            // Assert
+            actual.AsTest().Must().Each().BeFalse();
+        }
+
+        [Fact]
+        public static void IsReadOnlyAutoProperty___Should_return_true___When_property_is_not_getter_only()
         {
             // Arrange
             var propertyNames = GetParentPropertyNames().Where(_ => _.Contains("ReadOnly")).ToList();
 
             // Act
-            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsGetterOnlyProperty());
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsReadOnlyAutoProperty());
+
+            // Assert
+            actual.AsTest().Must().Each().BeTrue();
+        }
+
+        [Fact]
+        public static void IsWriteOnlyProperty___Should_throw_ArgumentNullException___When_parameter_propertyInfo_is_null()
+        {
+            // Arrange, Act
+            var actual = Record.Exception(() => ReflectionHelper.IsWriteOnlyProperty(null));
+
+            // Assert
+            actual.AsTest().Must().BeOfType<ArgumentNullException>();
+            actual.Message.AsTest().Must().ContainString("propertyInfo");
+        }
+
+        [Fact]
+        public static void IsWriteOnlyProperty___Should_return_false___When_property_is_not_write_only()
+        {
+            // Arrange
+            var propertyNames = GetParentReadablePropertyNames();
+
+            // Act
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsWriteOnlyProperty());
+
+            // Assert
+            actual.AsTest().Must().Each().BeFalse();
+        }
+
+        [Fact]
+        public static void IsWriteOnlyProperty___Should_return_true___When_property_is_write_only()
+        {
+            // Arrange
+            var propertyNames = GetParentNotReadablePropertyNames();
+
+            // Act
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsWriteOnlyProperty());
 
             // Assert
             actual.AsTest().Must().Each().BeTrue();
