@@ -28,53 +28,6 @@ namespace OBeautifulCode.Reflection.Recipes
     static partial class ReflectionHelper
     {
         /// <summary>
-        /// Determines if a type has a property of the specified property name.
-        /// </summary>
-        /// <param name="type">The type to check.</param>
-        /// <param name="propertyName">The name of the property to check for.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
-        /// <returns>
-        /// true if the type has a property of the specified property name, false if not.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="propertyName"/> is null.</exception>
-        /// <exception cref="ArgumentException"><paramref name="propertyName"/> is whitespace.</exception>
-        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
-        public static bool HasProperty(
-            this Type type,
-            string propertyName,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
-        {
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
-
-            if (propertyName == null)
-            {
-                throw new ArgumentNullException(nameof(propertyName));
-            }
-
-            if (string.IsNullOrWhiteSpace(propertyName))
-            {
-                throw new ArgumentException(Invariant($"{nameof(propertyName)} is white space."));
-            }
-
-            bool result;
-
-            try
-            {
-                result = type.GetProperty(propertyName, bindingFlags) != null;
-            }
-            catch (AmbiguousMatchException)
-            {
-                result = true;
-            }
-
-            return result;
-        }
-
-        /// <summary>
         /// Gets the name of all of the properties.
         /// </summary>
         /// <param name="type">The type.</param>
@@ -309,6 +262,53 @@ namespace OBeautifulCode.Reflection.Recipes
             catch (TargetException)
             {
                 throw new ArgumentException("The property is not static.");
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Determines if a type has a property of the specified property name.
+        /// </summary>
+        /// <param name="type">The type to check.</param>
+        /// <param name="propertyName">The name of the property to check for.</param>
+        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
+        /// <returns>
+        /// true if the type has a property of the specified property name, false if not.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="propertyName"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="propertyName"/> is whitespace.</exception>
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
+        public static bool HasProperty(
+            this Type type,
+            string propertyName,
+            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (propertyName == null)
+            {
+                throw new ArgumentNullException(nameof(propertyName));
+            }
+
+            if (string.IsNullOrWhiteSpace(propertyName))
+            {
+                throw new ArgumentException(Invariant($"{nameof(propertyName)} is white space."));
+            }
+
+            bool result;
+
+            try
+            {
+                result = type.GetProperty(propertyName, bindingFlags) != null;
+            }
+            catch (AmbiguousMatchException)
+            {
+                result = true;
             }
 
             return result;
