@@ -21,93 +21,6 @@ namespace OBeautifulCode.Reflection.Recipes.Test
     public static partial class ReflectionHelperTest
     {
         [Fact]
-        public static void HasProperty___Should_throw_ArgumentNullException___When_parameter_type_is_null()
-        {
-            // Arrange
-            var propertyName = A.Dummy<string>();
-
-            // Act
-            var actual = Record.Exception(() => ReflectionHelper.HasProperty(null, propertyName));
-
-            // Assert
-            actual.AsTest().Must().BeOfType<ArgumentNullException>();
-            actual.Message.AsTest().Must().ContainString("type");
-        }
-
-        [Fact]
-        public static void HasProperty___Should_throw_ArgumentNullException___When_parameter_propertyName_is_null()
-        {
-            // Arrange
-            var type = typeof(ParentInstanceProperties);
-
-            // Act
-            var actual = Record.Exception(() => type.HasProperty(null));
-
-            // Assert
-            actual.AsTest().Must().BeOfType<ArgumentNullException>();
-            actual.Message.AsTest().Must().ContainString("propertyName");
-        }
-
-        [Fact]
-        public static void HasProperty___Should_throw_ArgumentException___When_parameter_propertyName_is_white_space()
-        {
-            // Arrange
-            var type = typeof(ParentInstanceProperties);
-
-            // Act
-            var actual = Record.Exception(() => type.HasProperty(" \r\n "));
-
-            // Assert
-            actual.AsTest().Must().BeOfType<ArgumentException>();
-            actual.Message.AsTest().Must().ContainString("propertyName");
-            actual.Message.AsTest().Must().ContainString("white space");
-        }
-
-        [Fact]
-        public static void HasProperty___Should_return_false___When_property_does_not_exist()
-        {
-            // Arrange
-            var parentType = typeof(ParentInstanceProperties);
-
-            var parentPropertyNamesThatDoNotExist = GetParentPropertyNamesThatDoNotExist();
-
-            var childType = typeof(ChildInstanceProperties);
-
-            var childPropertyNamesThatDoNotExist = GetChildPropertyNamesThatDoNotExist();
-
-            // Act
-            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => parentType.HasProperty(_)).ToList();
-            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => childType.HasProperty(_)).ToList();
-
-            // Assert
-            actuals1.AsTest().Must().Each().BeFalse();
-            actuals2.AsTest().Must().Each().BeFalse();
-        }
-
-        [Fact]
-        public static void HasProperty___Should_return_true___When_property_exists()
-        {
-            // Arrange
-            var parentType = typeof(ParentInstanceProperties);
-
-            var childType = typeof(ChildInstanceProperties);
-
-            var childPropertyNames = new string[0]
-                .Concat(GetChildPropertyNames())
-                .Concat(GetParentPublicPropertyNames())
-                .Concat(GetParentProtectedPropertyNames())
-                .ToList();
-
-            // Act
-            var actuals1 = GetParentPropertyNames().Select(_ => parentType.HasProperty(_)).ToList();
-            var actuals2 = childPropertyNames.Select(_ => childType.HasProperty(_)).ToList();
-
-            // Assert
-            actuals1.AsTest().Must().Each().BeTrue();
-            actuals2.AsTest().Must().Each().BeTrue();
-        }
-
-        [Fact]
         public static void GetPropertyNames___Should_throw_ArgumentNullException___When_parameter_type_is_null()
         {
             // Arrange, Act
@@ -892,6 +805,130 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
             // Assert
             actual.AsTest().Must().BeEqualTo(expected);
+        }
+
+        [Fact]
+        public static void HasProperty___Should_throw_ArgumentNullException___When_parameter_type_is_null()
+        {
+            // Arrange
+            var propertyName = A.Dummy<string>();
+
+            // Act
+            var actual = Record.Exception(() => ReflectionHelper.HasProperty(null, propertyName));
+
+            // Assert
+            actual.AsTest().Must().BeOfType<ArgumentNullException>();
+            actual.Message.AsTest().Must().ContainString("type");
+        }
+
+        [Fact]
+        public static void HasProperty___Should_throw_ArgumentNullException___When_parameter_propertyName_is_null()
+        {
+            // Arrange
+            var type = typeof(ParentInstanceProperties);
+
+            // Act
+            var actual = Record.Exception(() => type.HasProperty(null));
+
+            // Assert
+            actual.AsTest().Must().BeOfType<ArgumentNullException>();
+            actual.Message.AsTest().Must().ContainString("propertyName");
+        }
+
+        [Fact]
+        public static void HasProperty___Should_throw_ArgumentException___When_parameter_propertyName_is_white_space()
+        {
+            // Arrange
+            var type = typeof(ParentInstanceProperties);
+
+            // Act
+            var actual = Record.Exception(() => type.HasProperty(" \r\n "));
+
+            // Assert
+            actual.AsTest().Must().BeOfType<ArgumentException>();
+            actual.Message.AsTest().Must().ContainString("propertyName");
+            actual.Message.AsTest().Must().ContainString("white space");
+        }
+
+        [Fact]
+        public static void HasProperty___Should_return_false___When_property_does_not_exist()
+        {
+            // Arrange
+            var parentType = typeof(ParentInstanceProperties);
+
+            var parentPropertyNamesThatDoNotExist = GetParentPropertyNamesThatDoNotExist();
+
+            var childType = typeof(ChildInstanceProperties);
+
+            var childPropertyNamesThatDoNotExist = GetChildPropertyNamesThatDoNotExist();
+
+            // Act
+            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => parentType.HasProperty(_)).ToList();
+            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => childType.HasProperty(_)).ToList();
+
+            // Assert
+            actuals1.AsTest().Must().Each().BeFalse();
+            actuals2.AsTest().Must().Each().BeFalse();
+        }
+
+        [Fact]
+        public static void HasProperty___Should_return_true___When_property_exists()
+        {
+            // Arrange
+            var parentType = typeof(ParentInstanceProperties);
+
+            var childType = typeof(ChildInstanceProperties);
+
+            var childPropertyNames = new string[0]
+                .Concat(GetChildPropertyNames())
+                .Concat(GetParentPublicPropertyNames())
+                .Concat(GetParentProtectedPropertyNames())
+                .ToList();
+
+            // Act
+            var actuals1 = GetParentPropertyNames().Select(_ => parentType.HasProperty(_)).ToList();
+            var actuals2 = childPropertyNames.Select(_ => childType.HasProperty(_)).ToList();
+
+            // Assert
+            actuals1.AsTest().Must().Each().BeTrue();
+            actuals2.AsTest().Must().Each().BeTrue();
+        }
+
+        [Fact]
+        public static void IsGetterOnlyProperty___Should_throw_ArgumentNullException___When_parameter_propertyInfo_is_null()
+        {
+            // Arrange, Act
+            var actual = Record.Exception(() => ReflectionHelper.IsGetterOnlyProperty(null));
+
+            // Assert
+            actual.AsTest().Must().BeOfType<ArgumentNullException>();
+            actual.Message.AsTest().Must().ContainString("propertyInfo");
+        }
+
+        [Fact]
+        public static void IsGetterOnlyProperty___Should_return_false___When_property_is_not_getter_only()
+        {
+            // Arrange
+            var propertyNames = GetParentPropertyNames().Where(_ => !_.Contains("ReadOnly")).ToList();
+
+            // Act
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsGetterOnlyProperty());
+
+            // Assert
+            actual.AsTest().Must().Each().BeFalse();
+        }
+
+        [Fact]
+        public static void IsGetterOnlyProperty___Should_return_true___When_property_is_not_getter_only()
+        {
+            // Arrange
+            var propertyNames = GetParentPropertyNames().Where(_ => _.Contains("ReadOnly")).ToList();
+
+            // Act
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsGetterOnlyProperty());
+
+            // Assert
+            actual.AsTest().Must().Each().BeTrue();
         }
 
         [Fact]
