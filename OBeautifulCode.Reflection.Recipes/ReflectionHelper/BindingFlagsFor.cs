@@ -26,16 +26,20 @@ namespace OBeautifulCode.Reflection.Recipes
     static class BindingFlagsFor
     {
         /// <summary>
-        /// Finds public instance (not static) members that are declared at the level of the supplied type's hierarchy (not inherited).
+        /// Finds public instance (not static) members that are declared at the level of the specified type's hierarchy (not inherited).
         /// </summary>
-        public static readonly BindingFlags DeclaredButNotInheritedPublicInstanceMembers = BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly;
+        public const BindingFlags DeclaredButNotInheritedPublicInstanceMembers = BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly;
 
         /// <summary>
-        /// Finds public instance (not static) members that are declared at the level of the supplied type's hierarchy or inherited.
-        /// </summary>
-        /// <remarks>
+        /// Finds public instance (not static) members that are declared at the level of the specified type's hierarchy or inherited.
         /// Note that when an interface implements another interface (and so on), those implemented interfaces are NOT considered to be inherited.
-        /// </remarks>
-        public static readonly BindingFlags DeclaredAndInheritedPublicInstanceMembers = BindingFlags.Instance | BindingFlags.Public;
+        /// </summary>
+        public const BindingFlags DeclaredAndInheritedPublicInstanceMembers = BindingFlags.Instance | BindingFlags.Public;
+
+        /// <summary>
+        /// Finds all instance (not static) members that are declared at the level of the specified type's hierarchy or inherited.
+        /// Note that private members of the specified type's inheritance path are NOT inherited.  Public, internal, and protected members are.
+        /// </summary>
+        public const BindingFlags DeclaredAndInheritedInstanceMembers = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
     }
 }

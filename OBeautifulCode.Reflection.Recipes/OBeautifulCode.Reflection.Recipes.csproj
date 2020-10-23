@@ -73,7 +73,8 @@
     <Compile Include="ReflectionHelper\ReflectionHelper.Attribute.cs" />
     <Compile Include="ReflectionHelper\ReflectionHelper.cs" />
     <Compile Include="ReflectionHelper\ReflectionHelper.Enum.cs" />
-    <Compile Include="ReflectionHelper\ReflectionHelper.Field.cs" />
+    <None Include="ReflectionHelper\ReflectionHelper.Field.cs" />
+    <Compile Include="ReflectionHelper\ReflectionHelper.Constructor.cs" />
     <Compile Include="ReflectionHelper\ReflectionHelper.Property.cs" />
     <Compile Include="AppDomainHelper\AppDomainHelper.cs" />
   </ItemGroup>

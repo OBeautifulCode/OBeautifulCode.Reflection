@@ -12,8 +12,12 @@ namespace OBeautifulCode.Reflection.Recipes
     using global::System;
     using global::System.Collections.Generic;
     using global::System.Linq;
+    using global::System.Diagnostics.CodeAnalysis;
 
+    using OBeautifulCode.CodeAnalysis.Recipes;
     using OBeautifulCode.Enum.Recipes;
+
+    using static global::System.FormattableString;
 
 #if !OBeautifulCodeReflectionSolution
     internal
@@ -38,8 +42,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// enum values have that attribute.
         /// </returns>
         /// <exception cref="ArgumentException"><typeparamref name="TEnum"/> is not an enum.</exception>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is not needed.")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
+        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = ObcSuppressBecause.CA1004_GenericMethodsShouldProvideTypeParameter_OnlyInputsToMethodAreTypesAndItsMoreConciseToCallMethodUseGenericTypeParameters)]
         public static IReadOnlyCollection<TEnum> GetEnumValuesHaving<TEnum, TAttribute>(
             Func<TAttribute, bool> attributeFilter = null)
             where TEnum : struct
@@ -47,7 +50,7 @@ namespace OBeautifulCode.Reflection.Recipes
         {
             if (!typeof(TEnum).IsEnum)
             {
-                throw new ArgumentException($"typeof({nameof(TEnum)}).IsEnum is false");
+                throw new ArgumentException(Invariant($"typeof({nameof(TEnum)}).IsEnum is false"));
             }
 
             var result =
@@ -81,8 +84,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// enum values have that attribute.
         /// </returns>
         /// <exception cref="ArgumentException"><paramref name="enumType"/> is not an enum.</exception>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is not needed.")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object)", Justification = "This is a developer-facing string, not a user-facing string.")]
+        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = ObcSuppressBecause.CA1004_GenericMethodsShouldProvideTypeParameter_OnlyInputsToMethodAreTypesAndItsMoreConciseToCallMethodUseGenericTypeParameters)]
         public static IReadOnlyCollection<Enum> GetEnumValuesHaving<TAttribute>(
             this Type enumType,
             Func<TAttribute, bool> attributeFilter = null)
@@ -95,7 +97,7 @@ namespace OBeautifulCode.Reflection.Recipes
 
             if (!enumType.IsEnum)
             {
-                throw new ArgumentException($"{nameof(enumType)}.IsEnum is false");
+                throw new ArgumentException(Invariant($"{nameof(enumType)}.IsEnum is false"));
             }
 
             var result =
