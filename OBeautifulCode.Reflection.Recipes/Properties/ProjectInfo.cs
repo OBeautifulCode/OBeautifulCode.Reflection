@@ -9,7 +9,7 @@
 
 namespace OBeautifulCode.Reflection.Recipes
 {
-    using System.Reflection;
+    using global::System.Reflection;
 
     /// <summary>
     /// Project-related information.
