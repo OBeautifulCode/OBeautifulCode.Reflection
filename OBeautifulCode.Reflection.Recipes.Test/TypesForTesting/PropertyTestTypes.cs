@@ -14,10 +14,11 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
     #pragma warning disable SA1649 // File name must match first type name
     #pragma warning disable SA1402 // File may only contain a single class
+    #pragma warning disable SA1204 // Static elements should appear before instance elements
 
-    public class ParentProperties
+    public class ParentInstanceProperties
     {
-        public ParentProperties(
+        public ParentInstanceProperties(
             int parentPublicReadOnlyValueTypeProperty,
             string parentPublicReadOnlyStringTypeProperty,
             int? parentPublicReadOnlyNullableTypeProperty,
@@ -248,9 +249,9 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         }
     }
 
-    public class ChildProperties : ParentProperties
+    public class ChildInstanceProperties : ParentInstanceProperties
     {
-        public ChildProperties(
+        public ChildInstanceProperties(
             int parentPublicReadOnlyValueTypeProperty,
             string parentPublicReadOnlyStringTypeProperty,
             int? parentPublicReadOnlyNullableTypeProperty,
@@ -424,6 +425,378 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         private Version ChildPrivateExpressionBodyReferenceTypeProperty => this.ChildPublicReadWriteReferenceTypeProperty;
     }
 
-    #pragma warning restore SA1402 // File may only contain a single class
-    #pragma warning restore SA1649 // File name must match first type name
+    public class ParentStaticProperties
+    {
+        static ParentStaticProperties()
+        {
+            ParentPublicReadOnlyValueTypeProperty = 1;
+            ParentPublicReadOnlyStringTypeProperty = "2";
+            ParentPublicReadOnlyNullableTypeProperty = 3;
+            ParentPublicReadOnlyReferenceTypeProperty = new Version(4, 0);
+            ParentProtectedReadOnlyValueTypeProperty = 5;
+            ParentProtectedReadOnlyStringTypeProperty = "6";
+            ParentProtectedReadOnlyNullableTypeProperty = 7;
+            ParentProtectedReadOnlyReferenceTypeProperty = new Version(8, 0);
+            ParentPrivateReadOnlyValueTypeProperty = 9;
+            ParentPrivateReadOnlyStringTypeProperty = "10";
+            ParentPrivateReadOnlyNullableTypeProperty = 11;
+            ParentPrivateReadOnlyReferenceTypeProperty = new Version(12, 0);
+        }
+
+        public static int ParentPublicReadWriteValueTypeProperty { get; set; }
+
+        public static string ParentPublicReadWriteStringTypeProperty { get; set; }
+
+        public static int? ParentPublicReadWriteNullableTypeProperty { get; set; }
+
+        public static Version ParentPublicReadWriteReferenceTypeProperty { get; set; }
+
+        public static int ParentPublicReadOnlyValueTypeProperty { get; }
+
+        public static string ParentPublicReadOnlyStringTypeProperty { get; }
+
+        public static int? ParentPublicReadOnlyNullableTypeProperty { get; }
+
+        public static Version ParentPublicReadOnlyReferenceTypeProperty { get; }
+
+        public static int ParentPublicWriteOnlyValueTypeProperty
+        {
+            set { }
+        }
+
+        public static string ParentPublicWriteOnlyStringTypeProperty
+        {
+            set { }
+        }
+
+        public static int? ParentPublicWriteOnlyNullableTypeProperty
+        {
+            set { }
+        }
+
+        public static Version ParentPublicWriteOnlyReferenceTypeProperty
+        {
+            set { }
+        }
+
+        public static int ParentPublicExpressionBodyValueTypeProperty => ParentPublicReadWriteValueTypeProperty + 1;
+
+        public static string ParentPublicExpressionBodyStringTypeProperty => ParentPublicReadWriteStringTypeProperty + 1;
+
+        public static int? ParentPublicExpressionBodyNullableTypeProperty => ParentPublicReadWriteNullableTypeProperty + 1;
+
+        public static Version ParentPublicExpressionBodyReferenceTypeProperty => new Version(ParentPublicReadWriteReferenceTypeProperty + ".1");
+
+        protected static int ParentProtectedReadWriteValueTypeProperty { get; set; }
+
+        protected static string ParentProtectedReadWriteStringTypeProperty { get; set; }
+
+        protected static int? ParentProtectedReadWriteNullableTypeProperty { get; set; }
+
+        protected static Version ParentProtectedReadWriteReferenceTypeProperty { get; set; }
+
+        protected static int ParentProtectedReadOnlyValueTypeProperty { get; }
+
+        protected static string ParentProtectedReadOnlyStringTypeProperty { get; }
+
+        protected static int? ParentProtectedReadOnlyNullableTypeProperty { get; }
+
+        protected static Version ParentProtectedReadOnlyReferenceTypeProperty { get; }
+
+        protected static int ParentProtectedWriteOnlyValueTypeProperty
+        {
+            set { }
+        }
+
+        protected static string ParentProtectedWriteOnlyStringTypeProperty
+        {
+            set { }
+        }
+
+        protected static int? ParentProtectedWriteOnlyNullableTypeProperty
+        {
+            set { }
+        }
+
+        protected static Version ParentProtectedWriteOnlyReferenceTypeProperty
+        {
+            set { }
+        }
+
+        protected static int ParentProtectedExpressionBodyValueTypeProperty => ParentPublicReadWriteValueTypeProperty + 2;
+
+        protected static string ParentProtectedExpressionBodyStringTypeProperty => ParentPublicReadWriteStringTypeProperty + 2;
+
+        protected static int? ParentProtectedExpressionBodyNullableTypeProperty => ParentPublicReadWriteNullableTypeProperty + 2;
+
+        protected static Version ParentProtectedExpressionBodyReferenceTypeProperty => new Version(ParentPublicReadWriteReferenceTypeProperty + ".2");
+
+        private static int ParentPrivateReadWriteValueTypeProperty { get; set; }
+
+        private static string ParentPrivateReadWriteStringTypeProperty { get; set; }
+
+        private static int? ParentPrivateReadWriteNullableTypeProperty { get; set; }
+
+        private static Version ParentPrivateReadWriteReferenceTypeProperty { get; set; }
+
+        private static int ParentPrivateReadOnlyValueTypeProperty { get; }
+
+        private static string ParentPrivateReadOnlyStringTypeProperty { get; }
+
+        private static int? ParentPrivateReadOnlyNullableTypeProperty { get; }
+
+        private static Version ParentPrivateReadOnlyReferenceTypeProperty { get; }
+
+        private static int ParentPrivateWriteOnlyValueTypeProperty
+        {
+            set { }
+        }
+
+        private static string ParentPrivateWriteOnlyStringTypeProperty
+        {
+            set { }
+        }
+
+        private static int? ParentPrivateWriteOnlyNullableTypeProperty
+        {
+            set { }
+        }
+
+        private static Version ParentPrivateWriteOnlyReferenceTypeProperty
+        {
+            set { }
+        }
+
+        private static int ParentPrivateExpressionBodyValueTypeProperty => ParentPublicReadWriteValueTypeProperty + 3;
+
+        private static string ParentPrivateExpressionBodyStringTypeProperty => ParentPublicReadWriteStringTypeProperty + 3;
+
+        private static int? ParentPrivateExpressionBodyNullableTypeProperty => ParentPublicReadWriteNullableTypeProperty + 3;
+
+        private static Version ParentPrivateExpressionBodyReferenceTypeProperty => new Version(ParentPublicReadWriteReferenceTypeProperty + ".3");
+
+        public static string ToStringReadableProperties()
+        {
+            var map = new Dictionary<string, string>
+            {
+                { nameof(ParentPublicReadWriteValueTypeProperty), ParentPublicReadWriteValueTypeProperty.ToString() },
+                { nameof(ParentPublicReadWriteStringTypeProperty), ParentPublicReadWriteStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPublicReadWriteNullableTypeProperty), ParentPublicReadWriteNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPublicReadWriteReferenceTypeProperty), ParentPublicReadWriteReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPublicReadOnlyValueTypeProperty), ParentPublicReadOnlyValueTypeProperty.ToString() },
+                { nameof(ParentPublicReadOnlyStringTypeProperty), ParentPublicReadOnlyStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPublicReadOnlyNullableTypeProperty), ParentPublicReadOnlyNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPublicReadOnlyReferenceTypeProperty), ParentPublicReadOnlyReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPublicExpressionBodyValueTypeProperty), ParentPublicExpressionBodyValueTypeProperty.ToString() },
+                { nameof(ParentPublicExpressionBodyStringTypeProperty), ParentPublicExpressionBodyStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPublicExpressionBodyNullableTypeProperty), ParentPublicExpressionBodyNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPublicExpressionBodyReferenceTypeProperty), ParentPublicExpressionBodyReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentProtectedReadWriteValueTypeProperty), ParentProtectedReadWriteValueTypeProperty.ToString() },
+                { nameof(ParentProtectedReadWriteStringTypeProperty), ParentProtectedReadWriteStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentProtectedReadWriteNullableTypeProperty), ParentProtectedReadWriteNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentProtectedReadWriteReferenceTypeProperty), ParentProtectedReadWriteReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentProtectedReadOnlyValueTypeProperty), ParentProtectedReadOnlyValueTypeProperty.ToString() },
+                { nameof(ParentProtectedReadOnlyStringTypeProperty), ParentProtectedReadOnlyStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentProtectedReadOnlyNullableTypeProperty), ParentProtectedReadOnlyNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentProtectedReadOnlyReferenceTypeProperty), ParentProtectedReadOnlyReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentProtectedExpressionBodyValueTypeProperty), ParentProtectedExpressionBodyValueTypeProperty.ToString() },
+                { nameof(ParentProtectedExpressionBodyStringTypeProperty), ParentProtectedExpressionBodyStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentProtectedExpressionBodyNullableTypeProperty), ParentProtectedExpressionBodyNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentProtectedExpressionBodyReferenceTypeProperty), ParentProtectedExpressionBodyReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPrivateReadWriteValueTypeProperty), ParentPrivateReadWriteValueTypeProperty.ToString() },
+                { nameof(ParentPrivateReadWriteStringTypeProperty), ParentPrivateReadWriteStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPrivateReadWriteNullableTypeProperty), ParentPrivateReadWriteNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPrivateReadWriteReferenceTypeProperty), ParentPrivateReadWriteReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPrivateReadOnlyValueTypeProperty), ParentPrivateReadOnlyValueTypeProperty.ToString() },
+                { nameof(ParentPrivateReadOnlyStringTypeProperty), ParentPrivateReadOnlyStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPrivateReadOnlyNullableTypeProperty), ParentPrivateReadOnlyNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPrivateReadOnlyReferenceTypeProperty), ParentPrivateReadOnlyReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPrivateExpressionBodyValueTypeProperty), ParentPrivateExpressionBodyValueTypeProperty.ToString() },
+                { nameof(ParentPrivateExpressionBodyStringTypeProperty), ParentPrivateExpressionBodyStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPrivateExpressionBodyNullableTypeProperty), ParentPrivateExpressionBodyNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPrivateExpressionBodyReferenceTypeProperty), ParentPrivateExpressionBodyReferenceTypeProperty?.ToString() ?? "<null>" },
+            };
+
+            var result = map.OrderBy(_ => _.Key).Select(_ => _.Key + ": " + _.Value).ToDelimitedString("|");
+
+            return result;
+        }
+
+        public static string ToStringWritableProperties()
+        {
+            var map = new Dictionary<string, string>
+            {
+                { nameof(ParentPublicReadWriteValueTypeProperty), ParentPublicReadWriteValueTypeProperty.ToString() },
+                { nameof(ParentPublicReadWriteStringTypeProperty), ParentPublicReadWriteStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPublicReadWriteNullableTypeProperty), ParentPublicReadWriteNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPublicReadWriteReferenceTypeProperty), ParentPublicReadWriteReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentProtectedReadWriteValueTypeProperty), ParentProtectedReadWriteValueTypeProperty.ToString() },
+                { nameof(ParentProtectedReadWriteStringTypeProperty), ParentProtectedReadWriteStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentProtectedReadWriteNullableTypeProperty), ParentProtectedReadWriteNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentProtectedReadWriteReferenceTypeProperty), ParentProtectedReadWriteReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPrivateReadWriteValueTypeProperty), ParentPrivateReadWriteValueTypeProperty.ToString() },
+                { nameof(ParentPrivateReadWriteStringTypeProperty), ParentPrivateReadWriteStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPrivateReadWriteNullableTypeProperty), ParentPrivateReadWriteNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPrivateReadWriteReferenceTypeProperty), ParentPrivateReadWriteReferenceTypeProperty?.ToString() ?? "<null>" },
+            };
+
+            var result = map.OrderBy(_ => _.Key).Select(_ => _.Key + ": " + _.Value).ToDelimitedString("|");
+
+            return result;
+        }
+    }
+
+    public class ChildStaticProperties : ParentStaticProperties
+    {
+        static ChildStaticProperties()
+        {
+            ChildPublicReadOnlyValueTypeProperty = 20;
+            ChildPublicReadOnlyStringTypeProperty = "21";
+            ChildPublicReadOnlyNullableTypeProperty = 22;
+            ChildPublicReadOnlyReferenceTypeProperty = new Version(23, 0);
+            ChildProtectedReadOnlyValueTypeProperty = 24;
+            ChildProtectedReadOnlyStringTypeProperty = "25";
+            ChildProtectedReadOnlyNullableTypeProperty = 26;
+            ChildProtectedReadOnlyReferenceTypeProperty = new Version(27, 0);
+            ChildPrivateReadOnlyValueTypeProperty = 28;
+            ChildPrivateReadOnlyStringTypeProperty = "29";
+            ChildPrivateReadOnlyNullableTypeProperty = 30;
+            ChildPrivateReadOnlyReferenceTypeProperty = new Version(31, 0);
+        }
+
+        public static int ChildPublicReadWriteValueTypeProperty { get; set; }
+
+        public static string ChildPublicReadWriteStringTypeProperty { get; set; }
+
+        public static int? ChildPublicReadWriteNullableTypeProperty { get; set; }
+
+        public static Version ChildPublicReadWriteReferenceTypeProperty { get; set; }
+
+        public static int ChildPublicReadOnlyValueTypeProperty { get; }
+
+        public static string ChildPublicReadOnlyStringTypeProperty { get; }
+
+        public static int? ChildPublicReadOnlyNullableTypeProperty { get; }
+
+        public static Version ChildPublicReadOnlyReferenceTypeProperty { get; }
+
+        public static int ChildPublicWriteOnlyValueTypeProperty
+        {
+            set { }
+        }
+
+        public static string ChildPublicWriteOnlyStringTypeProperty
+        {
+            set { }
+        }
+
+        public static int? ChildPublicWriteOnlyNullableTypeProperty
+        {
+            set { }
+        }
+
+        public static Version ChildPublicWriteOnlyReferenceTypeProperty
+        {
+            set { }
+        }
+
+        public static int ChildPublicExpressionBodyValueTypeProperty => ChildPublicReadWriteValueTypeProperty;
+
+        public static string ChildPublicExpressionBodyStringTypeProperty => ChildPublicReadWriteStringTypeProperty;
+
+        public static int? ChildPublicExpressionBodyNullableTypeProperty => ChildPublicReadWriteNullableTypeProperty;
+
+        public static Version ChildPublicExpressionBodyReferenceTypeProperty => ChildPublicReadWriteReferenceTypeProperty;
+
+        protected static int ChildProtectedReadWriteValueTypeProperty { get; set; }
+
+        protected static string ChildProtectedReadWriteStringTypeProperty { get; set; }
+
+        protected static int? ChildProtectedReadWriteNullableTypeProperty { get; set; }
+
+        protected static Version ChildProtectedReadWriteReferenceTypeProperty { get; set; }
+
+        protected static int ChildProtectedReadOnlyValueTypeProperty { get; }
+
+        protected static string ChildProtectedReadOnlyStringTypeProperty { get; }
+
+        protected static int? ChildProtectedReadOnlyNullableTypeProperty { get; }
+
+        protected static Version ChildProtectedReadOnlyReferenceTypeProperty { get; }
+
+        protected static int ChildProtectedWriteOnlyValueTypeProperty
+        {
+            set { }
+        }
+
+        protected static string ChildProtectedWriteOnlyStringTypeProperty
+        {
+            set { }
+        }
+
+        protected static int? ChildProtectedWriteOnlyNullableTypeProperty
+        {
+            set { }
+        }
+
+        protected static Version ChildProtectedWriteOnlyReferenceTypeProperty
+        {
+            set { }
+        }
+
+        protected static int ChildProtectedExpressionBodyValueTypeProperty => ChildPublicReadWriteValueTypeProperty;
+
+        protected static string ChildProtectedExpressionBodyStringTypeProperty => ChildPublicReadWriteStringTypeProperty;
+
+        protected static int? ChildProtectedExpressionBodyNullableTypeProperty => ChildPublicReadWriteNullableTypeProperty;
+
+        protected static Version ChildProtectedExpressionBodyReferenceTypeProperty => ChildPublicReadWriteReferenceTypeProperty;
+
+        private static int ChildPrivateReadWriteValueTypeProperty { get; set; }
+
+        private static string ChildPrivateReadWriteStringTypeProperty { get; set; }
+
+        private static int? ChildPrivateReadWriteNullableTypeProperty { get; set; }
+
+        private static Version ChildPrivateReadWriteReferenceTypeProperty { get; set; }
+
+        private static int ChildPrivateReadOnlyValueTypeProperty { get; }
+
+        private static string ChildPrivateReadOnlyStringTypeProperty { get; }
+
+        private static int? ChildPrivateReadOnlyNullableTypeProperty { get; }
+
+        private static Version ChildPrivateReadOnlyReferenceTypeProperty { get; }
+
+        private static int ChildPrivateWriteOnlyValueTypeProperty
+        {
+            set { }
+        }
+
+        private static string ChildPrivateWriteOnlyStringTypeProperty
+        {
+            set { }
+        }
+
+        private static int? ChildPrivateWriteOnlyNullableTypeProperty
+        {
+            set { }
+        }
+
+        private static Version ChildPrivateWriteOnlyReferenceTypeProperty
+        {
+            set { }
+        }
+
+        private static int ChildPrivateExpressionBodyValueTypeProperty => ChildPublicReadWriteValueTypeProperty;
+
+        private static string ChildPrivateExpressionBodyStringTypeProperty => ChildPublicReadWriteStringTypeProperty;
+
+        private static int? ChildPrivateExpressionBodyNullableTypeProperty => ChildPublicReadWriteNullableTypeProperty;
+
+        private static Version ChildPrivateExpressionBodyReferenceTypeProperty => ChildPublicReadWriteReferenceTypeProperty;
+    }
+#pragma warning restore SA1204 // Static elements should appear before instance elements
+#pragma warning restore SA1402 // File may only contain a single class
+#pragma warning restore SA1649 // File name must match first type name
 }
