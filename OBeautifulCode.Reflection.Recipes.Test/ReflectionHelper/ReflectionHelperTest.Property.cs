@@ -946,7 +946,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         public static void IsReadOnlyAutoProperty___Should_return_false___When_property_is_not_getter_only()
         {
             // Arrange
-            var propertyNames = GetParentPropertyNames().Where(_ => !_.Contains("ReadOnly")).ToList();
+            var propertyNames = GetParentPropertyNames().Where(_ => !_.Contains("ReadOnlyAuto")).ToList();
 
             // Act
             var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsReadOnlyAutoProperty());
@@ -959,7 +959,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         public static void IsReadOnlyAutoProperty___Should_return_true___When_property_is_not_getter_only()
         {
             // Arrange
-            var propertyNames = GetParentPropertyNames().Where(_ => _.Contains("ReadOnly")).ToList();
+            var propertyNames = GetParentPropertyNames().Where(_ => _.Contains("ReadOnlyAuto")).ToList();
 
             // Act
             var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsReadOnlyAutoProperty());
@@ -1398,17 +1398,6 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             return result;
         }
 
-        private static IReadOnlyCollection<string> GetParentPropertyNames()
-        {
-            var result = new string[0]
-                .Concat(GetParentPublicPropertyNames())
-                .Concat(GetParentProtectedPropertyNames())
-                .Concat(GetParentPrivatePropertyNames())
-                .ToList();
-
-            return result;
-        }
-
         private static IReadOnlyCollection<string> GetParentReadablePropertyNames()
         {
             var result = GetParentPropertyNames().Except(GetParentNotReadablePropertyNames()).ToList();
@@ -1437,13 +1426,25 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             return result;
         }
 
+        private static IReadOnlyCollection<string> GetParentPropertyNames()
+        {
+            var result = new string[0]
+                .Concat(GetParentPublicPropertyNames())
+                .Concat(GetParentProtectedPropertyNames())
+                .Concat(GetParentPrivatePropertyNames())
+                .ToList();
+
+            return result;
+        }
+
         private static IReadOnlyCollection<string> GetParentPublicPropertyNames()
         {
             var result = new string[0]
                 .Concat(GetParentPublicReadWritePropertyNames())
-                .Concat(GetParentPublicReadOnlyPropertyNames())
+                .Concat(GetParentPublicReadOnlyAutoPropertyNames())
+                .Concat(GetParentPublicReadOnlyExpressionBodyPropertyNames())
                 .Concat(GetParentPublicWriteOnlyPropertyNames())
-                .Concat(GetParentPublicExpressionBodyPropertyNames())
+
                 .ToList();
 
             return result;
@@ -1462,14 +1463,27 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             return result;
         }
 
-        private static IReadOnlyCollection<string> GetParentPublicReadOnlyPropertyNames()
+        private static IReadOnlyCollection<string> GetParentPublicReadOnlyAutoPropertyNames()
         {
             var result = new[]
             {
-                "ParentPublicReadOnlyValueTypeProperty",
-                "ParentPublicReadOnlyStringTypeProperty",
-                "ParentPublicReadOnlyNullableTypeProperty",
-                "ParentPublicReadOnlyReferenceTypeProperty",
+                "ParentPublicReadOnlyAutoValueTypeProperty",
+                "ParentPublicReadOnlyAutoStringTypeProperty",
+                "ParentPublicReadOnlyAutoNullableTypeProperty",
+                "ParentPublicReadOnlyAutoReferenceTypeProperty",
+            };
+
+            return result;
+        }
+
+        private static IReadOnlyCollection<string> GetParentPublicReadOnlyExpressionBodyPropertyNames()
+        {
+            var result = new[]
+            {
+                "ParentPublicReadOnlyExpressionBodyValueTypeProperty",
+                "ParentPublicReadOnlyExpressionBodyStringTypeProperty",
+                "ParentPublicReadOnlyExpressionBodyNullableTypeProperty",
+                "ParentPublicReadOnlyExpressionBodyReferenceTypeProperty",
             };
 
             return result;
@@ -1488,26 +1502,14 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             return result;
         }
 
-        private static IReadOnlyCollection<string> GetParentPublicExpressionBodyPropertyNames()
-        {
-            var result = new[]
-            {
-                "ParentPublicExpressionBodyValueTypeProperty",
-                "ParentPublicExpressionBodyStringTypeProperty",
-                "ParentPublicExpressionBodyNullableTypeProperty",
-                "ParentPublicExpressionBodyReferenceTypeProperty",
-            };
-
-            return result;
-        }
-
         private static IReadOnlyCollection<string> GetParentProtectedPropertyNames()
         {
             var result = new string[0]
                 .Concat(GetParentProtectedReadWritePropertyNames())
-                .Concat(GetParentProtectedReadOnlyPropertyNames())
+                .Concat(GetParentProtectedReadOnlyAutoPropertyNames())
+                .Concat(GetParentProtectedReadOnlyExpressionBodyPropertyNames())
                 .Concat(GetParentProtectedWriteOnlyPropertyNames())
-                .Concat(GetParentProtectedExpressionBodyPropertyNames())
+
                 .ToList();
 
             return result;
@@ -1526,14 +1528,27 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             return result;
         }
 
-        private static IReadOnlyCollection<string> GetParentProtectedReadOnlyPropertyNames()
+        private static IReadOnlyCollection<string> GetParentProtectedReadOnlyAutoPropertyNames()
         {
             var result = new[]
             {
-                "ParentProtectedReadOnlyValueTypeProperty",
-                "ParentProtectedReadOnlyStringTypeProperty",
-                "ParentProtectedReadOnlyNullableTypeProperty",
-                "ParentProtectedReadOnlyReferenceTypeProperty",
+                "ParentProtectedReadOnlyAutoValueTypeProperty",
+                "ParentProtectedReadOnlyAutoStringTypeProperty",
+                "ParentProtectedReadOnlyAutoNullableTypeProperty",
+                "ParentProtectedReadOnlyAutoReferenceTypeProperty",
+            };
+
+            return result;
+        }
+
+        private static IReadOnlyCollection<string> GetParentProtectedReadOnlyExpressionBodyPropertyNames()
+        {
+            var result = new[]
+            {
+                "ParentProtectedReadOnlyExpressionBodyValueTypeProperty",
+                "ParentProtectedReadOnlyExpressionBodyStringTypeProperty",
+                "ParentProtectedReadOnlyExpressionBodyNullableTypeProperty",
+                "ParentProtectedReadOnlyExpressionBodyReferenceTypeProperty",
             };
 
             return result;
@@ -1552,26 +1567,14 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             return result;
         }
 
-        private static IReadOnlyCollection<string> GetParentProtectedExpressionBodyPropertyNames()
-        {
-            var result = new[]
-            {
-                "ParentProtectedExpressionBodyValueTypeProperty",
-                "ParentProtectedExpressionBodyStringTypeProperty",
-                "ParentProtectedExpressionBodyNullableTypeProperty",
-                "ParentProtectedExpressionBodyReferenceTypeProperty",
-            };
-
-            return result;
-        }
-
         private static IReadOnlyCollection<string> GetParentPrivatePropertyNames()
         {
             var result = new string[0]
                 .Concat(GetParentPrivateReadWritePropertyNames())
-                .Concat(GetParentPrivateReadOnlyPropertyNames())
+                .Concat(GetParentPrivateReadOnlyAutoPropertyNames())
+                .Concat(GetParentPrivateReadOnlyExpressionBodyPropertyNames())
                 .Concat(GetParentPrivateWriteOnlyPropertyNames())
-                .Concat(GetParentPrivateExpressionBodyPropertyNames())
+
                 .ToList();
 
             return result;
@@ -1590,14 +1593,27 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             return result;
         }
 
-        private static IReadOnlyCollection<string> GetParentPrivateReadOnlyPropertyNames()
+        private static IReadOnlyCollection<string> GetParentPrivateReadOnlyAutoPropertyNames()
         {
             var result = new[]
             {
-                "ParentPrivateReadOnlyValueTypeProperty",
-                "ParentPrivateReadOnlyStringTypeProperty",
-                "ParentPrivateReadOnlyNullableTypeProperty",
-                "ParentPrivateReadOnlyReferenceTypeProperty",
+                "ParentPrivateReadOnlyAutoValueTypeProperty",
+                "ParentPrivateReadOnlyAutoStringTypeProperty",
+                "ParentPrivateReadOnlyAutoNullableTypeProperty",
+                "ParentPrivateReadOnlyAutoReferenceTypeProperty",
+            };
+
+            return result;
+        }
+
+        private static IReadOnlyCollection<string> GetParentPrivateReadOnlyExpressionBodyPropertyNames()
+        {
+            var result = new[]
+            {
+                "ParentPrivateReadOnlyExpressionBodyValueTypeProperty",
+                "ParentPrivateReadOnlyExpressionBodyStringTypeProperty",
+                "ParentPrivateReadOnlyExpressionBodyNullableTypeProperty",
+                "ParentPrivateReadOnlyExpressionBodyReferenceTypeProperty",
             };
 
             return result;
@@ -1611,19 +1627,6 @@ namespace OBeautifulCode.Reflection.Recipes.Test
                 "ParentPrivateWriteOnlyStringTypeProperty",
                 "ParentPrivateWriteOnlyNullableTypeProperty",
                 "ParentPrivateWriteOnlyReferenceTypeProperty",
-            };
-
-            return result;
-        }
-
-        private static IReadOnlyCollection<string> GetParentPrivateExpressionBodyPropertyNames()
-        {
-            var result = new[]
-            {
-                "ParentPrivateExpressionBodyValueTypeProperty",
-                "ParentPrivateExpressionBodyStringTypeProperty",
-                "ParentPrivateExpressionBodyNullableTypeProperty",
-                "ParentPrivateExpressionBodyReferenceTypeProperty",
             };
 
             return result;
@@ -1644,9 +1647,9 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         {
             var result = new string[0]
                 .Concat(GetChildPublicReadWritePropertyNames())
-                .Concat(GetChildPublicReadOnlyPropertyNames())
+                .Concat(GetChildPublicReadOnlyAutoPropertyNames())
+                .Concat(GetChildPublicReadOnlyExpressionBodyPropertyNames())
                 .Concat(GetChildPublicWriteOnlyPropertyNames())
-                .Concat(GetChildPublicExpressionBodyPropertyNames())
                 .ToList();
 
             return result;
@@ -1665,14 +1668,27 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             return result;
         }
 
-        private static IReadOnlyCollection<string> GetChildPublicReadOnlyPropertyNames()
+        private static IReadOnlyCollection<string> GetChildPublicReadOnlyAutoPropertyNames()
         {
             var result = new[]
             {
-                "ChildPublicReadOnlyValueTypeProperty",
-                "ChildPublicReadOnlyStringTypeProperty",
-                "ChildPublicReadOnlyNullableTypeProperty",
-                "ChildPublicReadOnlyReferenceTypeProperty",
+                "ChildPublicReadOnlyAutoValueTypeProperty",
+                "ChildPublicReadOnlyAutoStringTypeProperty",
+                "ChildPublicReadOnlyAutoNullableTypeProperty",
+                "ChildPublicReadOnlyAutoReferenceTypeProperty",
+            };
+
+            return result;
+        }
+
+        private static IReadOnlyCollection<string> GetChildPublicReadOnlyExpressionBodyPropertyNames()
+        {
+            var result = new[]
+            {
+                "ChildPublicReadOnlyExpressionBodyValueTypeProperty",
+                "ChildPublicReadOnlyExpressionBodyStringTypeProperty",
+                "ChildPublicReadOnlyExpressionBodyNullableTypeProperty",
+                "ChildPublicReadOnlyExpressionBodyReferenceTypeProperty",
             };
 
             return result;
@@ -1691,26 +1707,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             return result;
         }
 
-        private static IReadOnlyCollection<string> GetChildPublicExpressionBodyPropertyNames()
-        {
-            var result = new[]
-            {
-                "ChildPublicExpressionBodyValueTypeProperty",
-                "ChildPublicExpressionBodyStringTypeProperty",
-                "ChildPublicExpressionBodyNullableTypeProperty",
-                "ChildPublicExpressionBodyReferenceTypeProperty",
-            };
-
-            return result;
-        }
-
         private static IReadOnlyCollection<string> GetChildProtectedPropertyNames()
         {
             var result = new string[0]
                 .Concat(GetChildProtectedReadWritePropertyNames())
-                .Concat(GetChildProtectedReadOnlyPropertyNames())
+                .Concat(GetChildProtectedReadOnlyAutoPropertyNames())
+                .Concat(GetChildProtectedReadOnlyExpressionBodyPropertyNames())
                 .Concat(GetChildProtectedWriteOnlyPropertyNames())
-                .Concat(GetChildProtectedExpressionBodyPropertyNames())
                 .ToList();
 
             return result;
@@ -1729,14 +1732,27 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             return result;
         }
 
-        private static IReadOnlyCollection<string> GetChildProtectedReadOnlyPropertyNames()
+        private static IReadOnlyCollection<string> GetChildProtectedReadOnlyAutoPropertyNames()
         {
             var result = new[]
             {
-                "ChildProtectedReadOnlyValueTypeProperty",
-                "ChildProtectedReadOnlyStringTypeProperty",
-                "ChildProtectedReadOnlyNullableTypeProperty",
-                "ChildProtectedReadOnlyReferenceTypeProperty",
+                "ChildProtectedReadOnlyAutoValueTypeProperty",
+                "ChildProtectedReadOnlyAutoStringTypeProperty",
+                "ChildProtectedReadOnlyAutoNullableTypeProperty",
+                "ChildProtectedReadOnlyAutoReferenceTypeProperty",
+            };
+
+            return result;
+        }
+
+        private static IReadOnlyCollection<string> GetChildProtectedReadOnlyExpressionBodyPropertyNames()
+        {
+            var result = new[]
+            {
+                "ChildProtectedReadOnlyExpressionBodyValueTypeProperty",
+                "ChildProtectedReadOnlyExpressionBodyStringTypeProperty",
+                "ChildProtectedReadOnlyExpressionBodyNullableTypeProperty",
+                "ChildProtectedReadOnlyExpressionBodyReferenceTypeProperty",
             };
 
             return result;
@@ -1755,26 +1771,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             return result;
         }
 
-        private static IReadOnlyCollection<string> GetChildProtectedExpressionBodyPropertyNames()
-        {
-            var result = new[]
-            {
-                "ChildProtectedExpressionBodyValueTypeProperty",
-                "ChildProtectedExpressionBodyStringTypeProperty",
-                "ChildProtectedExpressionBodyNullableTypeProperty",
-                "ChildProtectedExpressionBodyReferenceTypeProperty",
-            };
-
-            return result;
-        }
-
         private static IReadOnlyCollection<string> GetChildPrivatePropertyNames()
         {
             var result = new string[0]
                 .Concat(GetChildPrivateReadWritePropertyNames())
-                .Concat(GetChildPrivateReadOnlyPropertyNames())
+                .Concat(GetChildPrivateReadOnlyAutoPropertyNames())
+                .Concat(GetChildPrivateReadOnlyExpressionBodyPropertyNames())
                 .Concat(GetChildPrivateWriteOnlyPropertyNames())
-                .Concat(GetChildPrivateExpressionBodyPropertyNames())
                 .ToList();
 
             return result;
@@ -1793,14 +1796,27 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             return result;
         }
 
-        private static IReadOnlyCollection<string> GetChildPrivateReadOnlyPropertyNames()
+        private static IReadOnlyCollection<string> GetChildPrivateReadOnlyAutoPropertyNames()
         {
             var result = new[]
             {
-                "ChildPrivateReadOnlyValueTypeProperty",
-                "ChildPrivateReadOnlyStringTypeProperty",
-                "ChildPrivateReadOnlyNullableTypeProperty",
-                "ChildPrivateReadOnlyReferenceTypeProperty",
+                "ChildPrivateReadOnlyAutoValueTypeProperty",
+                "ChildPrivateReadOnlyAutoStringTypeProperty",
+                "ChildPrivateReadOnlyAutoNullableTypeProperty",
+                "ChildPrivateReadOnlyAutoReferenceTypeProperty",
+            };
+
+            return result;
+        }
+
+        private static IReadOnlyCollection<string> GetChildPrivateReadOnlyExpressionBodyPropertyNames()
+        {
+            var result = new[]
+            {
+                "ChildPrivateReadOnlyExpressionBodyValueTypeProperty",
+                "ChildPrivateReadOnlyExpressionBodyStringTypeProperty",
+                "ChildPrivateReadOnlyExpressionBodyNullableTypeProperty",
+                "ChildPrivateReadOnlyExpressionBodyReferenceTypeProperty",
             };
 
             return result;
@@ -1814,19 +1830,6 @@ namespace OBeautifulCode.Reflection.Recipes.Test
                 "ChildPrivateWriteOnlyStringTypeProperty",
                 "ChildPrivateWriteOnlyNullableTypeProperty",
                 "ChildPrivateWriteOnlyReferenceTypeProperty",
-            };
-
-            return result;
-        }
-
-        private static IReadOnlyCollection<string> GetChildPrivateExpressionBodyPropertyNames()
-        {
-            var result = new[]
-            {
-                "ChildPrivateExpressionBodyValueTypeProperty",
-                "ChildPrivateExpressionBodyStringTypeProperty",
-                "ChildPrivateExpressionBodyNullableTypeProperty",
-                "ChildPrivateExpressionBodyReferenceTypeProperty",
             };
 
             return result;

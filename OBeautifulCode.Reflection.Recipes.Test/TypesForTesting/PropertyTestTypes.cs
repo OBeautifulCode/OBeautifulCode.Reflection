@@ -21,31 +21,31 @@ namespace OBeautifulCode.Reflection.Recipes.Test
     public class ParentInstanceProperties
     {
         public ParentInstanceProperties(
-            int parentPublicReadOnlyValueTypeProperty,
-            string parentPublicReadOnlyStringTypeProperty,
-            int? parentPublicReadOnlyNullableTypeProperty,
-            Version parentPublicReadOnlyReferenceTypeProperty,
-            int parentProtectedReadOnlyValueTypeProperty,
-            string parentProtectedReadOnlyStringTypeProperty,
-            int? parentProtectedReadOnlyNullableTypeProperty,
-            Version parentProtectedReadOnlyReferenceTypeProperty,
-            int parentPrivateReadOnlyValueTypeProperty,
-            string parentPrivateReadOnlyStringTypeProperty,
-            int? parentPrivateReadOnlyNullableTypeProperty,
-            Version parentPrivateReadOnlyReferenceTypeProperty)
+            int parentPublicReadOnlyAutoValueTypeProperty,
+            string parentPublicReadOnlyAutoStringTypeProperty,
+            int? parentPublicReadOnlyAutoNullableTypeProperty,
+            Version parentPublicReadOnlyAutoReferenceTypeProperty,
+            int parentProtectedReadOnlyAutoValueTypeProperty,
+            string parentProtectedReadOnlyAutoStringTypeProperty,
+            int? parentProtectedReadOnlyAutoNullableTypeProperty,
+            Version parentProtectedReadOnlyAutoReferenceTypeProperty,
+            int parentPrivateReadOnlyAutoValueTypeProperty,
+            string parentPrivateReadOnlyAutoStringTypeProperty,
+            int? parentPrivateReadOnlyAutoNullableTypeProperty,
+            Version parentPrivateReadOnlyAutoReferenceTypeProperty)
         {
-            this.ParentPublicReadOnlyValueTypeProperty = parentPublicReadOnlyValueTypeProperty;
-            this.ParentPublicReadOnlyStringTypeProperty = parentPublicReadOnlyStringTypeProperty;
-            this.ParentPublicReadOnlyNullableTypeProperty = parentPublicReadOnlyNullableTypeProperty;
-            this.ParentPublicReadOnlyReferenceTypeProperty = parentPublicReadOnlyReferenceTypeProperty;
-            this.ParentProtectedReadOnlyValueTypeProperty = parentProtectedReadOnlyValueTypeProperty;
-            this.ParentProtectedReadOnlyStringTypeProperty = parentProtectedReadOnlyStringTypeProperty;
-            this.ParentProtectedReadOnlyNullableTypeProperty = parentProtectedReadOnlyNullableTypeProperty;
-            this.ParentProtectedReadOnlyReferenceTypeProperty = parentProtectedReadOnlyReferenceTypeProperty;
-            this.ParentPrivateReadOnlyValueTypeProperty = parentPrivateReadOnlyValueTypeProperty;
-            this.ParentPrivateReadOnlyStringTypeProperty = parentPrivateReadOnlyStringTypeProperty;
-            this.ParentPrivateReadOnlyNullableTypeProperty = parentPrivateReadOnlyNullableTypeProperty;
-            this.ParentPrivateReadOnlyReferenceTypeProperty = parentPrivateReadOnlyReferenceTypeProperty;
+            this.ParentPublicReadOnlyAutoValueTypeProperty = parentPublicReadOnlyAutoValueTypeProperty;
+            this.ParentPublicReadOnlyAutoStringTypeProperty = parentPublicReadOnlyAutoStringTypeProperty;
+            this.ParentPublicReadOnlyAutoNullableTypeProperty = parentPublicReadOnlyAutoNullableTypeProperty;
+            this.ParentPublicReadOnlyAutoReferenceTypeProperty = parentPublicReadOnlyAutoReferenceTypeProperty;
+            this.ParentProtectedReadOnlyAutoValueTypeProperty = parentProtectedReadOnlyAutoValueTypeProperty;
+            this.ParentProtectedReadOnlyAutoStringTypeProperty = parentProtectedReadOnlyAutoStringTypeProperty;
+            this.ParentProtectedReadOnlyAutoNullableTypeProperty = parentProtectedReadOnlyAutoNullableTypeProperty;
+            this.ParentProtectedReadOnlyAutoReferenceTypeProperty = parentProtectedReadOnlyAutoReferenceTypeProperty;
+            this.ParentPrivateReadOnlyAutoValueTypeProperty = parentPrivateReadOnlyAutoValueTypeProperty;
+            this.ParentPrivateReadOnlyAutoStringTypeProperty = parentPrivateReadOnlyAutoStringTypeProperty;
+            this.ParentPrivateReadOnlyAutoNullableTypeProperty = parentPrivateReadOnlyAutoNullableTypeProperty;
+            this.ParentPrivateReadOnlyAutoReferenceTypeProperty = parentPrivateReadOnlyAutoReferenceTypeProperty;
         }
 
         public int ParentPublicReadWriteValueTypeProperty { get; set; }
@@ -56,13 +56,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
         public Version ParentPublicReadWriteReferenceTypeProperty { get; set; }
 
-        public int ParentPublicReadOnlyValueTypeProperty { get; }
+        public int ParentPublicReadOnlyAutoValueTypeProperty { get; }
 
-        public string ParentPublicReadOnlyStringTypeProperty { get; }
+        public string ParentPublicReadOnlyAutoStringTypeProperty { get; }
 
-        public int? ParentPublicReadOnlyNullableTypeProperty { get; }
+        public int? ParentPublicReadOnlyAutoNullableTypeProperty { get; }
 
-        public Version ParentPublicReadOnlyReferenceTypeProperty { get; }
+        public Version ParentPublicReadOnlyAutoReferenceTypeProperty { get; }
 
         public int ParentPublicWriteOnlyValueTypeProperty
         {
@@ -84,13 +84,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             set { }
         }
 
-        public int ParentPublicExpressionBodyValueTypeProperty => this.ParentPublicReadWriteValueTypeProperty + 1;
+        public int ParentPublicReadOnlyExpressionBodyValueTypeProperty => this.ParentPublicReadWriteValueTypeProperty + 1;
 
-        public string ParentPublicExpressionBodyStringTypeProperty => this.ParentPublicReadWriteStringTypeProperty + 1;
+        public string ParentPublicReadOnlyExpressionBodyStringTypeProperty => this.ParentPublicReadWriteStringTypeProperty + 1;
 
-        public int? ParentPublicExpressionBodyNullableTypeProperty => this.ParentPublicReadWriteNullableTypeProperty + 1;
+        public int? ParentPublicReadOnlyExpressionBodyNullableTypeProperty => this.ParentPublicReadWriteNullableTypeProperty + 1;
 
-        public Version ParentPublicExpressionBodyReferenceTypeProperty => new Version(this.ParentPublicReadWriteReferenceTypeProperty + ".1");
+        public Version ParentPublicReadOnlyExpressionBodyReferenceTypeProperty => new Version(this.ParentPublicReadWriteReferenceTypeProperty + ".1");
 
         protected int ParentProtectedReadWriteValueTypeProperty { get; set; }
 
@@ -100,13 +100,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
         protected Version ParentProtectedReadWriteReferenceTypeProperty { get; set; }
 
-        protected int ParentProtectedReadOnlyValueTypeProperty { get; }
+        protected int ParentProtectedReadOnlyAutoValueTypeProperty { get; }
 
-        protected string ParentProtectedReadOnlyStringTypeProperty { get; }
+        protected string ParentProtectedReadOnlyAutoStringTypeProperty { get; }
 
-        protected int? ParentProtectedReadOnlyNullableTypeProperty { get; }
+        protected int? ParentProtectedReadOnlyAutoNullableTypeProperty { get; }
 
-        protected Version ParentProtectedReadOnlyReferenceTypeProperty { get; }
+        protected Version ParentProtectedReadOnlyAutoReferenceTypeProperty { get; }
 
         protected int ParentProtectedWriteOnlyValueTypeProperty
         {
@@ -128,13 +128,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             set { }
         }
 
-        protected int ParentProtectedExpressionBodyValueTypeProperty => this.ParentPublicReadWriteValueTypeProperty + 2;
+        protected int ParentProtectedReadOnlyExpressionBodyValueTypeProperty => this.ParentPublicReadWriteValueTypeProperty + 2;
 
-        protected string ParentProtectedExpressionBodyStringTypeProperty => this.ParentPublicReadWriteStringTypeProperty + 2;
+        protected string ParentProtectedReadOnlyExpressionBodyStringTypeProperty => this.ParentPublicReadWriteStringTypeProperty + 2;
 
-        protected int? ParentProtectedExpressionBodyNullableTypeProperty => this.ParentPublicReadWriteNullableTypeProperty + 2;
+        protected int? ParentProtectedReadOnlyExpressionBodyNullableTypeProperty => this.ParentPublicReadWriteNullableTypeProperty + 2;
 
-        protected Version ParentProtectedExpressionBodyReferenceTypeProperty => new Version(this.ParentPublicReadWriteReferenceTypeProperty + ".2");
+        protected Version ParentProtectedReadOnlyExpressionBodyReferenceTypeProperty => new Version(this.ParentPublicReadWriteReferenceTypeProperty + ".2");
 
         private int ParentPrivateReadWriteValueTypeProperty { get; set; }
 
@@ -144,13 +144,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
         private Version ParentPrivateReadWriteReferenceTypeProperty { get; set; }
 
-        private int ParentPrivateReadOnlyValueTypeProperty { get; }
+        private int ParentPrivateReadOnlyAutoValueTypeProperty { get; }
 
-        private string ParentPrivateReadOnlyStringTypeProperty { get; }
+        private string ParentPrivateReadOnlyAutoStringTypeProperty { get; }
 
-        private int? ParentPrivateReadOnlyNullableTypeProperty { get; }
+        private int? ParentPrivateReadOnlyAutoNullableTypeProperty { get; }
 
-        private Version ParentPrivateReadOnlyReferenceTypeProperty { get; }
+        private Version ParentPrivateReadOnlyAutoReferenceTypeProperty { get; }
 
         private int ParentPrivateWriteOnlyValueTypeProperty
         {
@@ -172,13 +172,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             set { }
         }
 
-        private int ParentPrivateExpressionBodyValueTypeProperty => this.ParentPublicReadWriteValueTypeProperty + 3;
+        private int ParentPrivateReadOnlyExpressionBodyValueTypeProperty => this.ParentPublicReadWriteValueTypeProperty + 3;
 
-        private string ParentPrivateExpressionBodyStringTypeProperty => this.ParentPublicReadWriteStringTypeProperty + 3;
+        private string ParentPrivateReadOnlyExpressionBodyStringTypeProperty => this.ParentPublicReadWriteStringTypeProperty + 3;
 
-        private int? ParentPrivateExpressionBodyNullableTypeProperty => this.ParentPublicReadWriteNullableTypeProperty + 3;
+        private int? ParentPrivateReadOnlyExpressionBodyNullableTypeProperty => this.ParentPublicReadWriteNullableTypeProperty + 3;
 
-        private Version ParentPrivateExpressionBodyReferenceTypeProperty => new Version(this.ParentPublicReadWriteReferenceTypeProperty + ".3");
+        private Version ParentPrivateReadOnlyExpressionBodyReferenceTypeProperty => new Version(this.ParentPublicReadWriteReferenceTypeProperty + ".3");
 
         public string ToStringReadableProperties()
         {
@@ -188,38 +188,38 @@ namespace OBeautifulCode.Reflection.Recipes.Test
                 { nameof(this.ParentPublicReadWriteStringTypeProperty), this.ParentPublicReadWriteStringTypeProperty?.ToString() ?? "<null>" },
                 { nameof(this.ParentPublicReadWriteNullableTypeProperty), this.ParentPublicReadWriteNullableTypeProperty?.ToString() ?? "<null>" },
                 { nameof(this.ParentPublicReadWriteReferenceTypeProperty), this.ParentPublicReadWriteReferenceTypeProperty?.ToString() ?? "<null>" },
-                { nameof(this.ParentPublicReadOnlyValueTypeProperty), this.ParentPublicReadOnlyValueTypeProperty.ToString() },
-                { nameof(this.ParentPublicReadOnlyStringTypeProperty), this.ParentPublicReadOnlyStringTypeProperty?.ToString() ?? "<null>" },
-                { nameof(this.ParentPublicReadOnlyNullableTypeProperty), this.ParentPublicReadOnlyNullableTypeProperty?.ToString() ?? "<null>" },
-                { nameof(this.ParentPublicReadOnlyReferenceTypeProperty), this.ParentPublicReadOnlyReferenceTypeProperty?.ToString() ?? "<null>" },
-                { nameof(this.ParentPublicExpressionBodyValueTypeProperty), this.ParentPublicExpressionBodyValueTypeProperty.ToString() },
-                { nameof(this.ParentPublicExpressionBodyStringTypeProperty), this.ParentPublicExpressionBodyStringTypeProperty?.ToString() ?? "<null>" },
-                { nameof(this.ParentPublicExpressionBodyNullableTypeProperty), this.ParentPublicExpressionBodyNullableTypeProperty?.ToString() ?? "<null>" },
-                { nameof(this.ParentPublicExpressionBodyReferenceTypeProperty), this.ParentPublicExpressionBodyReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(this.ParentPublicReadOnlyAutoValueTypeProperty), this.ParentPublicReadOnlyAutoValueTypeProperty.ToString() },
+                { nameof(this.ParentPublicReadOnlyAutoStringTypeProperty), this.ParentPublicReadOnlyAutoStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(this.ParentPublicReadOnlyAutoNullableTypeProperty), this.ParentPublicReadOnlyAutoNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(this.ParentPublicReadOnlyAutoReferenceTypeProperty), this.ParentPublicReadOnlyAutoReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(this.ParentPublicReadOnlyExpressionBodyValueTypeProperty), this.ParentPublicReadOnlyExpressionBodyValueTypeProperty.ToString() },
+                { nameof(this.ParentPublicReadOnlyExpressionBodyStringTypeProperty), this.ParentPublicReadOnlyExpressionBodyStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(this.ParentPublicReadOnlyExpressionBodyNullableTypeProperty), this.ParentPublicReadOnlyExpressionBodyNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(this.ParentPublicReadOnlyExpressionBodyReferenceTypeProperty), this.ParentPublicReadOnlyExpressionBodyReferenceTypeProperty?.ToString() ?? "<null>" },
                 { nameof(this.ParentProtectedReadWriteValueTypeProperty), this.ParentProtectedReadWriteValueTypeProperty.ToString() },
                 { nameof(this.ParentProtectedReadWriteStringTypeProperty), this.ParentProtectedReadWriteStringTypeProperty?.ToString() ?? "<null>" },
                 { nameof(this.ParentProtectedReadWriteNullableTypeProperty), this.ParentProtectedReadWriteNullableTypeProperty?.ToString() ?? "<null>" },
                 { nameof(this.ParentProtectedReadWriteReferenceTypeProperty), this.ParentProtectedReadWriteReferenceTypeProperty?.ToString() ?? "<null>" },
-                { nameof(this.ParentProtectedReadOnlyValueTypeProperty), this.ParentProtectedReadOnlyValueTypeProperty.ToString() },
-                { nameof(this.ParentProtectedReadOnlyStringTypeProperty), this.ParentProtectedReadOnlyStringTypeProperty?.ToString() ?? "<null>" },
-                { nameof(this.ParentProtectedReadOnlyNullableTypeProperty), this.ParentProtectedReadOnlyNullableTypeProperty?.ToString() ?? "<null>" },
-                { nameof(this.ParentProtectedReadOnlyReferenceTypeProperty), this.ParentProtectedReadOnlyReferenceTypeProperty?.ToString() ?? "<null>" },
-                { nameof(this.ParentProtectedExpressionBodyValueTypeProperty), this.ParentProtectedExpressionBodyValueTypeProperty.ToString() },
-                { nameof(this.ParentProtectedExpressionBodyStringTypeProperty), this.ParentProtectedExpressionBodyStringTypeProperty?.ToString() ?? "<null>" },
-                { nameof(this.ParentProtectedExpressionBodyNullableTypeProperty), this.ParentProtectedExpressionBodyNullableTypeProperty?.ToString() ?? "<null>" },
-                { nameof(this.ParentProtectedExpressionBodyReferenceTypeProperty), this.ParentProtectedExpressionBodyReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(this.ParentProtectedReadOnlyAutoValueTypeProperty), this.ParentProtectedReadOnlyAutoValueTypeProperty.ToString() },
+                { nameof(this.ParentProtectedReadOnlyAutoStringTypeProperty), this.ParentProtectedReadOnlyAutoStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(this.ParentProtectedReadOnlyAutoNullableTypeProperty), this.ParentProtectedReadOnlyAutoNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(this.ParentProtectedReadOnlyAutoReferenceTypeProperty), this.ParentProtectedReadOnlyAutoReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(this.ParentProtectedReadOnlyExpressionBodyValueTypeProperty), this.ParentProtectedReadOnlyExpressionBodyValueTypeProperty.ToString() },
+                { nameof(this.ParentProtectedReadOnlyExpressionBodyStringTypeProperty), this.ParentProtectedReadOnlyExpressionBodyStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(this.ParentProtectedReadOnlyExpressionBodyNullableTypeProperty), this.ParentProtectedReadOnlyExpressionBodyNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(this.ParentProtectedReadOnlyExpressionBodyReferenceTypeProperty), this.ParentProtectedReadOnlyExpressionBodyReferenceTypeProperty?.ToString() ?? "<null>" },
                 { nameof(this.ParentPrivateReadWriteValueTypeProperty), this.ParentPrivateReadWriteValueTypeProperty.ToString() },
                 { nameof(this.ParentPrivateReadWriteStringTypeProperty), this.ParentPrivateReadWriteStringTypeProperty?.ToString() ?? "<null>" },
                 { nameof(this.ParentPrivateReadWriteNullableTypeProperty), this.ParentPrivateReadWriteNullableTypeProperty?.ToString() ?? "<null>" },
                 { nameof(this.ParentPrivateReadWriteReferenceTypeProperty), this.ParentPrivateReadWriteReferenceTypeProperty?.ToString() ?? "<null>" },
-                { nameof(this.ParentPrivateReadOnlyValueTypeProperty), this.ParentPrivateReadOnlyValueTypeProperty.ToString() },
-                { nameof(this.ParentPrivateReadOnlyStringTypeProperty), this.ParentPrivateReadOnlyStringTypeProperty?.ToString() ?? "<null>" },
-                { nameof(this.ParentPrivateReadOnlyNullableTypeProperty), this.ParentPrivateReadOnlyNullableTypeProperty?.ToString() ?? "<null>" },
-                { nameof(this.ParentPrivateReadOnlyReferenceTypeProperty), this.ParentPrivateReadOnlyReferenceTypeProperty?.ToString() ?? "<null>" },
-                { nameof(this.ParentPrivateExpressionBodyValueTypeProperty), this.ParentPrivateExpressionBodyValueTypeProperty.ToString() },
-                { nameof(this.ParentPrivateExpressionBodyStringTypeProperty), this.ParentPrivateExpressionBodyStringTypeProperty?.ToString() ?? "<null>" },
-                { nameof(this.ParentPrivateExpressionBodyNullableTypeProperty), this.ParentPrivateExpressionBodyNullableTypeProperty?.ToString() ?? "<null>" },
-                { nameof(this.ParentPrivateExpressionBodyReferenceTypeProperty), this.ParentPrivateExpressionBodyReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(this.ParentPrivateReadOnlyAutoValueTypeProperty), this.ParentPrivateReadOnlyAutoValueTypeProperty.ToString() },
+                { nameof(this.ParentPrivateReadOnlyAutoStringTypeProperty), this.ParentPrivateReadOnlyAutoStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(this.ParentPrivateReadOnlyAutoNullableTypeProperty), this.ParentPrivateReadOnlyAutoNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(this.ParentPrivateReadOnlyAutoReferenceTypeProperty), this.ParentPrivateReadOnlyAutoReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(this.ParentPrivateReadOnlyExpressionBodyValueTypeProperty), this.ParentPrivateReadOnlyExpressionBodyValueTypeProperty.ToString() },
+                { nameof(this.ParentPrivateReadOnlyExpressionBodyStringTypeProperty), this.ParentPrivateReadOnlyExpressionBodyStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(this.ParentPrivateReadOnlyExpressionBodyNullableTypeProperty), this.ParentPrivateReadOnlyExpressionBodyNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(this.ParentPrivateReadOnlyExpressionBodyReferenceTypeProperty), this.ParentPrivateReadOnlyExpressionBodyReferenceTypeProperty?.ToString() ?? "<null>" },
             };
 
             var result = map.OrderBy(_ => _.Key).Select(_ => _.Key + ": " + _.Value).ToDelimitedString("|");
@@ -255,44 +255,44 @@ namespace OBeautifulCode.Reflection.Recipes.Test
     public class ChildInstanceProperties : ParentInstanceProperties
     {
         public ChildInstanceProperties(
-            int parentPublicReadOnlyValueTypeProperty,
-            string parentPublicReadOnlyStringTypeProperty,
-            int? parentPublicReadOnlyNullableTypeProperty,
-            Version parentPublicReadOnlyReferenceTypeProperty,
-            int parentProtectedReadOnlyValueTypeProperty,
-            string parentProtectedReadOnlyStringTypeProperty,
-            int? parentProtectedReadOnlyNullableTypeProperty,
-            Version parentProtectedReadOnlyReferenceTypeProperty,
-            int parentPrivateReadOnlyValueTypeProperty,
-            string parentPrivateReadOnlyStringTypeProperty,
-            int? parentPrivateReadOnlyNullableTypeProperty,
-            Version parentPrivateReadOnlyReferenceTypeProperty,
-            int childPublicReadOnlyValueTypeProperty,
-            string childPublicReadOnlyStringTypeProperty,
-            int? childPublicReadOnlyNullableTypeProperty,
-            Version childPublicReadOnlyReferenceTypeProperty,
-            int childProtectedReadOnlyValueTypeProperty,
-            string childProtectedReadOnlyStringTypeProperty,
-            int? childProtectedReadOnlyNullableTypeProperty,
-            Version childProtectedReadOnlyReferenceTypeProperty,
-            int childPrivateReadOnlyValueTypeProperty,
-            string childPrivateReadOnlyStringTypeProperty,
-            int? childPrivateReadOnlyNullableTypeProperty,
-            Version childPrivateReadOnlyReferenceTypeProperty)
-        : base(parentPublicReadOnlyValueTypeProperty, parentPublicReadOnlyStringTypeProperty, parentPublicReadOnlyNullableTypeProperty, parentPublicReadOnlyReferenceTypeProperty, parentProtectedReadOnlyValueTypeProperty, parentProtectedReadOnlyStringTypeProperty, parentProtectedReadOnlyNullableTypeProperty, parentProtectedReadOnlyReferenceTypeProperty, parentPrivateReadOnlyValueTypeProperty, parentPrivateReadOnlyStringTypeProperty, parentPrivateReadOnlyNullableTypeProperty, parentPrivateReadOnlyReferenceTypeProperty)
+            int parentPublicReadOnlyAutoValueTypeProperty,
+            string parentPublicReadOnlyAutoStringTypeProperty,
+            int? parentPublicReadOnlyAutoNullableTypeProperty,
+            Version parentPublicReadOnlyAutoReferenceTypeProperty,
+            int parentProtectedReadOnlyAutoValueTypeProperty,
+            string parentProtectedReadOnlyAutoStringTypeProperty,
+            int? parentProtectedReadOnlyAutoNullableTypeProperty,
+            Version parentProtectedReadOnlyAutoReferenceTypeProperty,
+            int parentPrivateReadOnlyAutoValueTypeProperty,
+            string parentPrivateReadOnlyAutoStringTypeProperty,
+            int? parentPrivateReadOnlyAutoNullableTypeProperty,
+            Version parentPrivateReadOnlyAutoReferenceTypeProperty,
+            int childPublicReadOnlyAutoValueTypeProperty,
+            string childPublicReadOnlyAutoStringTypeProperty,
+            int? childPublicReadOnlyAutoNullableTypeProperty,
+            Version childPublicReadOnlyAutoReferenceTypeProperty,
+            int childProtectedReadOnlyAutoValueTypeProperty,
+            string childProtectedReadOnlyAutoStringTypeProperty,
+            int? childProtectedReadOnlyAutoNullableTypeProperty,
+            Version childProtectedReadOnlyAutoReferenceTypeProperty,
+            int childPrivateReadOnlyAutoValueTypeProperty,
+            string childPrivateReadOnlyAutoStringTypeProperty,
+            int? childPrivateReadOnlyAutoNullableTypeProperty,
+            Version childPrivateReadOnlyAutoReferenceTypeProperty)
+        : base(parentPublicReadOnlyAutoValueTypeProperty, parentPublicReadOnlyAutoStringTypeProperty, parentPublicReadOnlyAutoNullableTypeProperty, parentPublicReadOnlyAutoReferenceTypeProperty, parentProtectedReadOnlyAutoValueTypeProperty, parentProtectedReadOnlyAutoStringTypeProperty, parentProtectedReadOnlyAutoNullableTypeProperty, parentProtectedReadOnlyAutoReferenceTypeProperty, parentPrivateReadOnlyAutoValueTypeProperty, parentPrivateReadOnlyAutoStringTypeProperty, parentPrivateReadOnlyAutoNullableTypeProperty, parentPrivateReadOnlyAutoReferenceTypeProperty)
         {
-            this.ChildPublicReadOnlyValueTypeProperty = childPublicReadOnlyValueTypeProperty;
-            this.ChildPublicReadOnlyStringTypeProperty = childPublicReadOnlyStringTypeProperty;
-            this.ChildPublicReadOnlyNullableTypeProperty = childPublicReadOnlyNullableTypeProperty;
-            this.ChildPublicReadOnlyReferenceTypeProperty = childPublicReadOnlyReferenceTypeProperty;
-            this.ChildProtectedReadOnlyValueTypeProperty = childProtectedReadOnlyValueTypeProperty;
-            this.ChildProtectedReadOnlyStringTypeProperty = childProtectedReadOnlyStringTypeProperty;
-            this.ChildProtectedReadOnlyNullableTypeProperty = childProtectedReadOnlyNullableTypeProperty;
-            this.ChildProtectedReadOnlyReferenceTypeProperty = childProtectedReadOnlyReferenceTypeProperty;
-            this.ChildPrivateReadOnlyValueTypeProperty = childPrivateReadOnlyValueTypeProperty;
-            this.ChildPrivateReadOnlyStringTypeProperty = childPrivateReadOnlyStringTypeProperty;
-            this.ChildPrivateReadOnlyNullableTypeProperty = childPrivateReadOnlyNullableTypeProperty;
-            this.ChildPrivateReadOnlyReferenceTypeProperty = childPrivateReadOnlyReferenceTypeProperty;
+            this.ChildPublicReadOnlyAutoValueTypeProperty = childPublicReadOnlyAutoValueTypeProperty;
+            this.ChildPublicReadOnlyAutoStringTypeProperty = childPublicReadOnlyAutoStringTypeProperty;
+            this.ChildPublicReadOnlyAutoNullableTypeProperty = childPublicReadOnlyAutoNullableTypeProperty;
+            this.ChildPublicReadOnlyAutoReferenceTypeProperty = childPublicReadOnlyAutoReferenceTypeProperty;
+            this.ChildProtectedReadOnlyAutoValueTypeProperty = childProtectedReadOnlyAutoValueTypeProperty;
+            this.ChildProtectedReadOnlyAutoStringTypeProperty = childProtectedReadOnlyAutoStringTypeProperty;
+            this.ChildProtectedReadOnlyAutoNullableTypeProperty = childProtectedReadOnlyAutoNullableTypeProperty;
+            this.ChildProtectedReadOnlyAutoReferenceTypeProperty = childProtectedReadOnlyAutoReferenceTypeProperty;
+            this.ChildPrivateReadOnlyAutoValueTypeProperty = childPrivateReadOnlyAutoValueTypeProperty;
+            this.ChildPrivateReadOnlyAutoStringTypeProperty = childPrivateReadOnlyAutoStringTypeProperty;
+            this.ChildPrivateReadOnlyAutoNullableTypeProperty = childPrivateReadOnlyAutoNullableTypeProperty;
+            this.ChildPrivateReadOnlyAutoReferenceTypeProperty = childPrivateReadOnlyAutoReferenceTypeProperty;
         }
 
         public int ChildPublicReadWriteValueTypeProperty { get; set; }
@@ -303,13 +303,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
         public Version ChildPublicReadWriteReferenceTypeProperty { get; set; }
 
-        public int ChildPublicReadOnlyValueTypeProperty { get; }
+        public int ChildPublicReadOnlyAutoValueTypeProperty { get; }
 
-        public string ChildPublicReadOnlyStringTypeProperty { get; }
+        public string ChildPublicReadOnlyAutoStringTypeProperty { get; }
 
-        public int? ChildPublicReadOnlyNullableTypeProperty { get; }
+        public int? ChildPublicReadOnlyAutoNullableTypeProperty { get; }
 
-        public Version ChildPublicReadOnlyReferenceTypeProperty { get; }
+        public Version ChildPublicReadOnlyAutoReferenceTypeProperty { get; }
 
         public int ChildPublicWriteOnlyValueTypeProperty
         {
@@ -331,13 +331,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             set { }
         }
 
-        public int ChildPublicExpressionBodyValueTypeProperty => this.ChildPublicReadWriteValueTypeProperty;
+        public int ChildPublicReadOnlyExpressionBodyValueTypeProperty => this.ChildPublicReadWriteValueTypeProperty;
 
-        public string ChildPublicExpressionBodyStringTypeProperty => this.ChildPublicReadWriteStringTypeProperty;
+        public string ChildPublicReadOnlyExpressionBodyStringTypeProperty => this.ChildPublicReadWriteStringTypeProperty;
 
-        public int? ChildPublicExpressionBodyNullableTypeProperty => this.ChildPublicReadWriteNullableTypeProperty;
+        public int? ChildPublicReadOnlyExpressionBodyNullableTypeProperty => this.ChildPublicReadWriteNullableTypeProperty;
 
-        public Version ChildPublicExpressionBodyReferenceTypeProperty => this.ChildPublicReadWriteReferenceTypeProperty;
+        public Version ChildPublicReadOnlyExpressionBodyReferenceTypeProperty => this.ChildPublicReadWriteReferenceTypeProperty;
 
         protected int ChildProtectedReadWriteValueTypeProperty { get; set; }
 
@@ -347,13 +347,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
         protected Version ChildProtectedReadWriteReferenceTypeProperty { get; set; }
 
-        protected int ChildProtectedReadOnlyValueTypeProperty { get; }
+        protected int ChildProtectedReadOnlyAutoValueTypeProperty { get; }
 
-        protected string ChildProtectedReadOnlyStringTypeProperty { get; }
+        protected string ChildProtectedReadOnlyAutoStringTypeProperty { get; }
 
-        protected int? ChildProtectedReadOnlyNullableTypeProperty { get; }
+        protected int? ChildProtectedReadOnlyAutoNullableTypeProperty { get; }
 
-        protected Version ChildProtectedReadOnlyReferenceTypeProperty { get; }
+        protected Version ChildProtectedReadOnlyAutoReferenceTypeProperty { get; }
 
         protected int ChildProtectedWriteOnlyValueTypeProperty
         {
@@ -375,13 +375,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             set { }
         }
 
-        protected int ChildProtectedExpressionBodyValueTypeProperty => this.ChildPublicReadWriteValueTypeProperty;
+        protected int ChildProtectedReadOnlyExpressionBodyValueTypeProperty => this.ChildPublicReadWriteValueTypeProperty;
 
-        protected string ChildProtectedExpressionBodyStringTypeProperty => this.ChildPublicReadWriteStringTypeProperty;
+        protected string ChildProtectedReadOnlyExpressionBodyStringTypeProperty => this.ChildPublicReadWriteStringTypeProperty;
 
-        protected int? ChildProtectedExpressionBodyNullableTypeProperty => this.ChildPublicReadWriteNullableTypeProperty;
+        protected int? ChildProtectedReadOnlyExpressionBodyNullableTypeProperty => this.ChildPublicReadWriteNullableTypeProperty;
 
-        protected Version ChildProtectedExpressionBodyReferenceTypeProperty => this.ChildPublicReadWriteReferenceTypeProperty;
+        protected Version ChildProtectedReadOnlyExpressionBodyReferenceTypeProperty => this.ChildPublicReadWriteReferenceTypeProperty;
 
         private int ChildPrivateReadWriteValueTypeProperty { get; set; }
 
@@ -391,13 +391,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
         private Version ChildPrivateReadWriteReferenceTypeProperty { get; set; }
 
-        private int ChildPrivateReadOnlyValueTypeProperty { get; }
+        private int ChildPrivateReadOnlyAutoValueTypeProperty { get; }
 
-        private string ChildPrivateReadOnlyStringTypeProperty { get; }
+        private string ChildPrivateReadOnlyAutoStringTypeProperty { get; }
 
-        private int? ChildPrivateReadOnlyNullableTypeProperty { get; }
+        private int? ChildPrivateReadOnlyAutoNullableTypeProperty { get; }
 
-        private Version ChildPrivateReadOnlyReferenceTypeProperty { get; }
+        private Version ChildPrivateReadOnlyAutoReferenceTypeProperty { get; }
 
         private int ChildPrivateWriteOnlyValueTypeProperty
         {
@@ -419,13 +419,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             set { }
         }
 
-        private int ChildPrivateExpressionBodyValueTypeProperty => this.ChildPublicReadWriteValueTypeProperty;
+        private int ChildPrivateReadOnlyExpressionBodyValueTypeProperty => this.ChildPublicReadWriteValueTypeProperty;
 
-        private string ChildPrivateExpressionBodyStringTypeProperty => this.ChildPublicReadWriteStringTypeProperty;
+        private string ChildPrivateReadOnlyExpressionBodyStringTypeProperty => this.ChildPublicReadWriteStringTypeProperty;
 
-        private int? ChildPrivateExpressionBodyNullableTypeProperty => this.ChildPublicReadWriteNullableTypeProperty;
+        private int? ChildPrivateReadOnlyExpressionBodyNullableTypeProperty => this.ChildPublicReadWriteNullableTypeProperty;
 
-        private Version ChildPrivateExpressionBodyReferenceTypeProperty => this.ChildPublicReadWriteReferenceTypeProperty;
+        private Version ChildPrivateReadOnlyExpressionBodyReferenceTypeProperty => this.ChildPublicReadWriteReferenceTypeProperty;
     }
 
     [GeneratedCode("too many warnings", "test type")]
@@ -433,18 +433,18 @@ namespace OBeautifulCode.Reflection.Recipes.Test
     {
         static ParentStaticProperties()
         {
-            ParentPublicReadOnlyValueTypeProperty = 1;
-            ParentPublicReadOnlyStringTypeProperty = "2";
-            ParentPublicReadOnlyNullableTypeProperty = 3;
-            ParentPublicReadOnlyReferenceTypeProperty = new Version(4, 0);
-            ParentProtectedReadOnlyValueTypeProperty = 5;
-            ParentProtectedReadOnlyStringTypeProperty = "6";
-            ParentProtectedReadOnlyNullableTypeProperty = 7;
-            ParentProtectedReadOnlyReferenceTypeProperty = new Version(8, 0);
-            ParentPrivateReadOnlyValueTypeProperty = 9;
-            ParentPrivateReadOnlyStringTypeProperty = "10";
-            ParentPrivateReadOnlyNullableTypeProperty = 11;
-            ParentPrivateReadOnlyReferenceTypeProperty = new Version(12, 0);
+            ParentPublicReadOnlyAutoValueTypeProperty = 1;
+            ParentPublicReadOnlyAutoStringTypeProperty = "2";
+            ParentPublicReadOnlyAutoNullableTypeProperty = 3;
+            ParentPublicReadOnlyAutoReferenceTypeProperty = new Version(4, 0);
+            ParentProtectedReadOnlyAutoValueTypeProperty = 5;
+            ParentProtectedReadOnlyAutoStringTypeProperty = "6";
+            ParentProtectedReadOnlyAutoNullableTypeProperty = 7;
+            ParentProtectedReadOnlyAutoReferenceTypeProperty = new Version(8, 0);
+            ParentPrivateReadOnlyAutoValueTypeProperty = 9;
+            ParentPrivateReadOnlyAutoStringTypeProperty = "10";
+            ParentPrivateReadOnlyAutoNullableTypeProperty = 11;
+            ParentPrivateReadOnlyAutoReferenceTypeProperty = new Version(12, 0);
         }
 
         public static int ParentPublicReadWriteValueTypeProperty { get; set; }
@@ -455,13 +455,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
         public static Version ParentPublicReadWriteReferenceTypeProperty { get; set; }
 
-        public static int ParentPublicReadOnlyValueTypeProperty { get; }
+        public static int ParentPublicReadOnlyAutoValueTypeProperty { get; }
 
-        public static string ParentPublicReadOnlyStringTypeProperty { get; }
+        public static string ParentPublicReadOnlyAutoStringTypeProperty { get; }
 
-        public static int? ParentPublicReadOnlyNullableTypeProperty { get; }
+        public static int? ParentPublicReadOnlyAutoNullableTypeProperty { get; }
 
-        public static Version ParentPublicReadOnlyReferenceTypeProperty { get; }
+        public static Version ParentPublicReadOnlyAutoReferenceTypeProperty { get; }
 
         public static int ParentPublicWriteOnlyValueTypeProperty
         {
@@ -483,13 +483,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             set { }
         }
 
-        public static int ParentPublicExpressionBodyValueTypeProperty => ParentPublicReadWriteValueTypeProperty + 1;
+        public static int ParentPublicReadOnlyExpressionBodyValueTypeProperty => ParentPublicReadWriteValueTypeProperty + 1;
 
-        public static string ParentPublicExpressionBodyStringTypeProperty => ParentPublicReadWriteStringTypeProperty + 1;
+        public static string ParentPublicReadOnlyExpressionBodyStringTypeProperty => ParentPublicReadWriteStringTypeProperty + 1;
 
-        public static int? ParentPublicExpressionBodyNullableTypeProperty => ParentPublicReadWriteNullableTypeProperty + 1;
+        public static int? ParentPublicReadOnlyExpressionBodyNullableTypeProperty => ParentPublicReadWriteNullableTypeProperty + 1;
 
-        public static Version ParentPublicExpressionBodyReferenceTypeProperty => new Version(ParentPublicReadWriteReferenceTypeProperty + ".1");
+        public static Version ParentPublicReadOnlyExpressionBodyReferenceTypeProperty => new Version(ParentPublicReadWriteReferenceTypeProperty + ".1");
 
         protected static int ParentProtectedReadWriteValueTypeProperty { get; set; }
 
@@ -499,13 +499,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
         protected static Version ParentProtectedReadWriteReferenceTypeProperty { get; set; }
 
-        protected static int ParentProtectedReadOnlyValueTypeProperty { get; }
+        protected static int ParentProtectedReadOnlyAutoValueTypeProperty { get; }
 
-        protected static string ParentProtectedReadOnlyStringTypeProperty { get; }
+        protected static string ParentProtectedReadOnlyAutoStringTypeProperty { get; }
 
-        protected static int? ParentProtectedReadOnlyNullableTypeProperty { get; }
+        protected static int? ParentProtectedReadOnlyAutoNullableTypeProperty { get; }
 
-        protected static Version ParentProtectedReadOnlyReferenceTypeProperty { get; }
+        protected static Version ParentProtectedReadOnlyAutoReferenceTypeProperty { get; }
 
         protected static int ParentProtectedWriteOnlyValueTypeProperty
         {
@@ -527,13 +527,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             set { }
         }
 
-        protected static int ParentProtectedExpressionBodyValueTypeProperty => ParentPublicReadWriteValueTypeProperty + 2;
+        protected static int ParentProtectedReadOnlyExpressionBodyValueTypeProperty => ParentPublicReadWriteValueTypeProperty + 2;
 
-        protected static string ParentProtectedExpressionBodyStringTypeProperty => ParentPublicReadWriteStringTypeProperty + 2;
+        protected static string ParentProtectedReadOnlyExpressionBodyStringTypeProperty => ParentPublicReadWriteStringTypeProperty + 2;
 
-        protected static int? ParentProtectedExpressionBodyNullableTypeProperty => ParentPublicReadWriteNullableTypeProperty + 2;
+        protected static int? ParentProtectedReadOnlyExpressionBodyNullableTypeProperty => ParentPublicReadWriteNullableTypeProperty + 2;
 
-        protected static Version ParentProtectedExpressionBodyReferenceTypeProperty => new Version(ParentPublicReadWriteReferenceTypeProperty + ".2");
+        protected static Version ParentProtectedReadOnlyExpressionBodyReferenceTypeProperty => new Version(ParentPublicReadWriteReferenceTypeProperty + ".2");
 
         private static int ParentPrivateReadWriteValueTypeProperty { get; set; }
 
@@ -543,13 +543,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
         private static Version ParentPrivateReadWriteReferenceTypeProperty { get; set; }
 
-        private static int ParentPrivateReadOnlyValueTypeProperty { get; }
+        private static int ParentPrivateReadOnlyAutoValueTypeProperty { get; }
 
-        private static string ParentPrivateReadOnlyStringTypeProperty { get; }
+        private static string ParentPrivateReadOnlyAutoStringTypeProperty { get; }
 
-        private static int? ParentPrivateReadOnlyNullableTypeProperty { get; }
+        private static int? ParentPrivateReadOnlyAutoNullableTypeProperty { get; }
 
-        private static Version ParentPrivateReadOnlyReferenceTypeProperty { get; }
+        private static Version ParentPrivateReadOnlyAutoReferenceTypeProperty { get; }
 
         private static int ParentPrivateWriteOnlyValueTypeProperty
         {
@@ -571,13 +571,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             set { }
         }
 
-        private static int ParentPrivateExpressionBodyValueTypeProperty => ParentPublicReadWriteValueTypeProperty + 3;
+        private static int ParentPrivateReadOnlyExpressionBodyValueTypeProperty => ParentPublicReadWriteValueTypeProperty + 3;
 
-        private static string ParentPrivateExpressionBodyStringTypeProperty => ParentPublicReadWriteStringTypeProperty + 3;
+        private static string ParentPrivateReadOnlyExpressionBodyStringTypeProperty => ParentPublicReadWriteStringTypeProperty + 3;
 
-        private static int? ParentPrivateExpressionBodyNullableTypeProperty => ParentPublicReadWriteNullableTypeProperty + 3;
+        private static int? ParentPrivateReadOnlyExpressionBodyNullableTypeProperty => ParentPublicReadWriteNullableTypeProperty + 3;
 
-        private static Version ParentPrivateExpressionBodyReferenceTypeProperty => new Version(ParentPublicReadWriteReferenceTypeProperty + ".3");
+        private static Version ParentPrivateReadOnlyExpressionBodyReferenceTypeProperty => new Version(ParentPublicReadWriteReferenceTypeProperty + ".3");
 
         public static string ToStringReadableProperties()
         {
@@ -587,38 +587,38 @@ namespace OBeautifulCode.Reflection.Recipes.Test
                 { nameof(ParentPublicReadWriteStringTypeProperty), ParentPublicReadWriteStringTypeProperty?.ToString() ?? "<null>" },
                 { nameof(ParentPublicReadWriteNullableTypeProperty), ParentPublicReadWriteNullableTypeProperty?.ToString() ?? "<null>" },
                 { nameof(ParentPublicReadWriteReferenceTypeProperty), ParentPublicReadWriteReferenceTypeProperty?.ToString() ?? "<null>" },
-                { nameof(ParentPublicReadOnlyValueTypeProperty), ParentPublicReadOnlyValueTypeProperty.ToString() },
-                { nameof(ParentPublicReadOnlyStringTypeProperty), ParentPublicReadOnlyStringTypeProperty?.ToString() ?? "<null>" },
-                { nameof(ParentPublicReadOnlyNullableTypeProperty), ParentPublicReadOnlyNullableTypeProperty?.ToString() ?? "<null>" },
-                { nameof(ParentPublicReadOnlyReferenceTypeProperty), ParentPublicReadOnlyReferenceTypeProperty?.ToString() ?? "<null>" },
-                { nameof(ParentPublicExpressionBodyValueTypeProperty), ParentPublicExpressionBodyValueTypeProperty.ToString() },
-                { nameof(ParentPublicExpressionBodyStringTypeProperty), ParentPublicExpressionBodyStringTypeProperty?.ToString() ?? "<null>" },
-                { nameof(ParentPublicExpressionBodyNullableTypeProperty), ParentPublicExpressionBodyNullableTypeProperty?.ToString() ?? "<null>" },
-                { nameof(ParentPublicExpressionBodyReferenceTypeProperty), ParentPublicExpressionBodyReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPublicReadOnlyAutoValueTypeProperty), ParentPublicReadOnlyAutoValueTypeProperty.ToString() },
+                { nameof(ParentPublicReadOnlyAutoStringTypeProperty), ParentPublicReadOnlyAutoStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPublicReadOnlyAutoNullableTypeProperty), ParentPublicReadOnlyAutoNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPublicReadOnlyAutoReferenceTypeProperty), ParentPublicReadOnlyAutoReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPublicReadOnlyExpressionBodyValueTypeProperty), ParentPublicReadOnlyExpressionBodyValueTypeProperty.ToString() },
+                { nameof(ParentPublicReadOnlyExpressionBodyStringTypeProperty), ParentPublicReadOnlyExpressionBodyStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPublicReadOnlyExpressionBodyNullableTypeProperty), ParentPublicReadOnlyExpressionBodyNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPublicReadOnlyExpressionBodyReferenceTypeProperty), ParentPublicReadOnlyExpressionBodyReferenceTypeProperty?.ToString() ?? "<null>" },
                 { nameof(ParentProtectedReadWriteValueTypeProperty), ParentProtectedReadWriteValueTypeProperty.ToString() },
                 { nameof(ParentProtectedReadWriteStringTypeProperty), ParentProtectedReadWriteStringTypeProperty?.ToString() ?? "<null>" },
                 { nameof(ParentProtectedReadWriteNullableTypeProperty), ParentProtectedReadWriteNullableTypeProperty?.ToString() ?? "<null>" },
                 { nameof(ParentProtectedReadWriteReferenceTypeProperty), ParentProtectedReadWriteReferenceTypeProperty?.ToString() ?? "<null>" },
-                { nameof(ParentProtectedReadOnlyValueTypeProperty), ParentProtectedReadOnlyValueTypeProperty.ToString() },
-                { nameof(ParentProtectedReadOnlyStringTypeProperty), ParentProtectedReadOnlyStringTypeProperty?.ToString() ?? "<null>" },
-                { nameof(ParentProtectedReadOnlyNullableTypeProperty), ParentProtectedReadOnlyNullableTypeProperty?.ToString() ?? "<null>" },
-                { nameof(ParentProtectedReadOnlyReferenceTypeProperty), ParentProtectedReadOnlyReferenceTypeProperty?.ToString() ?? "<null>" },
-                { nameof(ParentProtectedExpressionBodyValueTypeProperty), ParentProtectedExpressionBodyValueTypeProperty.ToString() },
-                { nameof(ParentProtectedExpressionBodyStringTypeProperty), ParentProtectedExpressionBodyStringTypeProperty?.ToString() ?? "<null>" },
-                { nameof(ParentProtectedExpressionBodyNullableTypeProperty), ParentProtectedExpressionBodyNullableTypeProperty?.ToString() ?? "<null>" },
-                { nameof(ParentProtectedExpressionBodyReferenceTypeProperty), ParentProtectedExpressionBodyReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentProtectedReadOnlyAutoValueTypeProperty), ParentProtectedReadOnlyAutoValueTypeProperty.ToString() },
+                { nameof(ParentProtectedReadOnlyAutoStringTypeProperty), ParentProtectedReadOnlyAutoStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentProtectedReadOnlyAutoNullableTypeProperty), ParentProtectedReadOnlyAutoNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentProtectedReadOnlyAutoReferenceTypeProperty), ParentProtectedReadOnlyAutoReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentProtectedReadOnlyExpressionBodyValueTypeProperty), ParentProtectedReadOnlyExpressionBodyValueTypeProperty.ToString() },
+                { nameof(ParentProtectedReadOnlyExpressionBodyStringTypeProperty), ParentProtectedReadOnlyExpressionBodyStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentProtectedReadOnlyExpressionBodyNullableTypeProperty), ParentProtectedReadOnlyExpressionBodyNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentProtectedReadOnlyExpressionBodyReferenceTypeProperty), ParentProtectedReadOnlyExpressionBodyReferenceTypeProperty?.ToString() ?? "<null>" },
                 { nameof(ParentPrivateReadWriteValueTypeProperty), ParentPrivateReadWriteValueTypeProperty.ToString() },
                 { nameof(ParentPrivateReadWriteStringTypeProperty), ParentPrivateReadWriteStringTypeProperty?.ToString() ?? "<null>" },
                 { nameof(ParentPrivateReadWriteNullableTypeProperty), ParentPrivateReadWriteNullableTypeProperty?.ToString() ?? "<null>" },
                 { nameof(ParentPrivateReadWriteReferenceTypeProperty), ParentPrivateReadWriteReferenceTypeProperty?.ToString() ?? "<null>" },
-                { nameof(ParentPrivateReadOnlyValueTypeProperty), ParentPrivateReadOnlyValueTypeProperty.ToString() },
-                { nameof(ParentPrivateReadOnlyStringTypeProperty), ParentPrivateReadOnlyStringTypeProperty?.ToString() ?? "<null>" },
-                { nameof(ParentPrivateReadOnlyNullableTypeProperty), ParentPrivateReadOnlyNullableTypeProperty?.ToString() ?? "<null>" },
-                { nameof(ParentPrivateReadOnlyReferenceTypeProperty), ParentPrivateReadOnlyReferenceTypeProperty?.ToString() ?? "<null>" },
-                { nameof(ParentPrivateExpressionBodyValueTypeProperty), ParentPrivateExpressionBodyValueTypeProperty.ToString() },
-                { nameof(ParentPrivateExpressionBodyStringTypeProperty), ParentPrivateExpressionBodyStringTypeProperty?.ToString() ?? "<null>" },
-                { nameof(ParentPrivateExpressionBodyNullableTypeProperty), ParentPrivateExpressionBodyNullableTypeProperty?.ToString() ?? "<null>" },
-                { nameof(ParentPrivateExpressionBodyReferenceTypeProperty), ParentPrivateExpressionBodyReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPrivateReadOnlyAutoValueTypeProperty), ParentPrivateReadOnlyAutoValueTypeProperty.ToString() },
+                { nameof(ParentPrivateReadOnlyAutoStringTypeProperty), ParentPrivateReadOnlyAutoStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPrivateReadOnlyAutoNullableTypeProperty), ParentPrivateReadOnlyAutoNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPrivateReadOnlyAutoReferenceTypeProperty), ParentPrivateReadOnlyAutoReferenceTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPrivateReadOnlyExpressionBodyValueTypeProperty), ParentPrivateReadOnlyExpressionBodyValueTypeProperty.ToString() },
+                { nameof(ParentPrivateReadOnlyExpressionBodyStringTypeProperty), ParentPrivateReadOnlyExpressionBodyStringTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPrivateReadOnlyExpressionBodyNullableTypeProperty), ParentPrivateReadOnlyExpressionBodyNullableTypeProperty?.ToString() ?? "<null>" },
+                { nameof(ParentPrivateReadOnlyExpressionBodyReferenceTypeProperty), ParentPrivateReadOnlyExpressionBodyReferenceTypeProperty?.ToString() ?? "<null>" },
             };
 
             var result = map.OrderBy(_ => _.Key).Select(_ => _.Key + ": " + _.Value).ToDelimitedString("|");
@@ -655,18 +655,18 @@ namespace OBeautifulCode.Reflection.Recipes.Test
     {
         static ChildStaticProperties()
         {
-            ChildPublicReadOnlyValueTypeProperty = 20;
-            ChildPublicReadOnlyStringTypeProperty = "21";
-            ChildPublicReadOnlyNullableTypeProperty = 22;
-            ChildPublicReadOnlyReferenceTypeProperty = new Version(23, 0);
-            ChildProtectedReadOnlyValueTypeProperty = 24;
-            ChildProtectedReadOnlyStringTypeProperty = "25";
-            ChildProtectedReadOnlyNullableTypeProperty = 26;
-            ChildProtectedReadOnlyReferenceTypeProperty = new Version(27, 0);
-            ChildPrivateReadOnlyValueTypeProperty = 28;
-            ChildPrivateReadOnlyStringTypeProperty = "29";
-            ChildPrivateReadOnlyNullableTypeProperty = 30;
-            ChildPrivateReadOnlyReferenceTypeProperty = new Version(31, 0);
+            ChildPublicReadOnlyAutoValueTypeProperty = 20;
+            ChildPublicReadOnlyAutoStringTypeProperty = "21";
+            ChildPublicReadOnlyAutoNullableTypeProperty = 22;
+            ChildPublicReadOnlyAutoReferenceTypeProperty = new Version(23, 0);
+            ChildProtectedReadOnlyAutoValueTypeProperty = 24;
+            ChildProtectedReadOnlyAutoStringTypeProperty = "25";
+            ChildProtectedReadOnlyAutoNullableTypeProperty = 26;
+            ChildProtectedReadOnlyAutoReferenceTypeProperty = new Version(27, 0);
+            ChildPrivateReadOnlyAutoValueTypeProperty = 28;
+            ChildPrivateReadOnlyAutoStringTypeProperty = "29";
+            ChildPrivateReadOnlyAutoNullableTypeProperty = 30;
+            ChildPrivateReadOnlyAutoReferenceTypeProperty = new Version(31, 0);
         }
 
         public static int ChildPublicReadWriteValueTypeProperty { get; set; }
@@ -677,13 +677,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
         public static Version ChildPublicReadWriteReferenceTypeProperty { get; set; }
 
-        public static int ChildPublicReadOnlyValueTypeProperty { get; }
+        public static int ChildPublicReadOnlyAutoValueTypeProperty { get; }
 
-        public static string ChildPublicReadOnlyStringTypeProperty { get; }
+        public static string ChildPublicReadOnlyAutoStringTypeProperty { get; }
 
-        public static int? ChildPublicReadOnlyNullableTypeProperty { get; }
+        public static int? ChildPublicReadOnlyAutoNullableTypeProperty { get; }
 
-        public static Version ChildPublicReadOnlyReferenceTypeProperty { get; }
+        public static Version ChildPublicReadOnlyAutoReferenceTypeProperty { get; }
 
         public static int ChildPublicWriteOnlyValueTypeProperty
         {
@@ -705,13 +705,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             set { }
         }
 
-        public static int ChildPublicExpressionBodyValueTypeProperty => ChildPublicReadWriteValueTypeProperty;
+        public static int ChildPublicReadOnlyExpressionBodyValueTypeProperty => ChildPublicReadWriteValueTypeProperty;
 
-        public static string ChildPublicExpressionBodyStringTypeProperty => ChildPublicReadWriteStringTypeProperty;
+        public static string ChildPublicReadOnlyExpressionBodyStringTypeProperty => ChildPublicReadWriteStringTypeProperty;
 
-        public static int? ChildPublicExpressionBodyNullableTypeProperty => ChildPublicReadWriteNullableTypeProperty;
+        public static int? ChildPublicReadOnlyExpressionBodyNullableTypeProperty => ChildPublicReadWriteNullableTypeProperty;
 
-        public static Version ChildPublicExpressionBodyReferenceTypeProperty => ChildPublicReadWriteReferenceTypeProperty;
+        public static Version ChildPublicReadOnlyExpressionBodyReferenceTypeProperty => ChildPublicReadWriteReferenceTypeProperty;
 
         protected static int ChildProtectedReadWriteValueTypeProperty { get; set; }
 
@@ -721,13 +721,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
         protected static Version ChildProtectedReadWriteReferenceTypeProperty { get; set; }
 
-        protected static int ChildProtectedReadOnlyValueTypeProperty { get; }
+        protected static int ChildProtectedReadOnlyAutoValueTypeProperty { get; }
 
-        protected static string ChildProtectedReadOnlyStringTypeProperty { get; }
+        protected static string ChildProtectedReadOnlyAutoStringTypeProperty { get; }
 
-        protected static int? ChildProtectedReadOnlyNullableTypeProperty { get; }
+        protected static int? ChildProtectedReadOnlyAutoNullableTypeProperty { get; }
 
-        protected static Version ChildProtectedReadOnlyReferenceTypeProperty { get; }
+        protected static Version ChildProtectedReadOnlyAutoReferenceTypeProperty { get; }
 
         protected static int ChildProtectedWriteOnlyValueTypeProperty
         {
@@ -749,13 +749,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             set { }
         }
 
-        protected static int ChildProtectedExpressionBodyValueTypeProperty => ChildPublicReadWriteValueTypeProperty;
+        protected static int ChildProtectedReadOnlyExpressionBodyValueTypeProperty => ChildPublicReadWriteValueTypeProperty;
 
-        protected static string ChildProtectedExpressionBodyStringTypeProperty => ChildPublicReadWriteStringTypeProperty;
+        protected static string ChildProtectedReadOnlyExpressionBodyStringTypeProperty => ChildPublicReadWriteStringTypeProperty;
 
-        protected static int? ChildProtectedExpressionBodyNullableTypeProperty => ChildPublicReadWriteNullableTypeProperty;
+        protected static int? ChildProtectedReadOnlyExpressionBodyNullableTypeProperty => ChildPublicReadWriteNullableTypeProperty;
 
-        protected static Version ChildProtectedExpressionBodyReferenceTypeProperty => ChildPublicReadWriteReferenceTypeProperty;
+        protected static Version ChildProtectedReadOnlyExpressionBodyReferenceTypeProperty => ChildPublicReadWriteReferenceTypeProperty;
 
         private static int ChildPrivateReadWriteValueTypeProperty { get; set; }
 
@@ -765,13 +765,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
         private static Version ChildPrivateReadWriteReferenceTypeProperty { get; set; }
 
-        private static int ChildPrivateReadOnlyValueTypeProperty { get; }
+        private static int ChildPrivateReadOnlyAutoValueTypeProperty { get; }
 
-        private static string ChildPrivateReadOnlyStringTypeProperty { get; }
+        private static string ChildPrivateReadOnlyAutoStringTypeProperty { get; }
 
-        private static int? ChildPrivateReadOnlyNullableTypeProperty { get; }
+        private static int? ChildPrivateReadOnlyAutoNullableTypeProperty { get; }
 
-        private static Version ChildPrivateReadOnlyReferenceTypeProperty { get; }
+        private static Version ChildPrivateReadOnlyAutoReferenceTypeProperty { get; }
 
         private static int ChildPrivateWriteOnlyValueTypeProperty
         {
@@ -793,13 +793,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             set { }
         }
 
-        private static int ChildPrivateExpressionBodyValueTypeProperty => ChildPublicReadWriteValueTypeProperty;
+        private static int ChildPrivateReadOnlyExpressionBodyValueTypeProperty => ChildPublicReadWriteValueTypeProperty;
 
-        private static string ChildPrivateExpressionBodyStringTypeProperty => ChildPublicReadWriteStringTypeProperty;
+        private static string ChildPrivateReadOnlyExpressionBodyStringTypeProperty => ChildPublicReadWriteStringTypeProperty;
 
-        private static int? ChildPrivateExpressionBodyNullableTypeProperty => ChildPublicReadWriteNullableTypeProperty;
+        private static int? ChildPrivateReadOnlyExpressionBodyNullableTypeProperty => ChildPublicReadWriteNullableTypeProperty;
 
-        private static Version ChildPrivateExpressionBodyReferenceTypeProperty => ChildPublicReadWriteReferenceTypeProperty;
+        private static Version ChildPrivateReadOnlyExpressionBodyReferenceTypeProperty => ChildPublicReadWriteReferenceTypeProperty;
     }
 #pragma warning restore SA1204 // Static elements should appear before instance elements
 #pragma warning restore SA1402 // File may only contain a single class
