@@ -895,6 +895,43 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         }
 
         [Fact]
+        public static void IsReadableProperty___Should_throw_ArgumentNullException___When_parameter_propertyInfo_is_null()
+        {
+            // Arrange, Act
+            var actual = Record.Exception(() => ReflectionHelper.IsReadableProperty(null));
+
+            // Assert
+            actual.AsTest().Must().BeOfType<ArgumentNullException>();
+            actual.Message.AsTest().Must().ContainString("propertyInfo");
+        }
+
+        [Fact]
+        public static void IsReadableProperty___Should_return_false___When_property_is_not_readable()
+        {
+            // Arrange
+            var propertyNames = GetParentNotReadablePropertyNames();
+
+            // Act
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsReadableProperty());
+
+            // Assert
+            actual.AsTest().Must().Each().BeFalse();
+        }
+
+        [Fact]
+        public static void IsReadableProperty___Should_return_true___When_property_is_readable()
+        {
+            // Arrange
+            var propertyNames = GetParentReadablePropertyNames();
+
+            // Act
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsReadableProperty());
+
+            // Assert
+            actual.AsTest().Must().Each().BeTrue();
+        }
+
+        [Fact]
         public static void IsReadOnlyProperty___Should_throw_ArgumentNullException___When_parameter_propertyInfo_is_null()
         {
             // Arrange, Act
@@ -963,6 +1000,43 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
             // Act
             var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsReadOnlyAutoProperty());
+
+            // Assert
+            actual.AsTest().Must().Each().BeTrue();
+        }
+
+        [Fact]
+        public static void IsWritableProperty___Should_throw_ArgumentNullException___When_parameter_propertyInfo_is_null()
+        {
+            // Arrange, Act
+            var actual = Record.Exception(() => ReflectionHelper.IsWritableProperty(null));
+
+            // Assert
+            actual.AsTest().Must().BeOfType<ArgumentNullException>();
+            actual.Message.AsTest().Must().ContainString("propertyInfo");
+        }
+
+        [Fact]
+        public static void IsWritableProperty___Should_return_false___When_property_is_not_writable()
+        {
+            // Arrange
+            var propertyNames = GetParentNotWritablePropertyNames();
+
+            // Act
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsWritableProperty());
+
+            // Assert
+            actual.AsTest().Must().Each().BeFalse();
+        }
+
+        [Fact]
+        public static void IsWritableProperty___Should_return_true___When_property_is_writable()
+        {
+            // Arrange
+            var propertyNames = GetParentWritablePropertyNames();
+
+            // Act
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsWritableProperty());
 
             // Assert
             actual.AsTest().Must().Each().BeTrue();

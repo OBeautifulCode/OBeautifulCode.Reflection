@@ -315,6 +315,26 @@ namespace OBeautifulCode.Reflection.Recipes
         }
 
         /// <summary>
+        /// Determines if the specified property is readable (has a getter).
+        /// </summary>
+        /// <param name="propertyInfo">The property.</param>
+        /// <returns>
+        /// true if the specified property is readable, otherwise false.
+        /// </returns>
+        public static bool IsReadableProperty(
+            this PropertyInfo propertyInfo)
+        {
+            if (propertyInfo == null)
+            {
+                throw new ArgumentNullException(nameof(propertyInfo));
+            }
+
+            var result = propertyInfo.GetGetMethod(true) != null;
+
+            return result;
+        }
+
+        /// <summary>
         /// Determines if the specified property is a read-only (has no setter).
         /// </summary>
         /// <param name="propertyInfo">The property.</param>
@@ -354,6 +374,26 @@ namespace OBeautifulCode.Reflection.Recipes
             // Note that expression body properties are NOT auto-properties.
             // see: https://stackoverflow.com/a/60638810/356790
             var result = propertyInfo.IsReadOnlyProperty() && propertyInfo.GetGetMethod(true).IsCompilerGenerated();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Determines if the specified property is writable (has a setter).
+        /// </summary>
+        /// <param name="propertyInfo">The property.</param>
+        /// <returns>
+        /// true if the specified property is writable, otherwise false.
+        /// </returns>
+        public static bool IsWritableProperty(
+            this PropertyInfo propertyInfo)
+        {
+            if (propertyInfo == null)
+            {
+                throw new ArgumentNullException(nameof(propertyInfo));
+            }
+
+            var result = propertyInfo.GetSetMethod(true) != null;
 
             return result;
         }
