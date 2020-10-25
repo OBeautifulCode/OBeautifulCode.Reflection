@@ -14,8 +14,6 @@ namespace OBeautifulCode.Reflection.Recipes
     using global::System.Diagnostics.CodeAnalysis;
     using global::System.Linq;
 
-    using OBeautifulCode.CodeAnalysis.Recipes;
-
     using static global::System.FormattableString;
 
 #if !OBeautifulCodeReflectionSolution

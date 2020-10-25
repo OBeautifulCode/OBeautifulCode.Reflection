@@ -32,7 +32,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// </summary>
         /// <param name="type">The type to check.</param>
         /// <param name="fieldName">The name of the field to check for.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
+        /// <param name="bindingFlags">Binding flags to use when searching.  See <see cref="BindingFlagsFor" /> for commonly-used binding flags.</param>
         /// <returns>
         /// true if the type has a field of the specified field name, false if not.
         /// </returns>
@@ -43,7 +43,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static bool HasField(
             this Type type,
             string fieldName,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
+            BindingFlags bindingFlags)
         {
             if (type == null)
             {
@@ -78,7 +78,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// Gets the name of all of the fields.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
+        /// <param name="bindingFlags">Binding flags to use when searching.  See <see cref="BindingFlagsFor" /> for commonly-used binding flags.</param>
         /// <returns>
         /// The field names.
         /// </returns>
@@ -86,7 +86,7 @@ namespace OBeautifulCode.Reflection.Recipes
         [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
         public static IReadOnlyCollection<string> GetFieldNames(
             this Type type,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
+            BindingFlags bindingFlags)
         {
             if (type == null)
             {
@@ -105,7 +105,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="fieldName">The name of the field.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
+        /// <param name="bindingFlags">Binding flags to use when searching.  See <see cref="BindingFlagsFor" /> for commonly-used binding flags.</param>
         /// <returns>
         /// The <see cref="FieldInfo"/>.
         /// </returns>
@@ -118,7 +118,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static FieldInfo GetFieldInfo(
             this Type type,
             string fieldName,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
+            BindingFlags bindingFlags)
         {
             if (type == null)
             {
@@ -160,7 +160,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <typeparam name="T">The type of the field.</typeparam>
         /// <param name="item">The object.</param>
         /// <param name="fieldName">The name of the field.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
+        /// <param name="bindingFlags">Binding flags to use when searching.  See <see cref="BindingFlagsFor" /> for commonly-used binding flags.</param>
         /// <returns>
         /// The value of the field.
         /// </returns>
@@ -175,7 +175,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static T GetFieldValue<T>(
             this object item,
             string fieldName,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
+            BindingFlags bindingFlags)
         {
             if (item == null)
             {
@@ -196,7 +196,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// </summary>
         /// <param name="item">The object.</param>
         /// <param name="fieldName">The name of the field.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
+        /// <param name="bindingFlags">Binding flags to use when searching.  See <see cref="BindingFlagsFor" /> for commonly-used binding flags.</param>
         /// <returns>
         /// The value of the field.
         /// </returns>
@@ -210,7 +210,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static object GetFieldValue(
             this object item,
             string fieldName,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
+            BindingFlags bindingFlags)
         {
             if (item == null)
             {
@@ -230,7 +230,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <typeparam name="T">The type of the field.</typeparam>
         /// <param name="type">The type that contains the field.</param>
         /// <param name="fieldName">The name of the field.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedStaticMembers"/>.</param>
+        /// <param name="bindingFlags">Binding flags to use when searching.  See <see cref="BindingFlagsFor" /> for commonly-used binding flags.</param>
         /// <returns>
         /// The value of the field.
         /// </returns>
@@ -246,7 +246,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static T GetStaticFieldValue<T>(
             this Type type,
             string fieldName,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedStaticMembers)
+            BindingFlags bindingFlags)
         {
             if (type == null)
             {
@@ -276,7 +276,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// </summary>
         /// <param name="type">The type that contains the field.</param>
         /// <param name="fieldName">The name of the field.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedStaticMembers"/>.</param>
+        /// <param name="bindingFlags">Binding flags to use when searching.  See <see cref="BindingFlagsFor" /> for commonly-used binding flags.</param>
         /// <returns>
         /// The value of the field.
         /// </returns>
@@ -291,7 +291,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static object GetStaticFieldValue(
             this Type type,
             string fieldName,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedStaticMembers)
+            BindingFlags bindingFlags)
         {
             if (type == null)
             {
@@ -320,7 +320,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <param name="item">The object.</param>
         /// <param name="fieldName">The name of the field.</param>
         /// <param name="value">The value to set the field to.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
+        /// <param name="bindingFlags">Binding flags to use when searching.  See <see cref="BindingFlagsFor" /> for commonly-used binding flags.</param>
         /// <exception cref="ArgumentNullException"><paramref name="item"/> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="fieldName"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="fieldName"/> is whitespace.</exception>
@@ -333,7 +333,7 @@ namespace OBeautifulCode.Reflection.Recipes
             this object item,
             string fieldName,
             object value,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
+            BindingFlags bindingFlags)
         {
             if (item == null)
             {
@@ -353,7 +353,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <param name="type">The type that contains the field.</param>
         /// <param name="fieldName">The name of the field.</param>
         /// <param name="value">The value to set the field to.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedStaticMembers"/>.</param>
+        /// <param name="bindingFlags">Binding flags to use when searching.  See <see cref="BindingFlagsFor" /> for commonly-used binding flags.</param>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="fieldName"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="fieldName"/> is whitespace.</exception>
@@ -367,7 +367,7 @@ namespace OBeautifulCode.Reflection.Recipes
             this Type type,
             string fieldName,
             object value,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedStaticMembers)
+            BindingFlags bindingFlags)
         {
             if (type == null)
             {

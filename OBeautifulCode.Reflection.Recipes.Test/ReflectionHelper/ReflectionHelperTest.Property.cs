@@ -24,7 +24,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         public static void GetPropertyNames___Should_throw_ArgumentNullException___When_parameter_type_is_null()
         {
             // Arrange, Act
-            var actual = Record.Exception(() => ReflectionHelper.GetPropertyNames(null));
+            var actual = Record.Exception(() => ReflectionHelper.GetPropertyNames(null, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentNullException>();
@@ -48,8 +48,8 @@ namespace OBeautifulCode.Reflection.Recipes.Test
                 .ToList();
 
             // Act
-            var actuals1 = (IReadOnlyCollection<string>)type1.GetPropertyNames();
-            var actuals2 = (IReadOnlyCollection<string>)type2.GetPropertyNames();
+            var actuals1 = (IReadOnlyCollection<string>)type1.GetPropertyNames(BindingFlagsFor.AllDeclaredAndInheritedMembers);
+            var actuals2 = (IReadOnlyCollection<string>)type2.GetPropertyNames(BindingFlagsFor.AllDeclaredAndInheritedMembers);
 
             // Assert
             actuals1.AsTest().Must().BeEqualTo(expected1);
@@ -63,7 +63,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyName = A.Dummy<string>();
 
             // Act
-            var actual = Record.Exception(() => ReflectionHelper.GetPropertyInfo(null, propertyName));
+            var actual = Record.Exception(() => ReflectionHelper.GetPropertyInfo(null, propertyName, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentNullException>();
@@ -77,7 +77,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var type = typeof(ParentInstanceProperties);
 
             // Act
-            var actual = Record.Exception(() => type.GetPropertyInfo(null));
+            var actual = Record.Exception(() => type.GetPropertyInfo(null, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentNullException>();
@@ -91,7 +91,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var type = typeof(ParentInstanceProperties);
 
             // Act
-            var actual = Record.Exception(() => type.GetPropertyInfo(" \r\n "));
+            var actual = Record.Exception(() => type.GetPropertyInfo(" \r\n ", BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentException>();
@@ -112,8 +112,8 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var childPropertyNamesThatDoNotExist = GetChildPropertyNamesThatDoNotExist();
 
             // Act
-            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => parentType.GetPropertyInfo(_))).ToList();
-            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => childType.GetPropertyInfo(_))).ToList();
+            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => parentType.GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
+            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => childType.GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
 
             // Assert
             actuals1.AsTest().Must().Each().BeOfType<ArgumentException>();
@@ -142,8 +142,8 @@ namespace OBeautifulCode.Reflection.Recipes.Test
                 .ToList();
 
             // Act
-            var actuals1 = expected1.Select(_ => parentType.GetPropertyInfo(_)).ToList();
-            var actuals2 = expected2.Select(_ => childType.GetPropertyInfo(_)).ToList();
+            var actuals1 = expected1.Select(_ => parentType.GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers)).ToList();
+            var actuals2 = expected2.Select(_ => childType.GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers)).ToList();
 
             // Assert
             actuals1.Select(_ => _.Name).ToList().AsTest().Must().BeEqualTo(expected1);
@@ -157,7 +157,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyName = A.Dummy<string>();
 
             // Act
-            var actual = Record.Exception(() => ReflectionHelper.GetPropertyValue<string>(null, propertyName));
+            var actual = Record.Exception(() => ReflectionHelper.GetPropertyValue<string>(null, propertyName, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentNullException>();
@@ -171,7 +171,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var item = A.Dummy<ParentInstanceProperties>();
 
             // Act
-            var actual = Record.Exception(() => item.GetPropertyValue<string>(null));
+            var actual = Record.Exception(() => item.GetPropertyValue<string>(null, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentNullException>();
@@ -185,7 +185,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var item = A.Dummy<ParentInstanceProperties>();
 
             // Act
-            var actual = Record.Exception(() => item.GetPropertyValue<string>(" \r\n "));
+            var actual = Record.Exception(() => item.GetPropertyValue<string>(" \r\n ", BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentException>();
@@ -206,8 +206,8 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var childPropertyNamesThatDoNotExist = GetChildPropertyNamesThatDoNotExist();
 
             // Act
-            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => item1.GetPropertyValue<string>(_))).ToList();
-            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => item2.GetPropertyValue<string>(_))).ToList();
+            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => item1.GetPropertyValue<string>(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
+            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => item2.GetPropertyValue<string>(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
 
             // Assert
             actuals1.AsTest().Must().Each().BeOfType<ArgumentException>();
@@ -228,7 +228,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var writeOnlyProperties = GetParentNotReadablePropertyNames();
 
             // Act
-            var actual = writeOnlyProperties.Select(_ => Record.Exception(() => item.GetPropertyValue<object>(_))).ToList();
+            var actual = writeOnlyProperties.Select(_ => Record.Exception(() => item.GetPropertyValue<object>(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
 
             // Assert
             actual.AsTest().Must().Each().BeOfType<ArgumentException>();
@@ -245,9 +245,9 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             item.ParentPublicReadWriteStringTypeProperty = null;
 
             // Act
-            var actual1 = Record.Exception(() => item.GetPropertyValue<string>(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty)));
-            var actual2 = Record.Exception(() => item.GetPropertyValue<int>(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty)));
-            var actual3 = Record.Exception(() => item.GetPropertyValue<Version>(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty)));
+            var actual1 = Record.Exception(() => item.GetPropertyValue<string>(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers));
+            var actual2 = Record.Exception(() => item.GetPropertyValue<int>(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers));
+            var actual3 = Record.Exception(() => item.GetPropertyValue<Version>(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual1.AsTest().Must().BeOfType<InvalidCastException>();
@@ -271,10 +271,10 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             item.ParentPublicReadWriteValueTypeProperty = A.Dummy<int>();
 
             // Act
-            var actual1 = Record.Exception(() => item.GetPropertyValue<string>(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty)));
-            var actual2 = Record.Exception(() => item.GetPropertyValue<Guid>(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty)));
-            var actual3 = Record.Exception(() => item.GetPropertyValue<int>(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty)));
-            var actual4 = Record.Exception(() => item.GetPropertyValue<Version>(nameof(ParentInstanceProperties.ParentPublicReadWriteValueTypeProperty)));
+            var actual1 = Record.Exception(() => item.GetPropertyValue<string>(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers));
+            var actual2 = Record.Exception(() => item.GetPropertyValue<Guid>(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers));
+            var actual3 = Record.Exception(() => item.GetPropertyValue<int>(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers));
+            var actual4 = Record.Exception(() => item.GetPropertyValue<Version>(nameof(ParentInstanceProperties.ParentPublicReadWriteValueTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual1.AsTest().Must().BeOfType<InvalidCastException>();
@@ -300,9 +300,9 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             item.ParentPublicReadWriteStringTypeProperty = null;
 
             // Act
-            var actual1 = item.GetPropertyValue<Version>(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty));
-            var actual2 = item.GetPropertyValue<int?>(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty));
-            var actual3 = item.GetPropertyValue<string>(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty));
+            var actual1 = item.GetPropertyValue<Version>(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers);
+            var actual2 = item.GetPropertyValue<int?>(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers);
+            var actual3 = item.GetPropertyValue<string>(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers);
 
             // Assert
             actual1.AsTest().Must().BeNull();
@@ -322,7 +322,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
             // Act
             var actual = parentReadablePropertyNames
-                .ToDictionary(_ => _, _ => item.GetPropertyValue<object>(_))
+                .ToDictionary(_ => _, _ => item.GetPropertyValue<object>(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))
                 .OrderBy(_ => _.Key)
                 .Select(_ => _.Key + ": " + (_.Value?.ToString() ?? "<null>"))
                 .ToDelimitedString("|");
@@ -338,7 +338,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyName = A.Dummy<string>();
 
             // Act
-            var actual = Record.Exception(() => ReflectionHelper.GetPropertyValue(null, propertyName));
+            var actual = Record.Exception(() => ReflectionHelper.GetPropertyValue(null, propertyName, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentNullException>();
@@ -352,7 +352,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var item = A.Dummy<ParentInstanceProperties>();
 
             // Act
-            var actual = Record.Exception(() => item.GetPropertyValue(null));
+            var actual = Record.Exception(() => item.GetPropertyValue(null, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentNullException>();
@@ -366,7 +366,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var item = A.Dummy<ParentInstanceProperties>();
 
             // Act
-            var actual = Record.Exception(() => item.GetPropertyValue(" \r\n "));
+            var actual = Record.Exception(() => item.GetPropertyValue(" \r\n ", BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentException>();
@@ -387,8 +387,8 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var childPropertyNamesThatDoNotExist = GetChildPropertyNamesThatDoNotExist();
 
             // Act
-            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => item1.GetPropertyValue(_))).ToList();
-            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => item2.GetPropertyValue(_))).ToList();
+            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => item1.GetPropertyValue(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
+            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => item2.GetPropertyValue(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
 
             // Assert
             actuals1.AsTest().Must().Each().BeOfType<ArgumentException>();
@@ -409,7 +409,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var writeOnlyProperties = GetParentNotReadablePropertyNames();
 
             // Act
-            var actual = writeOnlyProperties.Select(_ => Record.Exception(() => item.GetPropertyValue(_))).ToList();
+            var actual = writeOnlyProperties.Select(_ => Record.Exception(() => item.GetPropertyValue(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
 
             // Assert
             actual.AsTest().Must().Each().BeOfType<ArgumentException>();
@@ -426,9 +426,9 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             item.ParentPublicReadWriteStringTypeProperty = null;
 
             // Act
-            var actual1 = item.GetPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty));
-            var actual2 = item.GetPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty));
-            var actual3 = item.GetPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty));
+            var actual1 = item.GetPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers);
+            var actual2 = item.GetPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers);
+            var actual3 = item.GetPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers);
 
             // Assert
             actual1.AsTest().Must().BeNull();
@@ -448,7 +448,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
             // Act
             var actual = parentReadablePropertyNames
-                .ToDictionary(_ => _, _ => item.GetPropertyValue(_))
+                .ToDictionary(_ => _, _ => item.GetPropertyValue(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))
                 .OrderBy(_ => _.Key)
                 .Select(_ => _.Key + ": " + (_.Value?.ToString() ?? "<null>"))
                 .ToDelimitedString("|");
@@ -464,7 +464,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyName = A.Dummy<string>();
 
             // Act
-            var actual = Record.Exception(() => ReflectionHelper.GetStaticPropertyValue<string>(null, propertyName));
+            var actual = Record.Exception(() => ReflectionHelper.GetStaticPropertyValue<string>(null, propertyName, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentNullException>();
@@ -478,7 +478,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var type = typeof(ParentStaticProperties);
 
             // Act
-            var actual = Record.Exception(() => type.GetStaticPropertyValue<string>(null));
+            var actual = Record.Exception(() => type.GetStaticPropertyValue<string>(null, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentNullException>();
@@ -492,7 +492,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var type = typeof(ParentStaticProperties);
 
             // Act
-            var actual = Record.Exception(() => type.GetStaticPropertyValue<string>(" \r\n "));
+            var actual = Record.Exception(() => type.GetStaticPropertyValue<string>(" \r\n ", BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentException>();
@@ -513,8 +513,8 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var childPropertyNamesThatDoNotExist = GetChildPropertyNamesThatDoNotExist();
 
             // Act
-            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => type1.GetStaticPropertyValue<string>(_))).ToList();
-            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => type2.GetStaticPropertyValue<string>(_))).ToList();
+            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => type1.GetStaticPropertyValue<string>(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
+            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => type2.GetStaticPropertyValue<string>(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
 
             // Assert
             actuals1.AsTest().Must().Each().BeOfType<ArgumentException>();
@@ -535,7 +535,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var writeOnlyProperties = GetParentNotReadablePropertyNames();
 
             // Act
-            var actual = writeOnlyProperties.Select(_ => Record.Exception(() => type.GetStaticPropertyValue<object>(_))).ToList();
+            var actual = writeOnlyProperties.Select(_ => Record.Exception(() => type.GetStaticPropertyValue<object>(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
 
             // Assert
             actual.AsTest().Must().Each().BeOfType<ArgumentException>();
@@ -571,9 +571,9 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             ParentStaticProperties.ParentPublicReadWriteStringTypeProperty = null;
 
             // Act
-            var actual1 = Record.Exception(() => type.GetStaticPropertyValue<string>(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty)));
-            var actual2 = Record.Exception(() => type.GetStaticPropertyValue<int>(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty)));
-            var actual3 = Record.Exception(() => type.GetStaticPropertyValue<Version>(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty)));
+            var actual1 = Record.Exception(() => type.GetStaticPropertyValue<string>(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers));
+            var actual2 = Record.Exception(() => type.GetStaticPropertyValue<int>(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers));
+            var actual3 = Record.Exception(() => type.GetStaticPropertyValue<Version>(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual1.AsTest().Must().BeOfType<InvalidCastException>();
@@ -595,10 +595,10 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             ResetParentStaticProperties();
 
             // Act
-            var actual1 = Record.Exception(() => type.GetStaticPropertyValue<string>(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty)));
-            var actual2 = Record.Exception(() => type.GetStaticPropertyValue<Guid>(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty)));
-            var actual3 = Record.Exception(() => type.GetStaticPropertyValue<int>(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty)));
-            var actual4 = Record.Exception(() => type.GetStaticPropertyValue<Version>(nameof(ParentInstanceProperties.ParentPublicReadWriteValueTypeProperty)));
+            var actual1 = Record.Exception(() => type.GetStaticPropertyValue<string>(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers));
+            var actual2 = Record.Exception(() => type.GetStaticPropertyValue<Guid>(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers));
+            var actual3 = Record.Exception(() => type.GetStaticPropertyValue<int>(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers));
+            var actual4 = Record.Exception(() => type.GetStaticPropertyValue<Version>(nameof(ParentInstanceProperties.ParentPublicReadWriteValueTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual1.AsTest().Must().BeOfType<InvalidCastException>();
@@ -627,9 +627,9 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             ParentStaticProperties.ParentPublicReadWriteStringTypeProperty = null;
 
             // Act
-            var actual1 = type.GetStaticPropertyValue<Version>(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty));
-            var actual2 = type.GetStaticPropertyValue<int?>(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty));
-            var actual3 = type.GetStaticPropertyValue<string>(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty));
+            var actual1 = type.GetStaticPropertyValue<Version>(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers);
+            var actual2 = type.GetStaticPropertyValue<int?>(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers);
+            var actual3 = type.GetStaticPropertyValue<string>(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers);
 
             // Assert
             actual1.AsTest().Must().BeNull();
@@ -651,7 +651,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
             // Act
             var actual = parentReadablePropertyNames
-                .ToDictionary(_ => _, _ => type.GetStaticPropertyValue<object>(_))
+                .ToDictionary(_ => _, _ => type.GetStaticPropertyValue<object>(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))
                 .OrderBy(_ => _.Key)
                 .Select(_ => _.Key + ": " + (_.Value?.ToString() ?? "<null>"))
                 .ToDelimitedString("|");
@@ -667,7 +667,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyName = A.Dummy<string>();
 
             // Act
-            var actual = Record.Exception(() => ReflectionHelper.GetStaticPropertyValue(null, propertyName));
+            var actual = Record.Exception(() => ReflectionHelper.GetStaticPropertyValue(null, propertyName, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentNullException>();
@@ -681,7 +681,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var type = typeof(ParentStaticProperties);
 
             // Act
-            var actual = Record.Exception(() => type.GetStaticPropertyValue(null));
+            var actual = Record.Exception(() => type.GetStaticPropertyValue(null, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentNullException>();
@@ -695,7 +695,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var type = typeof(ParentStaticProperties);
 
             // Act
-            var actual = Record.Exception(() => type.GetStaticPropertyValue(" \r\n "));
+            var actual = Record.Exception(() => type.GetStaticPropertyValue(" \r\n ", BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentException>();
@@ -716,8 +716,8 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var childPropertyNamesThatDoNotExist = GetChildPropertyNamesThatDoNotExist();
 
             // Act
-            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => type1.GetStaticPropertyValue(_))).ToList();
-            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => type2.GetStaticPropertyValue(_))).ToList();
+            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => type1.GetStaticPropertyValue(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
+            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => type2.GetStaticPropertyValue(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
 
             // Assert
             actuals1.AsTest().Must().Each().BeOfType<ArgumentException>();
@@ -738,7 +738,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var writeOnlyProperties = GetParentNotReadablePropertyNames();
 
             // Act
-            var actual = writeOnlyProperties.Select(_ => Record.Exception(() => type.GetStaticPropertyValue(_))).ToList();
+            var actual = writeOnlyProperties.Select(_ => Record.Exception(() => type.GetStaticPropertyValue(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
 
             // Assert
             actual.AsTest().Must().Each().BeOfType<ArgumentException>();
@@ -774,9 +774,9 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             ParentStaticProperties.ParentPublicReadWriteStringTypeProperty = null;
 
             // Act
-            var actual1 = type.GetStaticPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty));
-            var actual2 = type.GetStaticPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty));
-            var actual3 = type.GetStaticPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty));
+            var actual1 = type.GetStaticPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers);
+            var actual2 = type.GetStaticPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers);
+            var actual3 = type.GetStaticPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty), BindingFlagsFor.AllDeclaredAndInheritedMembers);
 
             // Assert
             actual1.AsTest().Must().BeNull();
@@ -798,7 +798,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
             // Act
             var actual = parentReadablePropertyNames
-                .ToDictionary(_ => _, _ => type.GetStaticPropertyValue(_))
+                .ToDictionary(_ => _, _ => type.GetStaticPropertyValue(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))
                 .OrderBy(_ => _.Key)
                 .Select(_ => _.Key + ": " + (_.Value?.ToString() ?? "<null>"))
                 .ToDelimitedString("|");
@@ -814,7 +814,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyName = A.Dummy<string>();
 
             // Act
-            var actual = Record.Exception(() => ReflectionHelper.HasProperty(null, propertyName));
+            var actual = Record.Exception(() => ReflectionHelper.HasProperty(null, propertyName, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentNullException>();
@@ -828,7 +828,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var type = typeof(ParentInstanceProperties);
 
             // Act
-            var actual = Record.Exception(() => type.HasProperty(null));
+            var actual = Record.Exception(() => type.HasProperty(null, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentNullException>();
@@ -842,7 +842,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var type = typeof(ParentInstanceProperties);
 
             // Act
-            var actual = Record.Exception(() => type.HasProperty(" \r\n "));
+            var actual = Record.Exception(() => type.HasProperty(" \r\n ", BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentException>();
@@ -863,8 +863,8 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var childPropertyNamesThatDoNotExist = GetChildPropertyNamesThatDoNotExist();
 
             // Act
-            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => parentType.HasProperty(_)).ToList();
-            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => childType.HasProperty(_)).ToList();
+            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => parentType.HasProperty(_, BindingFlagsFor.AllDeclaredAndInheritedMembers)).ToList();
+            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => childType.HasProperty(_, BindingFlagsFor.AllDeclaredAndInheritedMembers)).ToList();
 
             // Assert
             actuals1.AsTest().Must().Each().BeFalse();
@@ -886,8 +886,8 @@ namespace OBeautifulCode.Reflection.Recipes.Test
                 .ToList();
 
             // Act
-            var actuals1 = GetParentPropertyNames().Select(_ => parentType.HasProperty(_)).ToList();
-            var actuals2 = childPropertyNames.Select(_ => childType.HasProperty(_)).ToList();
+            var actuals1 = GetParentPropertyNames().Select(_ => parentType.HasProperty(_, BindingFlagsFor.AllDeclaredAndInheritedMembers)).ToList();
+            var actuals2 = childPropertyNames.Select(_ => childType.HasProperty(_, BindingFlagsFor.AllDeclaredAndInheritedMembers)).ToList();
 
             // Assert
             actuals1.AsTest().Must().Each().BeTrue();
@@ -912,7 +912,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyNames = GetParentNotReadablePropertyNames();
 
             // Act
-            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsReadableProperty());
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers).IsReadableProperty());
 
             // Assert
             actual.AsTest().Must().Each().BeFalse();
@@ -925,7 +925,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyNames = GetParentReadablePropertyNames();
 
             // Act
-            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsReadableProperty());
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers).IsReadableProperty());
 
             // Assert
             actual.AsTest().Must().Each().BeTrue();
@@ -949,7 +949,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyNames = GetParentWritablePropertyNames();
 
             // Act
-            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsReadOnlyProperty());
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers).IsReadOnlyProperty());
 
             // Assert
             actual.AsTest().Must().Each().BeFalse();
@@ -962,7 +962,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyNames = GetParentNotWritablePropertyNames();
 
             // Act
-            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsReadOnlyProperty());
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers).IsReadOnlyProperty());
 
             // Assert
             actual.AsTest().Must().Each().BeTrue();
@@ -986,7 +986,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyNames = GetParentPropertyNames().Where(_ => !_.Contains("ReadOnlyAuto")).ToList();
 
             // Act
-            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsReadOnlyAutoProperty());
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers).IsReadOnlyAutoProperty());
 
             // Assert
             actual.AsTest().Must().Each().BeFalse();
@@ -999,7 +999,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyNames = GetParentPropertyNames().Where(_ => _.Contains("ReadOnlyAuto")).ToList();
 
             // Act
-            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsReadOnlyAutoProperty());
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers).IsReadOnlyAutoProperty());
 
             // Assert
             actual.AsTest().Must().Each().BeTrue();
@@ -1023,7 +1023,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyNames = GetParentNotWritablePropertyNames();
 
             // Act
-            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsWritableProperty());
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers).IsWritableProperty());
 
             // Assert
             actual.AsTest().Must().Each().BeFalse();
@@ -1036,7 +1036,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyNames = GetParentWritablePropertyNames();
 
             // Act
-            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsWritableProperty());
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers).IsWritableProperty());
 
             // Assert
             actual.AsTest().Must().Each().BeTrue();
@@ -1060,7 +1060,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyNames = GetParentReadablePropertyNames();
 
             // Act
-            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsWriteOnlyProperty());
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers).IsWriteOnlyProperty());
 
             // Assert
             actual.AsTest().Must().Each().BeFalse();
@@ -1073,7 +1073,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyNames = GetParentNotReadablePropertyNames();
 
             // Act
-            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_).IsWriteOnlyProperty());
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers).IsWriteOnlyProperty());
 
             // Assert
             actual.AsTest().Must().Each().BeTrue();
@@ -1086,7 +1086,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyName = A.Dummy<string>();
 
             // Act
-            var actual = Record.Exception(() => ReflectionHelper.SetPropertyValue(null, propertyName, null));
+            var actual = Record.Exception(() => ReflectionHelper.SetPropertyValue(null, propertyName, null, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentNullException>();
@@ -1100,7 +1100,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var item = A.Dummy<ParentInstanceProperties>();
 
             // Act
-            var actual = Record.Exception(() => item.SetPropertyValue(null, null));
+            var actual = Record.Exception(() => item.SetPropertyValue(null, null, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentNullException>();
@@ -1114,7 +1114,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var item = A.Dummy<ParentInstanceProperties>();
 
             // Act
-            var actual = Record.Exception(() => item.SetPropertyValue(" \r\n ", null));
+            var actual = Record.Exception(() => item.SetPropertyValue(" \r\n ", null, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentException>();
@@ -1135,8 +1135,8 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var childPropertyNamesThatDoNotExist = GetChildPropertyNamesThatDoNotExist();
 
             // Act
-            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => item1.SetPropertyValue(_, null))).ToList();
-            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => item2.SetPropertyValue(_, null))).ToList();
+            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => item1.SetPropertyValue(_, null, BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
+            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => item2.SetPropertyValue(_, null, BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
 
             // Assert
             actuals1.AsTest().Must().Each().BeOfType<ArgumentException>();
@@ -1157,7 +1157,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var notWritableProperties = GetParentNotWritablePropertyNames();
 
             // Act
-            var actual = notWritableProperties.Select(_ => Record.Exception(() => item.SetPropertyValue(_, AD.ummy(item.GetType().GetPropertyInfo(_).PropertyType)))).ToList();
+            var actual = notWritableProperties.Select(_ => Record.Exception(() => item.SetPropertyValue(_, AD.ummy(item.GetType().GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers).PropertyType), BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
 
             // Assert
             actual.AsTest().Must().Each().BeOfType<ArgumentException>();
@@ -1173,7 +1173,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyNames = GetParentWritablePropertyNames().Where(_ => _.Contains("ValueType")).ToList();
 
             // Act
-            var actual = propertyNames.Select(_ => Record.Exception(() => item.SetPropertyValue(_, null)));
+            var actual = propertyNames.Select(_ => Record.Exception(() => item.SetPropertyValue(_, null, BindingFlagsFor.AllDeclaredAndInheritedMembers)));
 
             // Assert
             actual.AsTest().Must().Each().BeOfType<InvalidCastException>();
@@ -1187,10 +1187,10 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var item = A.Dummy<ParentInstanceProperties>();
 
             // Act
-            var actual1 = Record.Exception(() => item.SetPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty), 5));
-            var actual2 = Record.Exception(() => item.SetPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty), Guid.NewGuid()));
-            var actual3 = Record.Exception(() => item.SetPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty), 90));
-            var actual4 = Record.Exception(() => item.SetPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteValueTypeProperty), Guid.NewGuid()));
+            var actual1 = Record.Exception(() => item.SetPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty), 5, BindingFlagsFor.AllDeclaredAndInheritedMembers));
+            var actual2 = Record.Exception(() => item.SetPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty), Guid.NewGuid(), BindingFlagsFor.AllDeclaredAndInheritedMembers));
+            var actual3 = Record.Exception(() => item.SetPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty), 90, BindingFlagsFor.AllDeclaredAndInheritedMembers));
+            var actual4 = Record.Exception(() => item.SetPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteValueTypeProperty), Guid.NewGuid(), BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual1.AsTest().Must().BeOfType<InvalidCastException>();
@@ -1221,13 +1221,13 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             // Act
             foreach (var parentWritablePropertyName in parentWritablePropertyNames)
             {
-                var propertyType = referenceObject.GetType().GetPropertyInfo(parentWritablePropertyName).PropertyType;
+                var propertyType = referenceObject.GetType().GetPropertyInfo(parentWritablePropertyName, BindingFlagsFor.AllDeclaredAndInheritedMembers).PropertyType;
 
                 var valueToWrite = parentWritablePropertyName.Contains("WriteOnly")
                     ? AD.ummy(propertyType)
-                    : referenceObject.GetPropertyValue(parentWritablePropertyName);
+                    : referenceObject.GetPropertyValue(parentWritablePropertyName, BindingFlagsFor.AllDeclaredAndInheritedMembers);
 
-                item.SetPropertyValue(parentWritablePropertyName, valueToWrite);
+                item.SetPropertyValue(parentWritablePropertyName, valueToWrite, BindingFlagsFor.AllDeclaredAndInheritedMembers);
             }
 
             // Assert
@@ -1241,7 +1241,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyName = A.Dummy<string>();
 
             // Act
-            var actual = Record.Exception(() => ReflectionHelper.SetStaticPropertyValue(null, propertyName, null));
+            var actual = Record.Exception(() => ReflectionHelper.SetStaticPropertyValue(null, propertyName, null, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentNullException>();
@@ -1255,7 +1255,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var type = typeof(ParentStaticProperties);
 
             // Act
-            var actual = Record.Exception(() => type.SetStaticPropertyValue(null, null));
+            var actual = Record.Exception(() => type.SetStaticPropertyValue(null, null, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentNullException>();
@@ -1269,7 +1269,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var type = typeof(ParentStaticProperties);
 
             // Act
-            var actual = Record.Exception(() => type.SetStaticPropertyValue(" \r\n ", null));
+            var actual = Record.Exception(() => type.SetStaticPropertyValue(" \r\n ", null, BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentException>();
@@ -1290,8 +1290,8 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var childPropertyNamesThatDoNotExist = GetChildPropertyNamesThatDoNotExist();
 
             // Act
-            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => type1.SetStaticPropertyValue(_, null))).ToList();
-            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => type2.SetStaticPropertyValue(_, null))).ToList();
+            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => type1.SetStaticPropertyValue(_, null, BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
+            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => Record.Exception(() => type2.SetStaticPropertyValue(_, null, BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
 
             // Assert
             actuals1.AsTest().Must().Each().BeOfType<ArgumentException>();
@@ -1312,7 +1312,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var notWritableProperties = GetParentNotWritablePropertyNames();
 
             // Act
-            var actual = notWritableProperties.Select(_ => Record.Exception(() => type.SetStaticPropertyValue(_, AD.ummy(type.GetPropertyInfo(_).PropertyType)))).ToList();
+            var actual = notWritableProperties.Select(_ => Record.Exception(() => type.SetStaticPropertyValue(_, AD.ummy(type.GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers).PropertyType), BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
 
             // Assert
             actual.AsTest().Must().Each().BeOfType<ArgumentException>();
@@ -1328,7 +1328,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var propertyNames = GetParentWritablePropertyNames().Where(_ => _.Contains("ValueType")).ToList();
 
             // Act
-            var actual = propertyNames.Select(_ => Record.Exception(() => type.SetStaticPropertyValue(_, null)));
+            var actual = propertyNames.Select(_ => Record.Exception(() => type.SetStaticPropertyValue(_, null, BindingFlagsFor.AllDeclaredAndInheritedMembers)));
 
             // Assert
             actual.AsTest().Must().Each().BeOfType<InvalidCastException>();
@@ -1342,10 +1342,10 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var type = typeof(ParentStaticProperties);
 
             // Act
-            var actual1 = Record.Exception(() => type.SetStaticPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty), 5));
-            var actual2 = Record.Exception(() => type.SetStaticPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty), Guid.NewGuid()));
-            var actual3 = Record.Exception(() => type.SetStaticPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty), 90));
-            var actual4 = Record.Exception(() => type.SetStaticPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteValueTypeProperty), Guid.NewGuid()));
+            var actual1 = Record.Exception(() => type.SetStaticPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteReferenceTypeProperty), 5, BindingFlagsFor.AllDeclaredAndInheritedMembers));
+            var actual2 = Record.Exception(() => type.SetStaticPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteNullableTypeProperty), Guid.NewGuid(), BindingFlagsFor.AllDeclaredAndInheritedMembers));
+            var actual3 = Record.Exception(() => type.SetStaticPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteStringTypeProperty), 90, BindingFlagsFor.AllDeclaredAndInheritedMembers));
+            var actual4 = Record.Exception(() => type.SetStaticPropertyValue(nameof(ParentInstanceProperties.ParentPublicReadWriteValueTypeProperty), Guid.NewGuid(), BindingFlagsFor.AllDeclaredAndInheritedMembers));
 
             // Assert
             actual1.AsTest().Must().BeOfType<InvalidCastException>();
@@ -1377,11 +1377,11 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
             foreach (var parentWritablePropertyName in parentWritablePropertyNames)
             {
-                var propertyType = type.GetPropertyInfo(parentWritablePropertyName).PropertyType;
+                var propertyType = type.GetPropertyInfo(parentWritablePropertyName, BindingFlagsFor.AllDeclaredAndInheritedMembers).PropertyType;
 
                 var valueToWrite = parentWritablePropertyName.Contains("WriteOnly")
                     ? AD.ummy(propertyType)
-                    : type.GetStaticPropertyValue(parentWritablePropertyName);
+                    : type.GetStaticPropertyValue(parentWritablePropertyName, BindingFlagsFor.AllDeclaredAndInheritedMembers);
 
                 propertyNameToValueToWriteMap.Add(parentWritablePropertyName, valueToWrite);
             }
@@ -1393,7 +1393,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             {
                 var valueToWrite = propertyNameToValueToWriteMap[parentWritablePropertyName];
 
-                type.SetStaticPropertyValue(parentWritablePropertyName, valueToWrite);
+                type.SetStaticPropertyValue(parentWritablePropertyName, valueToWrite, BindingFlagsFor.AllDeclaredAndInheritedMembers);
             }
 
             // Assert
@@ -1409,7 +1409,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             var notWritableProperties = GetParentWritablePropertyNames();
 
             // Act
-            var actual = notWritableProperties.Select(_ => Record.Exception(() => type.SetStaticPropertyValue(_, AD.ummy(type.GetPropertyInfo(_).PropertyType), BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
+            var actual = notWritableProperties.Select(_ => Record.Exception(() => type.SetStaticPropertyValue(_, AD.ummy(type.GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers).PropertyType), BindingFlagsFor.AllDeclaredAndInheritedMembers))).ToList();
 
             // Assert
             actual.AsTest().Must().Each().BeOfType<ArgumentException>();

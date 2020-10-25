@@ -31,7 +31,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// Gets the name of all of the properties.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
+        /// <param name="bindingFlags">Binding flags to use when searching.  See <see cref="BindingFlagsFor" /> for commonly-used binding flags.</param>
         /// <returns>
         /// The property names.
         /// </returns>
@@ -39,7 +39,7 @@ namespace OBeautifulCode.Reflection.Recipes
         [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
         public static IReadOnlyCollection<string> GetPropertyNames(
             this Type type,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
+            BindingFlags bindingFlags)
         {
             if (type == null)
             {
@@ -58,7 +58,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="propertyName">The name of the property.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
+        /// <param name="bindingFlags">Binding flags to use when searching.  See <see cref="BindingFlagsFor" /> for commonly-used binding flags.</param>
         /// <returns>
         /// The <see cref="PropertyInfo"/>.
         /// </returns>
@@ -71,7 +71,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static PropertyInfo GetPropertyInfo(
             this Type type,
             string propertyName,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
+            BindingFlags bindingFlags)
         {
             if (type == null)
             {
@@ -113,7 +113,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <typeparam name="T">The type of the property.</typeparam>
         /// <param name="item">The object.</param>
         /// <param name="propertyName">The name of the property.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
+        /// <param name="bindingFlags">Binding flags to use when searching.  See <see cref="BindingFlagsFor" /> for commonly-used binding flags.</param>
         /// <returns>
         /// The value of the property.
         /// </returns>
@@ -128,7 +128,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static T GetPropertyValue<T>(
             this object item,
             string propertyName,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
+            BindingFlags bindingFlags)
         {
             if (item == null)
             {
@@ -149,7 +149,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// </summary>
         /// <param name="item">The object.</param>
         /// <param name="propertyName">The name of the property.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
+        /// <param name="bindingFlags">Binding flags to use when searching.  See <see cref="BindingFlagsFor" /> for commonly-used binding flags.</param>
         /// <returns>
         /// The value of the property.
         /// </returns>
@@ -163,7 +163,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static object GetPropertyValue(
             this object item,
             string propertyName,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
+            BindingFlags bindingFlags)
         {
             if (item == null)
             {
@@ -183,7 +183,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <typeparam name="T">The type of the property.</typeparam>
         /// <param name="type">The type that contains the property.</param>
         /// <param name="propertyName">The name of the property.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedStaticMembers"/>.</param>
+        /// <param name="bindingFlags">Binding flags to use when searching.  See <see cref="BindingFlagsFor" /> for commonly-used binding flags.</param>
         /// <returns>
         /// The value of the property.
         /// </returns>
@@ -199,7 +199,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static T GetStaticPropertyValue<T>(
             this Type type,
             string propertyName,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedStaticMembers)
+            BindingFlags bindingFlags)
         {
             if (type == null)
             {
@@ -229,7 +229,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// </summary>
         /// <param name="type">The type that contains the property.</param>
         /// <param name="propertyName">The name of the property.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedStaticMembers"/>.</param>
+        /// <param name="bindingFlags">Binding flags to use when searching.  See <see cref="BindingFlagsFor" /> for commonly-used binding flags.</param>
         /// <returns>
         /// The value of the property.
         /// </returns>
@@ -244,7 +244,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static object GetStaticPropertyValue(
             this Type type,
             string propertyName,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedStaticMembers)
+            BindingFlags bindingFlags)
         {
             if (type == null)
             {
@@ -272,7 +272,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// </summary>
         /// <param name="type">The type to check.</param>
         /// <param name="propertyName">The name of the property to check for.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
+        /// <param name="bindingFlags">Binding flags to use when searching.  See <see cref="BindingFlagsFor" /> for commonly-used binding flags.</param>
         /// <returns>
         /// true if the type has a property of the specified property name, false if not.
         /// </returns>
@@ -283,7 +283,7 @@ namespace OBeautifulCode.Reflection.Recipes
         public static bool HasProperty(
             this Type type,
             string propertyName,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
+            BindingFlags bindingFlags)
         {
             if (type == null)
             {
@@ -424,7 +424,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <param name="item">The object.</param>
         /// <param name="propertyName">The name of the property.</param>
         /// <param name="value">The value to set the property to.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedMembers"/>.</param>
+        /// <param name="bindingFlags">Binding flags to use when searching.  See <see cref="BindingFlagsFor" /> for commonly-used binding flags.</param>
         /// <exception cref="ArgumentNullException"><paramref name="item"/> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="propertyName"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="propertyName"/> is whitespace.</exception>
@@ -437,7 +437,7 @@ namespace OBeautifulCode.Reflection.Recipes
             this object item,
             string propertyName,
             object value,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedMembers)
+            BindingFlags bindingFlags)
         {
             if (item == null)
             {
@@ -457,7 +457,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <param name="type">The type that contains the property.</param>
         /// <param name="propertyName">The name of the property.</param>
         /// <param name="value">The value to set the property to.</param>
-        /// <param name="bindingFlags">OPTIONAL binding flags to use when searching.  DEFAULT is to filter to <see cref="BindingFlagsFor.AllDeclaredAndInheritedStaticMembers"/>.</param>
+        /// <param name="bindingFlags">Binding flags to use when searching.  See <see cref="BindingFlagsFor" /> for commonly-used binding flags.</param>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="propertyName"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="propertyName"/> is whitespace.</exception>
@@ -471,7 +471,7 @@ namespace OBeautifulCode.Reflection.Recipes
             this Type type,
             string propertyName,
             object value,
-            BindingFlags bindingFlags = BindingFlagsFor.AllDeclaredAndInheritedStaticMembers)
+            BindingFlags bindingFlags)
         {
             if (type == null)
             {
