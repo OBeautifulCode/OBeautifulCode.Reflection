@@ -24,6 +24,41 @@ namespace OBeautifulCode.Reflection.Recipes
     static partial class ReflectionHelper
     {
         /// <summary>
+        /// Gets the methods of the specified type,
+        /// with various options to control the scope of methods included and optionally order the methods.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="memberRelationships">OPTIONAL value that scopes the search for members based on their relationship to <paramref name="type"/>.  DEFAULT is to include the members declared in or inherited by the specified type.</param>
+        /// <param name="memberOwners">OPTIONAL value that scopes the search for members based on who owns the member.  DEFAULT is to include members owned by an object or owned by the type itself.</param>
+        /// <param name="memberAccessModifiers">OPTIONAL value that scopes the search for members based on access modifiers.  DEFAULT is to include members having any supported access modifier.</param>
+        /// <param name="memberAttributes">OPTIONAL value that scopes the search for members based on the presence or absence of certain attributes on those members.  DEFAULT is to include members having or not having all special attributes.</param>
+        /// <param name="orderMembersBy">OPTIONAL value that specifies how to the members.  DEFAULT is return the members in no particular order.</param>
+        /// <returns>
+        /// The members in the specified order.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
+        public static IReadOnlyList<MethodInfo> GetMethodsFiltered(
+            this Type type,
+            MemberRelationships memberRelationships = MemberRelationships.DeclaredOrInherited,
+            MemberOwners memberOwners = MemberOwners.All,
+            MemberAccessModifiers memberAccessModifiers = MemberAccessModifiers.All,
+            MemberAttributes memberAttributes = MemberAttributes.All,
+            OrderMembersBy orderMembersBy = OrderMembersBy.None)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            var result = type
+                .GetMembersFiltered(memberRelationships, memberOwners, MemberMutability.All, memberAccessModifiers, MemberKinds.Method, memberAttributes, orderMembersBy)
+                .Cast<MethodInfo>()
+                .ToList();
+
+            return result;
+        }
+
+        /// <summary>
         /// Gets the specified interface type's methods along with the methods of all implemented interfaces.
         /// </summary>
         /// <param name="interfaceType">The type of the interface.</param>

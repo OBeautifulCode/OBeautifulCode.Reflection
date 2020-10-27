@@ -28,6 +28,43 @@ namespace OBeautifulCode.Reflection.Recipes
     static partial class ReflectionHelper
     {
         /// <summary>
+        /// Gets the fields of the specified type,
+        /// with various options to control the scope of fields included and optionally order the fields.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="memberRelationships">OPTIONAL value that scopes the search for members based on their relationship to <paramref name="type"/>.  DEFAULT is to include the members declared in or inherited by the specified type.</param>
+        /// <param name="memberOwners">OPTIONAL value that scopes the search for members based on who owns the member.  DEFAULT is to include members owned by an object or owned by the type itself.</param>
+        /// <param name="memberMutability">OPTIONAL value that scopes the search for members based on mutability.  DEFAULT is to include members where mutability is not applicable and where applicable, include members with any kind of mutability.</param>
+        /// <param name="memberAccessModifiers">OPTIONAL value that scopes the search for members based on access modifiers.  DEFAULT is to include members having any supported access modifier.</param>
+        /// <param name="memberAttributes">OPTIONAL value that scopes the search for members based on the presence or absence of certain attributes on those members.  DEFAULT is to include members having or not having all special attributes.</param>
+        /// <param name="orderMembersBy">OPTIONAL value that specifies how to the members.  DEFAULT is return the members in no particular order.</param>
+        /// <returns>
+        /// The members in the specified order.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
+        public static IReadOnlyList<FieldInfo> GetFieldsFiltered(
+            this Type type,
+            MemberRelationships memberRelationships = MemberRelationships.DeclaredOrInherited,
+            MemberOwners memberOwners = MemberOwners.All,
+            MemberMutability memberMutability = MemberMutability.All,
+            MemberAccessModifiers memberAccessModifiers = MemberAccessModifiers.All,
+            MemberAttributes memberAttributes = MemberAttributes.All,
+            OrderMembersBy orderMembersBy = OrderMembersBy.None)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            var result = type
+                .GetMembersFiltered(memberRelationships, memberOwners, memberMutability, memberAccessModifiers, MemberKinds.Field, memberAttributes, orderMembersBy)
+                .Cast<FieldInfo>()
+                .ToList();
+
+            return result;
+        }
+
+        /// <summary>
         /// Determines if a type has a field of the specified field name.
         /// </summary>
         /// <param name="type">The type to check.</param>
