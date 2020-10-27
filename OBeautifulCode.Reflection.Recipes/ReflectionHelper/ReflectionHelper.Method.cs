@@ -51,7 +51,7 @@ namespace OBeautifulCode.Reflection.Recipes
             }
 
             var result = type
-                .GetMembersFiltered(memberRelationships, memberOwners, MemberMutability.All, memberAccessModifiers, MemberKinds.Method, memberAttributes, orderMembersBy)
+                .GetMembersFiltered(memberRelationships, memberOwners, memberAccessModifiers, MemberKinds.Method, MemberMutability.All, memberAttributes, orderMembersBy)
                 .Cast<MethodInfo>()
                 .ToList();
 
@@ -80,10 +80,7 @@ namespace OBeautifulCode.Reflection.Recipes
                 throw new ArgumentException(Invariant($"{nameof(interfaceType)} is not an interface type."));
             }
 
-            var result = interfaceType
-                .GetMembersFiltered(MemberRelationships.DeclaredInTypeOrImplementedInterfaces, memberKinds: MemberKinds.Method)
-                .Cast<MethodInfo>()
-                .ToList();
+            var result = interfaceType.GetMethodsFiltered(MemberRelationships.DeclaredInTypeOrImplementedInterfaces).ToList();
 
             return result;
         }

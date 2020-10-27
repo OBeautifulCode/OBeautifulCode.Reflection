@@ -49,7 +49,7 @@ namespace OBeautifulCode.Reflection.Recipes
             }
 
             var result = type
-                .GetMembersFiltered(memberRelationships, memberOwners, MemberMutability.All, memberAccessModifiers, MemberKinds.Constructor, memberAttributes, orderMembersBy)
+                .GetMembersFiltered(memberRelationships, memberOwners, memberAccessModifiers, MemberKinds.Constructor, MemberMutability.All, memberAttributes, orderMembersBy)
                 .Cast<ConstructorInfo>()
                 .ToList();
 
