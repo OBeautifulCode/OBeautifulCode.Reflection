@@ -36,7 +36,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <param name="memberOwners">OPTIONAL value that scopes the search for members based on who owns the member.  DEFAULT is to include members owned by an object or owned by the type itself.</param>
         /// <param name="memberAccessModifiers">OPTIONAL value that scopes the search for members based on access modifiers.  DEFAULT is to include members having any supported access modifier.</param>
         /// <param name="memberMutability">OPTIONAL value that scopes the search for members based on mutability.  DEFAULT is to include members where mutability is not applicable and where applicable, include members with any kind of mutability.</param>
-        /// <param name="memberAttributes">OPTIONAL value that scopes the search for members based on the presence or absence of certain attributes on those members.  DEFAULT is to include members having or not having all special attributes.</param>
+        /// <param name="memberAttributes">OPTIONAL value that scopes the search for members based on the presence or absence of certain attributes on those members.  DEFAULT is to include members that are not compiler generated.</param>
         /// <param name="orderMembersBy">OPTIONAL value that specifies how to the members.  DEFAULT is return the members in no particular order.</param>
         /// <returns>
         /// The fields in the specified order.
@@ -48,7 +48,7 @@ namespace OBeautifulCode.Reflection.Recipes
             MemberOwners memberOwners = MemberOwners.All,
             MemberAccessModifiers memberAccessModifiers = MemberAccessModifiers.All,
             MemberMutability memberMutability = MemberMutability.All,
-            MemberAttributes memberAttributes = MemberAttributes.All,
+            MemberAttributes memberAttributes = MemberAttributes.NotCompilerGenerated,
             OrderMembersBy orderMembersBy = OrderMembersBy.None)
         {
             if (type == null)

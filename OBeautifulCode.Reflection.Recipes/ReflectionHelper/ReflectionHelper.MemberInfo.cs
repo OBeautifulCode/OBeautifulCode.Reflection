@@ -39,7 +39,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <param name="memberAccessModifiers">OPTIONAL value that scopes the search for members based on access modifiers.  DEFAULT is to include members having any supported access modifier.</param>
         /// <param name="memberKinds">OPTIONAL value that scopes the search for members based on the kind of member.  DEFAULT is to include all kinds of members.</param>
         /// <param name="memberMutability">OPTIONAL value that scopes the search for members based on mutability.  DEFAULT is to include members where mutability is not applicable and where applicable, include members with any kind of mutability.</param>
-        /// <param name="memberAttributes">OPTIONAL value that scopes the search for members based on the presence or absence of certain attributes on those members.  DEFAULT is to include members having or not having all special attributes.</param>
+        /// <param name="memberAttributes">OPTIONAL value that scopes the search for members based on the presence or absence of certain attributes on those members.  DEFAULT is to include members that are not compiler generated.</param>
         /// <param name="orderMembersBy">OPTIONAL value that specifies how to the members.  DEFAULT is return the members in no particular order.</param>
         /// <returns>
         /// The members in the specified order.
@@ -52,7 +52,7 @@ namespace OBeautifulCode.Reflection.Recipes
             MemberAccessModifiers memberAccessModifiers = MemberAccessModifiers.All,
             MemberKinds memberKinds = MemberKinds.All,
             MemberMutability memberMutability = MemberMutability.All,
-            MemberAttributes memberAttributes = MemberAttributes.All,
+            MemberAttributes memberAttributes = MemberAttributes.NotCompilerGenerated,
             OrderMembersBy orderMembersBy = OrderMembersBy.None)
         {
             if (type == null)
@@ -62,9 +62,9 @@ namespace OBeautifulCode.Reflection.Recipes
 
             var result = type
                 .GetMembersHavingRelationshipsAndOwners(memberRelationships, memberOwners)
-                .FilterMembersHavingMutability(memberMutability)
-                .FilterMembersHavingAccessModifiers(memberAccessModifiers)
                 .FilterMembersHavingKinds(memberKinds)
+                .FilterMembersHavingAccessModifiers(memberAccessModifiers)
+                .FilterMembersHavingMutability(memberMutability)
                 .FilterMembersHavingAttributes(memberAttributes)
                 .OrderMembers(type, orderMembersBy);
 
@@ -360,7 +360,8 @@ namespace OBeautifulCode.Reflection.Recipes
                                         (memberKinds.HasFlag(MemberKinds.Event) && (member.MemberType == MemberTypes.Event)) ||
                                         (memberKinds.HasFlag(MemberKinds.Field) && (member.MemberType == MemberTypes.Field)) ||
                                         (memberKinds.HasFlag(MemberKinds.Method) && (member.MemberType == MemberTypes.Method)) ||
-                                        (memberKinds.HasFlag(MemberKinds.Property) && (member.MemberType == MemberTypes.Property));
+                                        (memberKinds.HasFlag(MemberKinds.Property) && (member.MemberType == MemberTypes.Property)) ||
+                                        (memberKinds.HasFlag(MemberKinds.NestedType) && (member.MemberType == MemberTypes.NestedType));
 
                     if (includeMember)
                     {
@@ -494,9 +495,55 @@ namespace OBeautifulCode.Reflection.Recipes
             {
                 result = eventInfo.GetAccessModifier();
             }
+            else if ((memberInfo is Type nestedType) && (nestedType.IsNested))
+            {
+                result = nestedType.GetAccessModifier();
+            }
             else
             {
                 throw new InvalidOperationException(Invariant($"This {nameof(MemberInfo)} type was not expected: {memberInfo.GetType().ToStringReadable()}."));
+            }
+
+            return result;
+        }
+
+        private static AccessModifier GetAccessModifier(
+            this Type type)
+        {
+            AccessModifier result;
+
+            if (!type.IsNested)
+            {
+                throw new InvalidOperationException(Invariant($"Type must be a nested type: {type.ToStringReadable()}"));
+            }
+
+            if (type.IsNestedPrivate)
+            {
+                result = AccessModifier.Private;
+            }
+            else if (type.IsNestedFamANDAssem)
+            {
+                result = AccessModifier.PrivateProtected;
+            }
+            else if (type.IsNestedFamily)
+            {
+                result = AccessModifier.Protected;
+            }
+            else if (type.IsNestedFamORAssem)
+            {
+                result = AccessModifier.ProtectedInternal;
+            }
+            else if (type.IsNestedAssembly)
+            {
+                result = AccessModifier.Internal;
+            }
+            else if (type.IsNestedPublic)
+            {
+                result = AccessModifier.Public;
+            }
+            else
+            {
+                throw new InvalidOperationException(Invariant($"Could not determine the access modifier for nested type: {type}."));
             }
 
             return result;

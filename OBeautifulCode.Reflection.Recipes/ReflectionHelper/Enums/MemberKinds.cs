@@ -54,8 +54,13 @@ namespace OBeautifulCode.Reflection.Recipes
         Event = 16,
 
         /// <summary>
+        /// Include nested types.
+        /// </summary>
+        NestedType = 32,
+
+        /// <summary>
         /// Include all kinds of members.
         /// </summary>
-        All = Field | Property | Constructor | Method | Event,
+        All = Field | Property | Constructor | Method | Event | NestedType,
     }
 }
