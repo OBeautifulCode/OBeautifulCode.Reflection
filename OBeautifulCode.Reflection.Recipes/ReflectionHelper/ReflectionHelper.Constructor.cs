@@ -32,7 +32,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <param name="memberAttributes">OPTIONAL value that scopes the search for members based on the presence or absence of certain attributes on those members.  DEFAULT is to include members having or not having all special attributes.</param>
         /// <param name="orderMembersBy">OPTIONAL value that specifies how to the members.  DEFAULT is return the members in no particular order.</param>
         /// <returns>
-        /// The members in the specified order.
+        /// The constructors in the specified order.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
         public static IReadOnlyList<ConstructorInfo> GetConstructorsFiltered(
