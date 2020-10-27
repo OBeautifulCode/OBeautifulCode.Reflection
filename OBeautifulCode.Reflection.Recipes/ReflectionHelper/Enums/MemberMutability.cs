@@ -10,11 +10,15 @@
 namespace OBeautifulCode.Reflection.Recipes
 {
     using global::System;
+    using global::System.Diagnostics.CodeAnalysis;
+
+    using OBeautifulCode.CodeAnalysis.Recipes;
 
     /// <summary>
     /// Scopes the search for members based on mutability.
     /// </summary>
     [Flags]
+    [SuppressMessage("Microsoft.Naming", "CA1714:FlagsEnumsShouldHavePluralNames", Justification = ObcSuppressBecause.CA1714_FlagsEnumsShouldHavePluralNames_TheNameIsPlural)]
 #if !OBeautifulCodeReflectionSolution
     [global::System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Reflection.Recipes", "See package version number")]
     internal
