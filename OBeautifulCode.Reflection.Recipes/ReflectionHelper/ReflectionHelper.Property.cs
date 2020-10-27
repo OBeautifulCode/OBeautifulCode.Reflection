@@ -315,12 +315,53 @@ namespace OBeautifulCode.Reflection.Recipes
         }
 
         /// <summary>
+        /// Determines if the specified property is not writable (is read-only).
+        /// </summary>
+        /// <param name="propertyInfo">The property.</param>
+        /// <returns>
+        /// true if the specified property is not writable, otherwise false.
+        /// </returns>
+        public static bool IsNotWritableProperty(
+            this PropertyInfo propertyInfo)
+        {
+            if (propertyInfo == null)
+            {
+                throw new ArgumentNullException(nameof(propertyInfo));
+            }
+
+            var result = propertyInfo.IsReadOnlyProperty();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Determines if the specified property is not readable (is write-only).
+        /// </summary>
+        /// <param name="propertyInfo">The property.</param>
+        /// <returns>
+        /// true if the specified property is not readable, otherwise false.
+        /// </returns>
+        public static bool IsNotReadableProperty(
+            this PropertyInfo propertyInfo)
+        {
+            if (propertyInfo == null)
+            {
+                throw new ArgumentNullException(nameof(propertyInfo));
+            }
+
+            var result = propertyInfo.IsWriteOnlyProperty();
+
+            return result;
+        }
+
+        /// <summary>
         /// Determines if the specified property is readable (has a getter).
         /// </summary>
         /// <param name="propertyInfo">The property.</param>
         /// <returns>
         /// true if the specified property is readable, otherwise false.
         /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="propertyInfo"/> is null.</exception>
         public static bool IsReadableProperty(
             this PropertyInfo propertyInfo)
         {
@@ -341,6 +382,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <returns>
         /// true if the specified property is read-only, otherwise false.
         /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="propertyInfo"/> is null.</exception>
         public static bool IsReadOnlyProperty(
             this PropertyInfo propertyInfo)
         {
@@ -362,6 +404,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <returns>
         /// true if the specified property is a read-only auto-property, otherwise false.
         /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="propertyInfo"/> is null.</exception>
         public static bool IsReadOnlyAutoProperty(
             this PropertyInfo propertyInfo)
         {
@@ -385,6 +428,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <returns>
         /// true if the specified property is writable, otherwise false.
         /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="propertyInfo"/> is null.</exception>
         public static bool IsWritableProperty(
             this PropertyInfo propertyInfo)
         {
@@ -405,6 +449,7 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <returns>
         /// true if the specified property is write-only, otherwise false.
         /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="propertyInfo"/> is null.</exception>
         public static bool IsWriteOnlyProperty(
             this PropertyInfo propertyInfo)
         {

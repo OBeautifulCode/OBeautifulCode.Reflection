@@ -895,6 +895,80 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         }
 
         [Fact]
+        public static void IsNotWritableProperty___Should_throw_ArgumentNullException___When_parameter_propertyInfo_is_null()
+        {
+            // Arrange, Act
+            var actual = Record.Exception(() => ReflectionHelper.IsNotWritableProperty(null));
+
+            // Assert
+            actual.AsTest().Must().BeOfType<ArgumentNullException>();
+            actual.Message.AsTest().Must().ContainString("propertyInfo");
+        }
+
+        [Fact]
+        public static void IsNotWritableProperty___Should_return_false___When_property_is_writable()
+        {
+            // Arrange
+            var propertyNames = GetParentWritablePropertyNames();
+
+            // Act
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers).IsNotWritableProperty());
+
+            // Assert
+            actual.AsTest().Must().Each().BeFalse();
+        }
+
+        [Fact]
+        public static void IsNotWritableProperty___Should_return_true___When_property_is_not_writable()
+        {
+            // Arrange
+            var propertyNames = GetParentNotWritablePropertyNames();
+
+            // Act
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers).IsNotWritableProperty());
+
+            // Assert
+            actual.AsTest().Must().Each().BeTrue();
+        }
+
+        [Fact]
+        public static void IsNotReadableProperty___Should_throw_ArgumentNullException___When_parameter_propertyInfo_is_null()
+        {
+            // Arrange, Act
+            var actual = Record.Exception(() => ReflectionHelper.IsNotReadableProperty(null));
+
+            // Assert
+            actual.AsTest().Must().BeOfType<ArgumentNullException>();
+            actual.Message.AsTest().Must().ContainString("propertyInfo");
+        }
+
+        [Fact]
+        public static void IsNotReadableProperty___Should_return_false___When_property_is_readable()
+        {
+            // Arrange
+            var propertyNames = GetParentReadablePropertyNames();
+
+            // Act
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers).IsNotReadableProperty());
+
+            // Assert
+            actual.AsTest().Must().Each().BeFalse();
+        }
+
+        [Fact]
+        public static void IsNotReadableProperty___Should_return_true___When_property_is_not_readable()
+        {
+            // Arrange
+            var propertyNames = GetParentNotReadablePropertyNames();
+
+            // Act
+            var actual = propertyNames.Select(_ => typeof(ParentInstanceProperties).GetPropertyInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers).IsNotReadableProperty());
+
+            // Assert
+            actual.AsTest().Must().Each().BeTrue();
+        }
+
+        [Fact]
         public static void IsReadableProperty___Should_throw_ArgumentNullException___When_parameter_propertyInfo_is_null()
         {
             // Arrange, Act

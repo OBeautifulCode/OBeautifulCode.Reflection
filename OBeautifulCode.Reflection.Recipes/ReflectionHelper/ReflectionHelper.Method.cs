@@ -45,10 +45,9 @@ namespace OBeautifulCode.Reflection.Recipes
                 throw new ArgumentException(Invariant($"{nameof(interfaceType)} is not an interface type."));
             }
 
-            var result = new Type[0]
-                .Concat(new[] { interfaceType })
-                .Concat(interfaceType.GetInterfaces())
-                .SelectMany(_ => _.GetMethods(BindingFlagsFor.PublicDeclaredButNotInheritedInstanceMembers))
+            var result = interfaceType
+                .GetMembersFiltered(MemberRelationships.DeclaredInTypeOrImplementedInterfaces, memberKinds: MemberKinds.Method)
+                .Cast<MethodInfo>()
                 .ToList();
 
             return result;

@@ -315,6 +315,110 @@ namespace OBeautifulCode.Reflection.Recipes
         }
 
         /// <summary>
+        /// Determines if the specified field is const (not readonly).
+        /// </summary>
+        /// <param name="fieldInfo">The field.</param>
+        /// <returns>
+        /// true if the specified field is const (not readonly), otherwise false.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="fieldInfo"/> is null.</exception>
+        public static bool IsConstField(
+            this FieldInfo fieldInfo)
+        {
+            if (fieldInfo == null)
+            {
+                throw new ArgumentNullException(nameof(fieldInfo));
+            }
+
+            var result = fieldInfo.IsLiteral && (!fieldInfo.IsInitOnly);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Determines if the specified field is not writable (is readonly or const).
+        /// </summary>
+        /// <param name="fieldInfo">The field.</param>
+        /// <returns>
+        /// true if the specified field is not writable, otherwise false.
+        /// </returns>
+        public static bool IsNotWritableField(
+            this FieldInfo fieldInfo)
+        {
+            if (fieldInfo == null)
+            {
+                throw new ArgumentNullException(nameof(fieldInfo));
+            }
+
+            var result = fieldInfo.IsReadOnlyOrConstField();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Determines if the specified field is readonly (not const).
+        /// </summary>
+        /// <param name="fieldInfo">The field.</param>
+        /// <returns>
+        /// true if the specified field is readonly (not const), otherwise false.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="fieldInfo"/> is null.</exception>
+        public static bool IsReadOnlyField(
+            this FieldInfo fieldInfo)
+        {
+            if (fieldInfo == null)
+            {
+                throw new ArgumentNullException(nameof(fieldInfo));
+            }
+
+            var result = (!fieldInfo.IsLiteral) && fieldInfo.IsInitOnly;
+
+            return result;
+        }
+
+        /// <summary>
+        /// Determines if the specified field is readonly or const.
+        /// </summary>
+        /// <param name="fieldInfo">The field.</param>
+        /// <returns>
+        /// true if the specified field is readonly or const, otherwise false.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="fieldInfo"/> is null.</exception>
+        public static bool IsReadOnlyOrConstField(
+            this FieldInfo fieldInfo)
+        {
+            if (fieldInfo == null)
+            {
+                throw new ArgumentNullException(nameof(fieldInfo));
+            }
+
+            var result = fieldInfo.IsReadOnlyField() || fieldInfo.IsConstField();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Determines if the specified field is writable (not readonly and not const).
+        /// </summary>
+        /// <param name="fieldInfo">The field.</param>
+        /// <returns>
+        /// true if the specified field is writable, otherwise false.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="fieldInfo"/> is null.</exception>
+        public static bool IsWritableField(
+            this FieldInfo fieldInfo)
+        {
+            if (fieldInfo == null)
+            {
+                throw new ArgumentNullException(nameof(fieldInfo));
+            }
+
+            var result = !fieldInfo.IsReadOnlyOrConstField();
+
+            return result;
+        }
+
+        /// <summary>
         /// Sets a field's value.
         /// </summary>
         /// <param name="item">The object.</param>

@@ -127,8 +127,11 @@
     <Compile Include="ReflectionHelper\ReflectionHelperTest.Constructor.cs" />
     <Compile Include="ReflectionHelper\ReflectionHelperTest.Attribute.cs" />
     <Compile Include="ReflectionHelper\ReflectionHelperTest.Enum.cs" />
+    <Compile Include="ReflectionHelper\ReflectionHelperTest.MemberInfo.cs" />
+    <Compile Include="ReflectionHelper\ReflectionHelperTest.Field.cs" />
     <Compile Include="ReflectionHelper\ReflectionHelperTest.Property.cs" />
     <Compile Include="ReflectionHelper\ReflectionHelperTest.Method.cs" />
+    <Compile Include="TypesForTesting\FieldTestTypes.cs" />
     <Compile Include="TypesForTesting\PropertyTestTypes.cs" />
     <Compile Include="TypesForTesting\InterfaceTestTypes.cs" />
     <Compile Include="TypesForTesting\NullAndNotNullFields.cs" />

@@ -13,7 +13,7 @@ namespace OBeautifulCode.Reflection.Recipes
     /// Specifies how to order members in a method that returns members.
     /// </summary>
 #if !OBeautifulCodeReflectionSolution
-    [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Reflection.Recipes", "See package version number")]
+    [global::System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Reflection.Recipes", "See package version number")]
     internal
 #else
     public
@@ -31,9 +31,15 @@ namespace OBeautifulCode.Reflection.Recipes
         MemberName,
 
         /// <summary>
+        /// Order by the declaring type derivation path
+        /// (e.g. members declared in type.BaseType.BaseType, followed by type.BaseType, followed by the type itself).
+        /// </summary>
+        DeclaringTypeDerivationPath,
+
+        /// <summary>
         /// Order first by the declaring type derivation path
         /// (e.g. members declared in type.BaseType.BaseType, followed by type.BaseType, followed by the type itself)
-        /// and then by member name.
+        /// and then by member name within each of these.
         /// </summary>
         DeclaringTypeDerivationPathThenByMemberName,
     }
