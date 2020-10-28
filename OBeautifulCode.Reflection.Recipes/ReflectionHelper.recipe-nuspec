@@ -13,7 +13,7 @@
   </metadata>
   <files>
     <file src="ReflectionHelper\Enums\AccessModifier.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\AccessModifier.cs" />
-    <file src="ReflectionHelper\Enums\IncludeConstructorsWith.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\IncludeConstructorsWith.cs" />
+    <file src="ReflectionHelper\Enums\ConstructorsMatchedToPropertiesStrategy.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\ConstructorsMatchedToPropertiesStrategy.cs" />
     <file src="ReflectionHelper\Enums\MemberAccessModifiers.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\MemberAccessModifiers.cs" />
     <file src="ReflectionHelper\Enums\MemberAttributes.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\MemberAttributes.cs" />
     <file src="ReflectionHelper\Enums\MemberKinds.cs" target="content\net462\.recipes\OBeautifulCode.Reflection\MemberKinds.cs" />

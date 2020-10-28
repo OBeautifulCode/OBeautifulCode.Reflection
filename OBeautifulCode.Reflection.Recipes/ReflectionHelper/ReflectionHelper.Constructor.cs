@@ -143,10 +143,10 @@ namespace OBeautifulCode.Reflection.Recipes
         /// Finds constructors having parameters that correspond to a set of properties, matching on name (case-insensitive) and type.
         /// </summary>
         /// <param name="classType">The class type.</param>
-        /// <param name="properties">The properties.  A matching constructor will have a parameter that corresponds to each of these properties (by case-sensitive name and type).</param>
+        /// <param name="properties">The properties.</param>
+        /// <param name="matchStrategy">Determines which constructors will be deemed as matching.</param>
         /// <param name="memberAccessModifiers">OPTIONAL value that scopes the search for constructors based on access modifiers.  DEFAULT is to include public constructors.</param>
         /// <param name="memberRelationships">OPTIONAL value that scopes the search for constructors based on their relationship to <paramref name="classType"/>.  DEFAULT is to include constructors declared on the type.</param>
-        /// <param name="includeConstructorsWith">OPTIONAL value that specifies how to deal with constructors having extra parameters (parameter with no corresponding property).  DEFAULT is to include constructors where every property matches a constructor parameter and all extra constructor parameters, if there are any, have a default value.</param>
         /// <returns>
         /// The matching constructors, or an empty collection if there are no matches.
         /// </returns>
@@ -155,14 +155,14 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <exception cref="ArgumentNullException"><paramref name="properties"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="properties"/> has a null element.</exception>
         /// <exception cref="ArgumentException"><paramref name="properties"/> contains two or more members with the same name.</exception>
-        /// <exception cref="ArgumentException"><paramref name="includeConstructorsWith"/> is <see cref="IncludeConstructorsWith.Invalid"/>.</exception>
+        /// <exception cref="ArgumentException"><paramref name="matchStrategy"/> is <see cref="ConstructorsMatchedToPropertiesStrategy.Invalid"/>.</exception>
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = ObcSuppressBecause.CA1502_AvoidExcessiveComplexity_DisagreeWithAssessment)]
-        public static IReadOnlyCollection<ConstructorInfo> GetConstructorsMatchingOnProperties(
+        public static IReadOnlyCollection<ConstructorInfo> GetConstructorsMatchedToProperties(
             this Type classType,
             IReadOnlyList<PropertyInfo> properties,
+            ConstructorsMatchedToPropertiesStrategy matchStrategy,
             MemberAccessModifiers memberAccessModifiers = MemberAccessModifiers.Public,
-            MemberRelationships memberRelationships = MemberRelationships.DeclaredInType,
-            IncludeConstructorsWith includeConstructorsWith = IncludeConstructorsWith.ExtraParametersIfAnyHavingDefaultValues)
+            MemberRelationships memberRelationships = MemberRelationships.DeclaredInType)
         {
             if (classType == null)
             {
@@ -189,9 +189,9 @@ namespace OBeautifulCode.Reflection.Recipes
                 throw new ArgumentException(Invariant($"{nameof(properties)} contains two or more members with the same name."));
             }
 
-            if (includeConstructorsWith == IncludeConstructorsWith.Invalid)
+            if (matchStrategy == ConstructorsMatchedToPropertiesStrategy.Invalid)
             {
-                throw new ArgumentException(Invariant($"{nameof(includeConstructorsWith)} is {nameof(IncludeConstructorsWith.Invalid)}."));
+                throw new ArgumentException(Invariant($"{nameof(matchStrategy)} is {nameof(ConstructorsMatchedToPropertiesStrategy.Invalid)}."));
             }
 
             var constructors = classType.GetConstructorsFiltered(memberRelationships, MemberOwners.Instance, memberAccessModifiers);
@@ -227,18 +227,11 @@ namespace OBeautifulCode.Reflection.Recipes
 
             IReadOnlyCollection<ConstructorInfo> result;
 
-            if (includeConstructorsWith == IncludeConstructorsWith.ExtraParametersIfAny)
+            if (matchStrategy == ConstructorsMatchedToPropertiesStrategy.AllConstructorParametersHaveMatchingProperty)
             {
                 result = candidates;
             }
-            else if (includeConstructorsWith == IncludeConstructorsWith.ExtraParametersIfAnyHavingDefaultValues)
-            {
-                result = candidates
-                    .Where(_=> (_.GetParameters().Length == properties.Count) ||
-                               (_.GetParameters().Where(cp => !propertyNameToPropertyTypeMap.ContainsKey(cp.Name)).All(cp => cp.IsOptional)))
-                    .ToList();
-            }
-            else if (includeConstructorsWith == IncludeConstructorsWith.NoExtraParameters)
+            else if (matchStrategy == ConstructorsMatchedToPropertiesStrategy.AllConstructorParametersHaveMatchingPropertyWithNoUnmatchedProperties)
             {
                 result = candidates
                     .Where(_ => _.GetParameters().Length == properties.Count)
@@ -246,7 +239,7 @@ namespace OBeautifulCode.Reflection.Recipes
             }
             else
             {
-                throw new NotSupportedException(Invariant($"This {nameof(IncludeConstructorsWith)} is not supported: {includeConstructorsWith}."));
+                throw new NotSupportedException(Invariant($"This {nameof(ConstructorsMatchedToPropertiesStrategy)} is not supported: {matchStrategy}."));
             }
 
             return result;
