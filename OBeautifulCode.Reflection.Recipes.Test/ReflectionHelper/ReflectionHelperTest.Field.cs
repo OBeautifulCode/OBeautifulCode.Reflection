@@ -37,7 +37,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
                 nameof(FieldMutability.InstanceField),
                 nameof(FieldMutability.StaticField),
             }
-            .Select(_ => typeof(FieldMutability).GetFieldInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))
+            .Select(_ => typeof(FieldMutability).GetFieldFiltered(_))
             .ToList();
 
             // Act
@@ -55,7 +55,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             {
                 nameof(FieldMutability.ConstField),
             }
-            .Select(_ => typeof(FieldMutability).GetFieldInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))
+            .Select(_ => typeof(FieldMutability).GetFieldFiltered(_))
             .ToList();
 
             // Act
@@ -85,7 +85,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
                 nameof(FieldMutability.InstanceField),
                 nameof(FieldMutability.StaticField),
             }
-            .Select(_ => typeof(FieldMutability).GetFieldInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))
+            .Select(_ => typeof(FieldMutability).GetFieldFiltered(_))
             .ToList();
 
             // Act
@@ -105,7 +105,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
                 nameof(FieldMutability.ReadOnlyInstanceField),
                 nameof(FieldMutability.ReadOnlyStaticField),
             }
-            .Select(_ => typeof(FieldMutability).GetFieldInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))
+            .Select(_ => typeof(FieldMutability).GetFieldFiltered(_))
             .ToList();
 
             // Act
@@ -136,7 +136,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
                 nameof(FieldMutability.StaticField),
                 nameof(FieldMutability.ConstField),
             }
-            .Select(_ => typeof(FieldMutability).GetFieldInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))
+            .Select(_ => typeof(FieldMutability).GetFieldFiltered(_))
             .ToList();
 
             // Act
@@ -155,7 +155,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
                 nameof(FieldMutability.ReadOnlyInstanceField),
                 nameof(FieldMutability.ReadOnlyStaticField),
             }
-            .Select(_ => typeof(FieldMutability).GetFieldInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))
+            .Select(_ => typeof(FieldMutability).GetFieldFiltered(_))
             .ToList();
 
             // Act
@@ -185,7 +185,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
                 nameof(FieldMutability.InstanceField),
                 nameof(FieldMutability.StaticField),
             }
-            .Select(_ => typeof(FieldMutability).GetFieldInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))
+            .Select(_ => typeof(FieldMutability).GetFieldFiltered(_))
             .ToList();
 
             // Act
@@ -205,7 +205,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
                 nameof(FieldMutability.ReadOnlyInstanceField),
                 nameof(FieldMutability.ReadOnlyStaticField),
             }
-            .Select(_ => typeof(FieldMutability).GetFieldInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))
+            .Select(_ => typeof(FieldMutability).GetFieldFiltered(_))
             .ToList();
 
             // Act
@@ -236,7 +236,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
                 nameof(FieldMutability.ReadOnlyInstanceField),
                 nameof(FieldMutability.ReadOnlyStaticField),
             }
-            .Select(_ => typeof(FieldMutability).GetFieldInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))
+            .Select(_ => typeof(FieldMutability).GetFieldFiltered(_))
             .ToList();
 
             // Act
@@ -255,7 +255,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
                 nameof(FieldMutability.InstanceField),
                 nameof(FieldMutability.StaticField),
             }
-            .Select(_ => typeof(FieldMutability).GetFieldInfo(_, BindingFlagsFor.AllDeclaredAndInheritedMembers))
+            .Select(_ => typeof(FieldMutability).GetFieldFiltered(_))
             .ToList();
 
             // Act
