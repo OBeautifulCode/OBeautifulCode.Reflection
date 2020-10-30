@@ -11,11 +11,9 @@ namespace OBeautifulCode.Reflection.Recipes
 {
     using global::System;
     using global::System.Collections.Generic;
-    using global::System.Diagnostics.CodeAnalysis;
     using global::System.Linq;
     using global::System.Reflection;
 
-    using OBeautifulCode.CodeAnalysis.Recipes;
     using OBeautifulCode.Type.Recipes;
 
     using static global::System.FormattableString;
@@ -82,7 +80,6 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <exception cref="ArgumentException"><paramref name="propertyName"/> is whitespace.</exception>
         /// <exception cref="ArgumentException">There is no property named <paramref name="propertyName"/> on the object type using the specified binding constraints.</exception>
         /// <exception cref="ArgumentException">There is more than one property named <paramref name="propertyName"/> on the object type using the specified binding constraints.</exception>
-        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
         public static PropertyInfo GetPropertyFiltered(
             this Type type,
             string propertyName,
@@ -149,7 +146,6 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <exception cref="ArgumentException">There is more than one property named <paramref name="propertyName"/> on the object type using the specified binding constraints.</exception>
         /// <exception cref="ArgumentException">The property does not have a get method.</exception>
         /// <exception cref="InvalidCastException">The property is not of the specified type.</exception>
-        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
         public static T GetPropertyValue<T>(
             this object item,
             string propertyName,
@@ -192,7 +188,6 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <exception cref="ArgumentException">There is no property named <paramref name="propertyName"/> on the object type using the specified binding constraints.</exception>
         /// <exception cref="ArgumentException">There is more than one property named <paramref name="propertyName"/> on the object type using the specified binding constraints.</exception>
         /// <exception cref="ArgumentException">The property does not have a get method.</exception>
-        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
         public static object GetPropertyValue(
             this object item,
             string propertyName,
@@ -234,7 +229,6 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <exception cref="ArgumentException">There is more than one property named <paramref name="propertyName"/> on type <paramref name="type"/> using the specified binding constraints.</exception>
         /// <exception cref="ArgumentException">The property does not have a get method.</exception>
         /// <exception cref="InvalidCastException">The property is not of the specified type.</exception>
-        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
         public static T GetStaticPropertyValue<T>(
             this Type type,
             string propertyName,
@@ -275,7 +269,6 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <exception cref="ArgumentException">There is no property named <paramref name="propertyName"/> on type <paramref name="type"/> using the specified binding constraints.</exception>
         /// <exception cref="ArgumentException">There is more than one property named <paramref name="propertyName"/> on type <paramref name="type"/> using the specified binding constraints.</exception>
         /// <exception cref="ArgumentException">The property does not have a get method.</exception>
-        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
         public static object GetStaticPropertyValue(
             this Type type,
             string propertyName,
@@ -312,7 +305,6 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="propertyName"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="propertyName"/> is whitespace.</exception>
-        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
         public static bool HasProperty(
             this Type type,
             string propertyName,
@@ -515,7 +507,6 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <exception cref="ArgumentException">There is more than one property named <paramref name="propertyName"/> on the object type using the specified binding constraints.</exception>
         /// <exception cref="InvalidCastException">Unable to assign null to the property's type.</exception>
         /// <exception cref="InvalidCastException">Unable to assign <paramref name="value"/> type to the property's type.</exception>
-        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
         public static void SetPropertyValue(
             this object item,
             string propertyName,
@@ -555,7 +546,6 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <exception cref="ArgumentException">There is more than one property named <paramref name="propertyName"/> on type <paramref name="type"/> using the specified binding constraints.</exception>
         /// <exception cref="InvalidCastException">Unable to assign null to the property's type.</exception>
         /// <exception cref="InvalidCastException">Unable to assign <paramref name="value"/> type to the property's type.</exception>
-        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags", Justification = ObcSuppressBecause.CA1726_UsePreferredTerms_NameOfTypeOfIdentifierUsesTheTermFlags)]
         public static void SetStaticPropertyValue(
             this Type type,
             string propertyName,
