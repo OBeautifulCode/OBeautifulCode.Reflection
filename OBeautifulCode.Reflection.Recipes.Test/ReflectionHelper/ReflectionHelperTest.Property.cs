@@ -81,6 +81,9 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
             // Assert
             actuals1.AsTest().Must().Each().BeOfType<ArgumentException>();
+            actuals2.AsTest().Must().Each().BeOfType<ArgumentException>();
+
+            actuals1.Select(_ => _.Message).AsTest().Must().Each().ContainString("There is no property named");
             actuals2.Select(_ => _.Message).AsTest().Must().Each().ContainString("There is no property named");
         }
 
@@ -102,6 +105,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
             // Assert
             actuals1.AsTest().Must().Each().BeNull();
+            actuals2.AsTest().Must().Each().BeNull();
         }
 
         [Fact(Skip = "Test using these ideas: https://stackoverflow.com/questions/64487350/is-it-possible-to-create-a-type-with-two-properties-having-the-same-name/64488044#64488044")]
@@ -195,6 +199,8 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
             // Assert
             actuals1.AsTest().Must().Each().BeOfType<ArgumentException>();
+            actuals2.AsTest().Must().Each().BeOfType<ArgumentException>();
+            actuals1.Select(_ => _.Message).AsTest().Must().Each().ContainString("There is no property named");
             actuals2.Select(_ => _.Message).AsTest().Must().Each().ContainString("There is no property named");
         }
 
@@ -376,6 +382,8 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
             // Assert
             actuals1.AsTest().Must().Each().BeOfType<ArgumentException>();
+            actuals2.AsTest().Must().Each().BeOfType<ArgumentException>();
+            actuals1.Select(_ => _.Message).AsTest().Must().Each().ContainString("There is no property named");
             actuals2.Select(_ => _.Message).AsTest().Must().Each().ContainString("There is no property named");
         }
 
@@ -1198,6 +1206,8 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
             // Assert
             actuals1.AsTest().Must().Each().BeOfType<ArgumentException>();
+            actuals2.AsTest().Must().Each().BeOfType<ArgumentException>();
+            actuals1.Select(_ => _.Message).AsTest().Must().Each().ContainString("There is no property named");
             actuals2.Select(_ => _.Message).AsTest().Must().Each().ContainString("There is no property named");
         }
 
