@@ -72,13 +72,14 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <param name="memberAccessModifiers">OPTIONAL value that scopes the search for members based on access modifiers.  DEFAULT is to include members having any supported access modifier.</param>
         /// <param name="memberMutability">OPTIONAL value that scopes the search for members based on mutability.  DEFAULT is to include members where mutability is not applicable and where applicable, include members with any kind of mutability.</param>
         /// <param name="memberAttributes">OPTIONAL value that scopes the search for members based on the presence or absence of certain attributes on those members.  DEFAULT is to include members that are not compiler generated.</param>
+        /// <param name="throwIfNotFound">OPTIONAL value indicating whether to throw if no properties are found.  DEFAULT is to throw..</param>
         /// <returns>
-        /// The <see cref="PropertyInfo"/>.
+        /// The <see cref="PropertyInfo"/> or null if no properties are found and <paramref name="throwIfNotFound"/> is false
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="propertyName"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="propertyName"/> is whitespace.</exception>
-        /// <exception cref="ArgumentException">There is no property named <paramref name="propertyName"/> on the object type using the specified binding constraints.</exception>
+        /// <exception cref="ArgumentException">There is no property named <paramref name="propertyName"/> on the object type using the specified binding constraints and <paramref name="throwIfNotFound"/> is true.</exception>
         /// <exception cref="ArgumentException">There is more than one property named <paramref name="propertyName"/> on the object type using the specified binding constraints.</exception>
         public static PropertyInfo GetPropertyFiltered(
             this Type type,
@@ -87,7 +88,8 @@ namespace OBeautifulCode.Reflection.Recipes
             MemberOwners memberOwners = MemberOwners.All,
             MemberAccessModifiers memberAccessModifiers = MemberAccessModifiers.All,
             MemberMutability memberMutability = MemberMutability.All,
-            MemberAttributes memberAttributes = MemberAttributes.NotCompilerGenerated)
+            MemberAttributes memberAttributes = MemberAttributes.NotCompilerGenerated,
+            bool throwIfNotFound = true)
         {
             if (type == null)
             {
@@ -110,17 +112,27 @@ namespace OBeautifulCode.Reflection.Recipes
                 .Where(_ => _.Name == propertyName)
                 .ToList();
 
+            PropertyInfo result;
+
             if (!properties.Any())
             {
-                throw new ArgumentException(Invariant($"There is no property named '{propertyName}' on type '{type.ToStringReadable()}', using the specified binding constraints."));
+                if (throwIfNotFound)
+                {
+                    throw new ArgumentException(Invariant($"There is no property named '{propertyName}' on type '{type.ToStringReadable()}', using the specified binding constraints."));
+                }
+                else
+                {
+                    result = null;
+                }
             }
-
-            if (properties.Count > 1)
+            else if (properties.Count > 1)
             {
                 throw new ArgumentException(Invariant($"There is more than one property named '{propertyName}' on type '{type.ToStringReadable()}', using the specified binding constraints."));
             }
-
-            var result = properties.Single();
+            else
+            {
+                result = properties.Single();
+            }
 
             return result;
         }

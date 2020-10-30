@@ -96,13 +96,14 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <param name="memberOwners">OPTIONAL value that scopes the search for members based on who owns the member.  DEFAULT is to include members owned by an object or owned by the type itself.</param>
         /// <param name="memberAccessModifiers">OPTIONAL value that scopes the search for members based on access modifiers.  DEFAULT is to include members having any supported access modifier.</param>
         /// <param name="memberAttributes">OPTIONAL value that scopes the search for members based on the presence or absence of certain attributes on those members.  DEFAULT is to include members that are not compiler generated.</param>
+        /// <param name="throwIfNotFound">OPTIONAL value indicating whether to throw if no methods are found.  DEFAULT is to throw..</param>
         /// <returns>
-        /// The <see cref="MethodInfo"/>.
+        /// The <see cref="MethodInfo"/> or null if no methods are found and <paramref name="throwIfNotFound"/> is false
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="methodName"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="methodName"/> is whitespace.</exception>
-        /// <exception cref="ArgumentException">There is no method named <paramref name="methodName"/> on the object type using the specified binding constraints.</exception>
+        /// <exception cref="ArgumentException">There is no method named <paramref name="methodName"/> on the object type using the specified binding constraints and <paramref name="throwIfNotFound"/> is true.</exception>
         /// <exception cref="ArgumentException">There is more than one method named <paramref name="methodName"/> on the object type using the specified binding constraints.</exception>
         public static MethodInfo GetMethodFiltered(
             this Type type,
@@ -110,7 +111,8 @@ namespace OBeautifulCode.Reflection.Recipes
             MemberRelationships memberRelationships = MemberRelationships.DeclaredOrInherited,
             MemberOwners memberOwners = MemberOwners.All,
             MemberAccessModifiers memberAccessModifiers = MemberAccessModifiers.All,
-            MemberAttributes memberAttributes = MemberAttributes.NotCompilerGenerated)
+            MemberAttributes memberAttributes = MemberAttributes.NotCompilerGenerated,
+            bool throwIfNotFound = true)
         {
             if (type == null)
             {
@@ -133,17 +135,27 @@ namespace OBeautifulCode.Reflection.Recipes
                 .Where(_ => _.Name == methodName)
                 .ToList();
 
+            MethodInfo result;
+
             if (!methods.Any())
             {
-                throw new ArgumentException(Invariant($"There is no method named '{methodName}' on type '{type.ToStringReadable()}', using the specified binding constraints."));
+                if (throwIfNotFound)
+                {
+                    throw new ArgumentException(Invariant($"There is no method named '{methodName}' on type '{type.ToStringReadable()}', using the specified binding constraints."));
+                }
+                else
+                {
+                    result = null;
+                }
             }
-
-            if (methods.Count > 1)
+            else if (methods.Count > 1)
             {
                 throw new ArgumentException(Invariant($"There is more than one method named '{methodName}' on type '{type.ToStringReadable()}', using the specified binding constraints."));
             }
-
-            var result = methods.Single();
+            else
+            {
+                result = methods.Single();
+            }
 
             return result;
         }

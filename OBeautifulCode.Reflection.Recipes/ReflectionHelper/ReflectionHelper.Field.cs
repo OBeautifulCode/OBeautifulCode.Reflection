@@ -72,13 +72,14 @@ namespace OBeautifulCode.Reflection.Recipes
         /// <param name="memberAccessModifiers">OPTIONAL value that scopes the search for members based on access modifiers.  DEFAULT is to include members having any supported access modifier.</param>
         /// <param name="memberMutability">OPTIONAL value that scopes the search for members based on mutability.  DEFAULT is to include members where mutability is not applicable and where applicable, include members with any kind of mutability.</param>
         /// <param name="memberAttributes">OPTIONAL value that scopes the search for members based on the presence or absence of certain attributes on those members.  DEFAULT is to include members that are not compiler generated.</param>
+        /// <param name="throwIfNotFound">OPTIONAL value indicating whether to throw if no fields are found.  DEFAULT is to throw..</param>
         /// <returns>
-        /// The <see cref="FieldInfo"/>.
+        /// The <see cref="FieldInfo"/> or null if no fields are found and <paramref name="throwIfNotFound"/> is false.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="fieldName"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="fieldName"/> is whitespace.</exception>
-        /// <exception cref="ArgumentException">There is no field named <paramref name="fieldName"/> on the object type using the specified binding constraints.</exception>
+        /// <exception cref="ArgumentException">There is no field named <paramref name="fieldName"/> on the object type using the specified binding constraints and <paramref name="throwIfNotFound"/> is true.</exception>
         /// <exception cref="ArgumentException">There is more than one field named <paramref name="fieldName"/> on the object type using the specified binding constraints.</exception>
         public static FieldInfo GetFieldFiltered(
             this Type type,
@@ -87,7 +88,8 @@ namespace OBeautifulCode.Reflection.Recipes
             MemberOwners memberOwners = MemberOwners.All,
             MemberAccessModifiers memberAccessModifiers = MemberAccessModifiers.All,
             MemberMutability memberMutability = MemberMutability.All,
-            MemberAttributes memberAttributes = MemberAttributes.NotCompilerGenerated)
+            MemberAttributes memberAttributes = MemberAttributes.NotCompilerGenerated,
+            bool throwIfNotFound = true)
         {
             if (type == null)
             {
@@ -110,17 +112,27 @@ namespace OBeautifulCode.Reflection.Recipes
                 .Where(_ => _.Name == fieldName)
                 .ToList();
 
+            FieldInfo result;
+
             if (!fields.Any())
             {
-                throw new ArgumentException(Invariant($"There is no field named '{fieldName}' on type '{type.ToStringReadable()}', using the specified binding constraints."));
+                if (throwIfNotFound)
+                {
+                    throw new ArgumentException(Invariant($"There is no field named '{fieldName}' on type '{type.ToStringReadable()}', using the specified binding constraints."));
+                }
+                else
+                {
+                    result = null;
+                }
             }
-
-            if (fields.Count > 1)
+            else if (fields.Count > 1)
             {
                 throw new ArgumentException(Invariant($"There is more than one field named '{fieldName}' on type '{type.ToStringReadable()}', using the specified binding constraints."));
             }
-
-            var result = fields.Single();
+            else
+            {
+                result = fields.Single();
+            }
 
             return result;
         }

@@ -64,7 +64,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         }
 
         [Fact]
-        public static void GetPropertyFiltered___Should_throw_ArgumentException___When_property_does_not_exist()
+        public static void GetPropertyFiltered___Should_throw_ArgumentException___When_property_does_not_exist_and_throwIfNotFound_is_true()
         {
             // Arrange
             var parentType = typeof(ParentInstanceProperties);
@@ -82,6 +82,26 @@ namespace OBeautifulCode.Reflection.Recipes.Test
             // Assert
             actuals1.AsTest().Must().Each().BeOfType<ArgumentException>();
             actuals2.Select(_ => _.Message).AsTest().Must().Each().ContainString("There is no property named");
+        }
+
+        [Fact]
+        public static void GetPropertyFiltered___Should_return_null___When_property_does_not_exist_and_throwIfNotFound_is_false()
+        {
+            // Arrange
+            var parentType = typeof(ParentInstanceProperties);
+
+            var parentPropertyNamesThatDoNotExist = GetParentPropertyNamesThatDoNotExist();
+
+            var childType = typeof(ChildInstanceProperties);
+
+            var childPropertyNamesThatDoNotExist = GetChildPropertyNamesThatDoNotExist();
+
+            // Act
+            var actuals1 = parentPropertyNamesThatDoNotExist.Select(_ => parentType.GetPropertyFiltered(_, throwIfNotFound: false)).ToList();
+            var actuals2 = childPropertyNamesThatDoNotExist.Select(_ => childType.GetPropertyFiltered(_, throwIfNotFound: false)).ToList();
+
+            // Assert
+            actuals1.AsTest().Must().Each().BeNull();
         }
 
         [Fact(Skip = "Test using these ideas: https://stackoverflow.com/questions/64487350/is-it-possible-to-create-a-type-with-two-properties-having-the-same-name/64488044#64488044")]
