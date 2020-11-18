@@ -11,6 +11,8 @@ namespace OBeautifulCode.Reflection.Recipes.Test
 
     using FluentAssertions;
 
+    using OBeautifulCode.Assertion.Recipes;
+
     using Xunit;
 
     public static class AssemblyHelperTest
@@ -28,6 +30,8 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         private static readonly string FullQualifiedEmbeddedGzipTextFileName = typeof(AssemblyHelperTest).Namespace + "." + EmbeddedGzipTextFileName;
 
         private static readonly string FullQualifiedEmbeddedIcoFileName = typeof(AssemblyHelperTest).Namespace + "." + EmbeddedIcoFileName;
+
+        private static readonly byte[] EmbeddedTextFileBytes = new byte[] { 239, 187, 191, 116, 104, 105, 115, 32, 105, 115, 32, 97, 110, 32, 101, 109, 98, 101, 100, 100, 101, 100, 32, 116, 101, 120, 116, 32, 102, 105, 108, 101 };
 
         [Fact]
         public static void OpenEmbeddedResourceStream_without_assembly___Should_throw_ArgumentNullException___When_parameter_resourceName_is_null()
@@ -269,14 +273,14 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         }
 
         [Fact]
-        public static void ReadEmbeddedResourceString___Should_throw_ArgumentNullException___When_parameter_resourceName_is_null()
+        public static void ReadEmbeddedResourceAsString___Should_throw_ArgumentNullException___When_parameter_resourceName_is_null()
         {
             // Arrange, Act, Assert
             Assert.Throws<ArgumentNullException>(() => AssemblyHelper.ReadEmbeddedResourceAsString(null, false));
         }
 
         [Fact]
-        public static void ReadEmbeddedResourceString___Should_throw_ArgumentException___When_parameter_resourceName_is_white_space()
+        public static void ReadEmbeddedResourceAsString___Should_throw_ArgumentException___When_parameter_resourceName_is_white_space()
         {
             // Arrange, Act, Assert
             Assert.Throws<ArgumentException>(() => AssemblyHelper.ReadEmbeddedResourceAsString(string.Empty, false));
@@ -285,7 +289,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         }
 
         [Fact]
-        public static void ReadEmbeddedResourceString___Should_throw_InvalidOperationException___When_resource_does_not_exist()
+        public static void ReadEmbeddedResourceAsString___Should_throw_InvalidOperationException___When_resource_does_not_exist()
         {
             // Arrange
             string thisNamespace = typeof(AssemblyHelperTest).Namespace;
@@ -298,17 +302,17 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         }
 
         [Fact(Skip = "Not sure how to test this.")]
-        public static void ReadEmbeddedResourceString___Should_throw_InvalidOperationException___When_resource_is_not_an_embedded_resource()
+        public static void ReadEmbeddedResourceAsString___Should_throw_InvalidOperationException___When_resource_is_not_an_embedded_resource()
         {
         }
 
         [Fact(Skip = "Not practical to test, would have to create a massive file.")]
-        public static void ReadEmbeddedResourceString___Should_throw_NotImplementedException___When_resource_length_is_greater_than_Int64_MaxValue()
+        public static void ReadEmbeddedResourceAsString___Should_throw_NotImplementedException___When_resource_length_is_greater_than_Int64_MaxValue()
         {
         }
 
         [Fact]
-        public static void ReadEmbeddedResourceString___Should_return_embedded_resource_as_string___When_parameter_addCallerNamespace_is_false_and_embedded_resource_exists()
+        public static void ReadEmbeddedResourceAsString___Should_return_embedded_resource_as_string___When_parameter_addCallerNamespace_is_false_and_embedded_resource_exists()
         {
             // Arrange, Act
             string actual = AssemblyHelper.ReadEmbeddedResourceAsString(FullQualifiedEmbeddedTextFileName, false);
@@ -318,7 +322,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         }
 
         [Fact]
-        public static void ReadEmbeddedResourceString___Should_return_embedded_resource_as_string___When_parameter_addCallerNamespace_is_true_and_embedded_resource_exists()
+        public static void ReadEmbeddedResourceAsString___Should_return_embedded_resource_as_string___When_parameter_addCallerNamespace_is_true_and_embedded_resource_exists()
         {
             // Arrange, Act
             string actual = AssemblyHelper.ReadEmbeddedResourceAsString(EmbeddedTextFileName);
@@ -328,7 +332,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         }
 
         [Fact]
-        public static void ReadEmbeddedResourceString___Should_return_embedded_resource_as_string___When_resource_stream_is_already_open()
+        public static void ReadEmbeddedResourceAsString___Should_return_embedded_resource_as_string___When_resource_stream_is_already_open()
         {
             // Arrange, Act
             string actual;
@@ -346,7 +350,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         }
 
         [Fact]
-        public static void ReadEmbeddedResourceString___Should_return_embedded_resource_as_string___When_parameter_addCallerNamespace_is_false_and_embedded_resource_is_not_text()
+        public static void ReadEmbeddedResourceAsString___Should_return_embedded_resource_as_string___When_parameter_addCallerNamespace_is_false_and_embedded_resource_is_not_text()
         {
             // Arrange, Act
             string actual = AssemblyHelper.ReadEmbeddedResourceAsString(FullQualifiedEmbeddedIcoFileName, false);
@@ -356,7 +360,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         }
 
         [Fact]
-        public static void ReadEmbeddedResourceString___Should_return_embedded_resource_as_string___When_parameter_addCallerNamespace_is_true_and_embedded_resource_is_not_text()
+        public static void ReadEmbeddedResourceAsString___Should_return_embedded_resource_as_string___When_parameter_addCallerNamespace_is_true_and_embedded_resource_is_not_text()
         {
             // Arrange, Act
             string actual = AssemblyHelper.ReadEmbeddedResourceAsString(EmbeddedIcoFileName);
@@ -368,7 +372,7 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "gzip", Justification = "Spelling/name is correct.")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Gzip", Justification = "Spelling/name is correct.")]
         [Fact]
-        public static void ReadEmbeddedResourceString___Should_throw_InvalidDataException___When_resource_has_not_been_compressed_using_gzip_and_parameter_decompressionMethod_is_Gzip()
+        public static void ReadEmbeddedResourceAsString___Should_throw_InvalidDataException___When_resource_has_not_been_compressed_using_gzip_and_parameter_decompressionMethod_is_Gzip()
         {
             // Arrange, Act
             var ex = Record.Exception(() => AssemblyHelper.ReadEmbeddedResourceAsString(EmbeddedTextFileName, decompressionMethod: CompressionMethod.Gzip));
@@ -380,13 +384,136 @@ namespace OBeautifulCode.Reflection.Recipes.Test
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Gzip", Justification = "Spelling/name is correct.")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "gzip", Justification = "Spelling/name is correct.")]
         [Fact]
-        public static void ReadEmbeddedResourceString___Should_return_string_decompressed_from_embedded_resource___When_resource_has_been_compressed_using_gzip_and_parameter_decompressionMethod_is_Gzip()
+        public static void ReadEmbeddedResourceAsString___Should_return_string_decompressed_from_embedded_resource___When_resource_has_been_compressed_using_gzip_and_parameter_decompressionMethod_is_Gzip()
         {
             // Arrange, Act
             string actual = AssemblyHelper.ReadEmbeddedResourceAsString(EmbeddedGzipTextFileName, decompressionMethod: CompressionMethod.Gzip);
 
             // Assert
             actual.Should().Be(ExpectedTextFileContents);
+        }
+
+        [Fact]
+        public static void ReadEmbeddedResourceAsBytes___Should_throw_ArgumentNullException___When_parameter_resourceName_is_null()
+        {
+            // Arrange, Act, Assert
+            Assert.Throws<ArgumentNullException>(() => AssemblyHelper.ReadEmbeddedResourceAsBytes(null, false));
+        }
+
+        [Fact]
+        public static void ReadEmbeddedResourceAsBytes___Should_throw_ArgumentException___When_parameter_resourceName_is_white_space()
+        {
+            // Arrange, Act, Assert
+            Assert.Throws<ArgumentException>(() => AssemblyHelper.ReadEmbeddedResourceAsBytes(string.Empty, false));
+            Assert.Throws<ArgumentException>(() => AssemblyHelper.ReadEmbeddedResourceAsBytes("   ", false));
+            Assert.Throws<ArgumentException>(() => AssemblyHelper.ReadEmbeddedResourceAsBytes("  \r\n   ", false));
+        }
+
+        [Fact]
+        public static void ReadEmbeddedResourceAsBytes___Should_throw_InvalidOperationException___When_resource_does_not_exist()
+        {
+            // Arrange
+            string thisNamespace = typeof(AssemblyHelperTest).Namespace;
+            const string ResourceName1 = "NotThere";
+            string resourceName2 = thisNamespace + "EmbeddedTextFileE.txt";
+
+            // Act, Assert
+            Assert.Throws<InvalidOperationException>(() => AssemblyHelper.ReadEmbeddedResourceAsBytes(ResourceName1, false));
+            Assert.Throws<InvalidOperationException>(() => AssemblyHelper.ReadEmbeddedResourceAsBytes(resourceName2, false));
+        }
+
+        [Fact(Skip = "Not sure how to test this.")]
+        public static void ReadEmbeddedResourceAsBytes___Should_throw_InvalidOperationException___When_resource_is_not_an_embedded_resource()
+        {
+        }
+
+        [Fact(Skip = "Not practical to test, would have to create a massive file.")]
+        public static void ReadEmbeddedResourceAsBytes___Should_throw_NotImplementedException___When_resource_length_is_greater_than_Int64_MaxValue()
+        {
+        }
+
+        [Fact]
+        public static void ReadEmbeddedResourceAsBytes___Should_return_embedded_resource_as_byte_array___When_parameter_addCallerNamespace_is_false_and_embedded_resource_exists()
+        {
+            // Arrange, Act
+            var actual = AssemblyHelper.ReadEmbeddedResourceAsBytes(FullQualifiedEmbeddedTextFileName, false);
+
+            // Assert
+            actual.AsTest().Must().BeEqualTo(EmbeddedTextFileBytes);
+        }
+
+        [Fact]
+        public static void ReadEmbeddedResourceAsBytes___Should_return_embedded_resource_as_byte_array___When_parameter_addCallerNamespace_is_true_and_embedded_resource_exists()
+        {
+            // Arrange, Act
+            var actual = AssemblyHelper.ReadEmbeddedResourceAsBytes(EmbeddedTextFileName);
+
+            // Assert
+            actual.AsTest().Must().BeEqualTo(EmbeddedTextFileBytes);
+        }
+
+        [Fact]
+        public static void ReadEmbeddedResourceAsBytes___Should_return_embedded_resource_as_byte_array___When_resource_stream_is_already_open()
+        {
+            // Arrange, Act
+            byte[] actual;
+
+            using (var priorOpenStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(FullQualifiedEmbeddedTextFileName))
+            {
+                using (var reader = new StreamReader(priorOpenStream))
+                {
+                    reader.Read();
+
+                    actual = AssemblyHelper.ReadEmbeddedResourceAsBytes(FullQualifiedEmbeddedTextFileName, false);
+                }
+            }
+
+            // Assert
+            actual.AsTest().Must().BeEqualTo(EmbeddedTextFileBytes);
+        }
+
+        [Fact]
+        public static void ReadEmbeddedResourceAsBytes___Should_return_embedded_resource_as_byte_array___When_parameter_addCallerNamespace_is_false_and_embedded_resource_is_not_text()
+        {
+            // Arrange, Act
+            var actual = AssemblyHelper.ReadEmbeddedResourceAsBytes(FullQualifiedEmbeddedIcoFileName, false);
+
+            // Assert
+            Assert.NotEmpty(actual);
+        }
+
+        [Fact]
+        public static void ReadEmbeddedResourceAsBytes___Should_return_embedded_resource_as_byte_array___When_parameter_addCallerNamespace_is_true_and_embedded_resource_is_not_text()
+        {
+            // Arrange, Act
+            var actual = AssemblyHelper.ReadEmbeddedResourceAsBytes(EmbeddedIcoFileName);
+
+            // Assert
+            Assert.NotEmpty(actual);
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "gzip", Justification = "Spelling/name is correct.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Gzip", Justification = "Spelling/name is correct.")]
+        [Fact]
+        public static void ReadEmbeddedResourceAsBytes___Should_throw_InvalidDataException___When_resource_has_not_been_compressed_using_gzip_and_parameter_decompressionMethod_is_Gzip()
+        {
+            // Arrange, Act
+            var ex = Record.Exception(() => AssemblyHelper.ReadEmbeddedResourceAsBytes(EmbeddedTextFileName, decompressionMethod: CompressionMethod.Gzip));
+
+            // Assert
+            ex.Should().BeOfType<InvalidDataException>();
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Gzip", Justification = "Spelling/name is correct.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "gzip", Justification = "Spelling/name is correct.")]
+        [Fact]
+        public static void ReadEmbeddedResourceAsBytes___Should_return_string_decompressed_from_embedded_resource___When_resource_has_been_compressed_using_gzip_and_parameter_decompressionMethod_is_Gzip()
+        {
+            // Arrange, Act
+            var actual = AssemblyHelper.ReadEmbeddedResourceAsBytes(EmbeddedGzipTextFileName, decompressionMethod: CompressionMethod.Gzip);
+
+            // Assert
+            actual.AsTest().Must().BeEqualTo(EmbeddedTextFileBytes);
         }
 
         [Fact]
