@@ -15,6 +15,7 @@ namespace OBeautifulCode.Collection.Recipes
     using global::System.Linq;
 
     using OBeautifulCode.Equality.Recipes;
+    using OBeautifulCode.Math.Recipes;
     using OBeautifulCode.String.Recipes;
 
     using static global::System.FormattableString;
@@ -79,6 +80,88 @@ namespace OBeautifulCode.Collection.Recipes
                 var combinations = GetCombinations(valuesList, x).Select(_=> _.ToArray()).ToList();
 
                 result.AddRange(combinations);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the longest string that is a prefix of all of the specified strings.
+        /// </summary>
+        /// <remarks>
+        /// Adapted from: <a href="https://stackoverflow.com/a/58265152/356790" />.
+        /// </remarks>
+        /// <param name="values">The value to evaluate for a common prefix.</param>
+        /// <returns>
+        /// The longest string that is a prefix of all of the specified strings.
+        /// If any value is null, returns null as the common prefix.
+        /// Otherwise, if there is no common prefix, returns an empty string.
+        /// If only one value is specified, then the value itself is returned.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="values"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="values"/> is empty.</exception>
+        public static string GetLongestCommonPrefix(
+            this IReadOnlyCollection<string> values)
+        {
+            if (values == null)
+            {
+                throw new ArgumentNullException(nameof(values));
+            }
+
+            if (!values.Any())
+            {
+                throw new ArgumentException(Invariant($"{nameof(values)} is empty."));
+            }
+
+            string result;
+
+            if (values.Count == 1)
+            {
+                result = values.First();
+            }
+            else if (values.Any(_ => _ == null))
+            {
+                result = null;
+            }
+            else
+            {
+                result = new string(values.Min().TakeWhile((c, i) => values.All(s => s[i] == c)).ToArray());
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Puts the elements of a specified enumerable into a new enumerable, in random order.
+        /// </summary>
+        /// <param name="value">The enumerable.</param>
+        /// <returns>
+        /// A new enumerable having all of the elements of the specified enumerable, but in random order.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
+        public static IEnumerable<T> RandomizeElements<T>(
+            this IEnumerable<T> value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            var result = value.ToList();
+
+            var elementCount = result.Count;
+
+            while (elementCount > 1)
+            {
+                elementCount--;
+
+                var randomIndex = ThreadSafeRandom.Next(elementCount + 1);
+
+                T element = result[randomIndex];
+
+                result[randomIndex] = result[elementCount];
+
+                result[elementCount] = element;
             }
 
             return result;
